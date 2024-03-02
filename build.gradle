@@ -1,11 +1,18 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'brew'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     sourceCompatibility = '21'
@@ -22,20 +29,80 @@ repositories {
 }
 
 dependencies {
+
+    // Env
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    // DB
     runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.postgresql:postgresql:42.5.4'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // ORM - JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'org.glassfish.tyrus', name: 'tyrus-server', version: '1.14'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+
+    // ORM - QueryDSL
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api:2.2.3"
+    annotationProcessor "org.hibernate:hibernate-jpamodelgen:5.6.4.Final"
+
+    // ORM - Mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+    // Test
+    implementation "org.junit.jupiter:junit-jupiter"
+    implementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 
+    // Validate
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
+
+// QueryDSL 플러그인 설정
+def querydslDir = "$projectDir/src/main/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+//Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거
+clean {
+    delete file('/src/main/generated')
+}
+
+
+// React base path = "/src/main/resources/brew"
+def brewPath = "$projectDir/src/main/resources/brew"
