@@ -2,7 +2,3 @@
 <%@ include file="/WEB-INF/jsp/jspf/jstl.jspf" %>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 <%@ include file="/WEB-INF/jsp/jspf/css.jspf" %>
-
-<div>
-    <div><input type="text" value="<c:out value="테스트"/>" /> </div>
-</div>

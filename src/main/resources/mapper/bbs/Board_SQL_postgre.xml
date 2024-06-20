@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+
+    <select id="selectBoardList" parameterType="brew.mng.cmm.bbs.service.BoardVO" resultType="brew.mng.cmm.bbs.service.BoardVO">
+        select
+            sn,
+            title,
+            inq_cnt,
+            rgtr_id,
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
+        from brew.brewbbs;
+    </select>
+
+    <insert id="insertBoard" parameterType="brew.mng.cmm.bbs.service.BoardVO">
+        <selectKey keyProperty="sn" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(sn) + 1, 1) FROM brew.brewbbs
+        </selectKey>
+        INSERT INTO brew.brewbbs (
+            sn
+            ,title
+            ,contents
+            ,inq_cnt
+            ,atchfile_id
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfn_id
+            ,mdfn_dt
+        )
+        VALUES (
+                #{sn}
+                ,#{title}
+                ,#{contents}
+                ,0
+                ,#{atchFileId}
+                ,'admin'
+                ,current_timestamp
+                ,'admin'
+                ,current_timestamp
+        )
+    </insert>
+
+</mapper>

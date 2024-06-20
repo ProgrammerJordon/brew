@@ -31,4 +31,35 @@ comment on column atchfile.file_cn is '파일내용';
 
 comment on column atchfile.file_size is '파일크기';
 
---
+-- 게시판
+create table brewbbs
+(
+    sn          integer not null
+        constraint brewbbs_pk
+            primary key,
+    title       varchar not null,
+    contents    varchar not null,
+    inq_cnt     integer,
+    atchfile_id varchar
+);
+
+comment on table brewbbs is '게시판';
+
+comment on column brewbbs.sn is '일련번호';
+
+comment on column brewbbs.title is '게시판제목';
+
+comment on column brewbbs.contents is '게시판내용';
+
+comment on column brewbbs.inq_cnt is '조회수';
+
+comment on column brewbbs.atchfile_id is '첨부파일아이디';
+
+alter table brewbbs
+    owner to postgres;
+
+create index brewbbs_sn_index
+    on brewbbs (sn);
+
+comment on index brewbbs_sn_index is '게시판인덱스';
+ Show table preview
