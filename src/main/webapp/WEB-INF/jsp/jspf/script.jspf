@@ -1,3 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!-- plugins - script -->
 
 <!-- autonumeric -->
@@ -34,7 +40,7 @@
 <script type="text/javascript" src="<c:url value='/plugins/jquery/require-2.3.5.min.js'/>" ></script>
 
 <!-- sweetalert -->
-<script type="text/javascript" src="<c:url value='/plugins/sweetalert/sweetalert2.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='../../plugins/sweetalert/sweetalert2.min.js'/>"></script>
 <link rel="stylesheet" href='<c:url value="/plugins/sweetalert/borderless.min.css"/>'>
 <link rel="stylesheet" href='<c:url value="/plugins/sweetalert/material-ui.min.css"/>'>
 <link rel="stylesheet" href='<c:url value="/plugins/sweetalert/sweetalert2.min.css"/>'>
@@ -47,13 +53,4 @@
 <script type="text/javascript" src="<c:url value='/js/commonModule.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/datePickerModule.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/messageModule.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/popup.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/serialize.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/js/validator.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/xlsx.js'/>"></script>
-
-<script>
-    window.commonData = {
-        contextPath: '/'
-    };
-</script>
+<script type="text/javascript" src="<c:url v
