@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="icon" transform="translate(-32 -49)">
+    <rect id="area" width="20" height="20" transform="translate(32 49)" fill="none"/>
+    <path id="Icon_metro-airplane" data-name="Icon metro-airplane" d="M13.422,10.971,10.839,8.387l6.2-4.651L15.231,1.928l-7.75,3.1L5.04,2.588a1.619,1.619,0,0,0-2.183-.375A1.619,1.619,0,0,0,3.232,4.4l2.44,2.44-3.1,7.751L4.379,16.4l4.651-6.2,2.583,2.583V16.4h1.809l.9-2.713,2.713-.9V10.971H13.422Z" transform="translate(32.195 49.838)" fill="none" stroke="#95a7d8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

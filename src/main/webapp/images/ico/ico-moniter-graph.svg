@@ -1,0 +1,11 @@
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <rect id="area" width="22" height="22" fill="none"/>
+  <g id="그룹_349" data-name="그룹 349" transform="translate(0.296)">
+    <rect id="사각형_284" data-name="사각형 284" width="2.166" height="4.043" transform="translate(5.314 9.329)" fill="#fff"/>
+    <rect id="사각형_285" data-name="사각형 285" width="2.166" height="8.207" transform="translate(9.627 5.164)" fill="#fff"/>
+    <rect id="사각형_286" data-name="사각형 286" width="2.166" height="6.333" transform="translate(13.939 7.038)" fill="#fff"/>
+    <path id="패스_63873" data-name="패스 63873" d="M1.648,1.647H19.763V15.3H1.648ZM.824,0,0,.823v15.3l.823.823H20.586l.824-.823V.823L20.586,0Z" transform="translate(-0.001)" fill="#fff"/>
+    <rect id="사각형_287" data-name="사각형 287" width="1.647" height="4.593" transform="translate(9.881 15.301)" fill="#fff"/>
+    <path id="패스_63898" data-name="패스 63898" d="M47.565,173.412l-.694-.443a10.226,10.226,0,0,0-5.354-1.387,10.225,10.225,0,0,0-5.354,1.387l-.694.443-.886-1.389.694-.443a11.735,11.735,0,0,1,6.24-1.646,11.735,11.735,0,0,1,6.24,1.646l.694.443Z" transform="translate(-30.813 -151.412)" fill="#fff"/>
+  </g>
+</svg>

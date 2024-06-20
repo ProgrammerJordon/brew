@@ -1,0 +1,53 @@
+<!-- plugins - script -->
+
+<!-- autonumeric -->
+<script type="text/javascript" src="<c:url value='/plugins/autonumeric/autoNumeric.min.js'/>"></script>
+
+<!-- chart -->
+<script type="text/javascript" src="<c:url value='/plugins/chart/Chart.BoxPlot.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/chart/chart.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/chart/chartjs-adapter-date-fns.bundle.min.js'/>"></script>
+
+<!-- jquery -->
+<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-datepicker.ko.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-datepicker.min.js'/>" ></script>
+<link rel="stylesheet" href="<c:url value='/plugins/jquery/bootstrap-datepicker3.standalone.min.css'/>">
+
+<link rel="stylesheet" href='<c:url value="/plugins/jquery/bootstrap-multiselect.css"/>'>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-multiselect.js'/>" ></script>
+<link rel="stylesheet" href='<c:url value="/plugins/jquery/bootstrap-multiselect_ch.css"/>'>
+
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.datetimepicker.full.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.form.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.marquee.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.mCustomScrollbar.concat.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.multi-select.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.number.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.paging.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.tmpl.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-3.7.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-touch-punch.min.js'/>"></script>
+<link rel="stylesheet" href='<c:url value="/plugins/jquery/jquery-ui.min.css"/>'>
+<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-ui.min.js'/>"></script>
+<link rel="stylesheet" href='<c:url value="/plugins/jquery/multi-select.css"/>'>
+
+<script type="text/javascript" src="<c:url value='/plugins/jquery/require-2.3.5.min.js'/>" ></script>
+
+<!-- sweetalert -->
+<script type="text/javascript" src="<c:url value='/plugins/sweetalert/sweetalert2.min.js'/>"></script>
+<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/borderless.min.css"/>'>
+<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/material-ui.min.css"/>'>
+<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/sweetalert2.min.css"/>'>
+
+<!-- tingle -->
+<link rel="stylesheet" href='<c:url value="/plugins/tingle/tingle.min.css"/>'>
+<script type="text/javascript" src="<c:url value='/plugins/tingle/tingle.min.js'/>"></script>
+
+<!-- js - script -->
+<script type="text/javascript" src="<c:url value='/js/commonModule.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/datePickerModule.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/messageModule.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/popup.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/serialize.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/js/validator.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/xlsx.js'/>"></script>

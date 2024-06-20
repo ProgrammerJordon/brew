@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+        </Console>
+<!--        <RollingFile name="logFile" fileName="logs/a.log" filePattern="logs/old/a-%d{yyyy-MM-dd}.log">-->
+<!--            <PatternLayout>-->
+<!--                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %msg%n</Pattern>-->
+<!--            </PatternLayout>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>-->
+<!--            </Policies>-->
+<!--            <DefaultRolloverStrategy max="30"/>-->
+<!--        </RollingFile>-->
+    </Appenders>
+    <Loggers>
+        <Logger name="java.sql" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Logger name="jdbc.resultsettable" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="jdbc.audit" level="off"/>
+        <Logger name="jdbc.sqlonly" level="off"/>
+        <Logger name="jdbc.resultset" level="off"/>
+        <Logger name="jdbc.connection" level="off"/>
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="logFile"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="logFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

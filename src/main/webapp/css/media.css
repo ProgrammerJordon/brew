@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+@media only screen and (max-width: 1440px){
+	footer .footer__top{
+		border-top: 0;
+	}
+	footer .footer__top .wrap{
+		border-top: 1px solid var(--border-color);
+	}
+	footer .footer__bottom{
+		border-top: 0;
+	}
+	footer .footer__bottom .wrap{
+		border-top: 1px solid var(--border-color);
+	}
+}

@@ -1,0 +1,7 @@
+<svg id="더보기" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+  <rect id="area" width="12" height="12" fill="none"/>
+  <g id="그룹_54" data-name="그룹 54">
+    <rect id="dash" width="2" height="12" rx="1" transform="translate(5)" fill="#828282"/>
+    <rect id="dash-2" data-name="dash" width="2" height="12" rx="1" transform="translate(12 5) rotate(90)" fill="#828282"/>
+  </g>
+</svg>

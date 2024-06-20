@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="icon" transform="translate(-28.164 43)">
+    <rect id="사각형_23996" data-name="사각형 23996" width="20" height="20" transform="translate(28.164 -43)" fill="none"/>
+    <g id="그룹_5376" data-name="그룹 5376" transform="translate(-3873.248 -6620.408)">
+      <path id="패스_65120" data-name="패스 65120" d="M3910.737,6594.916h-4.1a2.73,2.73,0,0,1-2.729-2.73v-9.555a2.73,2.73,0,0,1,2.729-2.73h6.825a2.73,2.73,0,0,1,2.73,2.73v4.777" transform="translate(0 0)" fill="none" stroke="#8adcc5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_111" data-name="선 111" x2="2" y2="2" transform="translate(3911.912 6591.916)" fill="none" stroke="#8adcc5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_112" data-name="선 112" x1="5" y2="5" transform="translate(3913.912 6588.916)" fill="none" stroke="#8adcc5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_113" data-name="선 113" x2="5" transform="translate(3907.554 6583.408)" fill="none" stroke="#8adcc5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_114" data-name="선 114" x2="4" transform="translate(3907.554 6587.408)" fill="none" stroke="#8adcc5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

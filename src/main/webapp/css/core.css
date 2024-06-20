@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* core.css 사이트 전체 공통 디자인*/
+
+@font-face {
+	font-family: 'SCDream';
+	font-style: normal;
+	src: url(../fonts/eot/SCDreamL.eot), format("embedded-opentype"),
+		 url(../fonts/ttf/SCDreamL.ttf) format("truetype"),
+		 url(../fonts/woff/SCDreamL.woff) format("woff");
+	font-weight: 300;
+}
+@font-face {
+	font-family: 'SCDream';
+	font-style: normal;
+	src: url(../fonts/eot/SCDreamR.eot), format("embedded-opentype"),
+		 url(../fonts/ttf/SCDreamR.ttf) format("truetype"),
+		 url(../fonts/woff/SCDreamR.woff) format("woff");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'SCDream';
+	font-style: normal;
+	src: url(../fonts/eot/SCDreamM.eot), format("embedded-opentype"), 
+		 url(../fonts/ttf/SCDreamM.ttf) format("truetype"),
+		 url(../fonts/woff/SCDreamM.woff) format("woff");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'SCDream';
+	font-style: normal;
+	src: url(../fonts/eot/SCDreamB.eot), format("embedded-opentype"), 
+		 url(../fonts/ttf/SCDreamB.ttf) format("truetype"),
+		 url(../fonts/woff/SCDreamB.woff) format("woff");
+	font-weight: 600;
+}
+
+html,body{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+   color: #333;
+   font-size: 14px;
+	/* letter-spacing: -0.025em; */
+}
+/* body{overflow-x: hidden;} */
+
+ul, ol{margin: 0px;padding: 0px;list-style: none;}
+ul::after, ol::after, .clb::after{content: "";display: block;clear: both;}
+li,dl{float: left;}
+
+a{text-decoration: none;color: #333;}
+
+img{border: none;vertical-align: bottom;}
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,
+blockquote,pre,abbr,address,cite,code,del,dfn,em,img,
+ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,footer,header,hgroup,
+menu,nav,section,summary,time,mark,audio,video,button{margin:0; padding:0;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
+address{font-style: normal;}
+
+
+body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, a, button, select, ul, li, span, em{margin: 0;padding: 0;box-sizing: border-box;font-family:'SCDream','','AppleGothic', 'Malgun Gothic','맑은 고딕', '돋음','Dotum','Apple SD Gothic Neo', Arial, Helvetica, sans-serif;}
+
+textarea {
+	display: inline-block;
+	width: 100%;
+	height: 82px;
+	border: 1px solid #d3d4d5;
+	box-sizing: border-box;
+}
+.sr-only, .hidden, .accessibility {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

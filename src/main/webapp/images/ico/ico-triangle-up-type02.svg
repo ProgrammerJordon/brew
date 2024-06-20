@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.275" height="20.774" viewBox="0 0 24.275 20.774">
+  <defs>
+    <filter id="패스_303" x="0" y="0" width="24.275" height="20.774" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#00136e" flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#패스_303)">
+    <path id="패스_303-2" data-name="패스 303" d="M5.1.565a1.228,1.228,0,0,1,2.067,0l5.1,8.209H0Z" transform="translate(18.27 11.77) rotate(180)" fill="#fff"/>
+  </g>
+</svg>

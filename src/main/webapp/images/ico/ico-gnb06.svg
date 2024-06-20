@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" viewBox="0 0 22 22">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="사각형_260" data-name="사각형 260" width="11.079" height="10.849" fill="#585858"/>
+    </clipPath>
+  </defs>
+  <g id="icon" transform="translate(-144 -28)">
+    <rect id="area" width="22" height="22" transform="translate(144 28)" fill="none"/>
+    <g id="그룹_369" data-name="그룹 369" transform="translate(144.188 28.868)">
+      <rect id="사각형_305" data-name="사각형 305" width="19.886" height="15.151" rx="4" transform="translate(0.811 1.132)" fill="none" stroke="#686868" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_21" data-name="선 21" x2="5.682" transform="translate(8.387 19.327)" fill="none" stroke="#686868" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="선_22" data-name="선 22" y1="2.854" transform="translate(11.227 16.473)" fill="none" stroke="#686868" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <g id="그룹_368" data-name="그룹 368" transform="translate(5.215 3.401)">
+        <g id="그룹_287" data-name="그룹 287" clip-path="url(#clip-path)">
+          <path id="패스_63829" data-name="패스 63829" d="M10.873,5.329l-.686-.459a.724.724,0,0,1-.228-.951l.4-.72a.462.462,0,0,0-.045-.517L9.24,1.363a.462.462,0,0,0-.5-.148l-.786.25a.724.724,0,0,1-.886-.415L6.759.287A.462.462,0,0,0,6.326,0l-1.7.019a.461.461,0,0,0-.426.3L3.9,1.086a.724.724,0,0,1-.876.434l-.792-.233a.462.462,0,0,0-.494.159L.693,2.79a.461.461,0,0,0-.034.518l.419.711a.724.724,0,0,1-.207.956L.2,5.448a.461.461,0,0,0-.184.486L.41,7.59a.462.462,0,0,0,.384.349l.817.116a.724.724,0,0,1,.618.758l-.051.823a.462.462,0,0,0,.265.447l1.543.722a.462.462,0,0,0,.513-.083l.6-.567a.724.724,0,0,1,.978-.011l.612.553a.461.461,0,0,0,.514.071l1.526-.756a.461.461,0,0,0,.255-.452l-.069-.822a.724.724,0,0,1,.6-.771l.814-.134a.462.462,0,0,0,.376-.358l.36-1.665a.462.462,0,0,0-.195-.481M5.54,7.642A2.308,2.308,0,1,1,7.848,5.334,2.311,2.311,0,0,1,5.54,7.642" transform="translate(0 0.001)" fill="#585858"/>
+          <path id="패스_63830" data-name="패스 63830" d="M73.4,68.446a1.385,1.385,0,1,0,1.385,1.385A1.386,1.386,0,0,0,73.4,68.446" transform="translate(-67.862 -64.497)" fill="#585858"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
