@@ -7,6 +7,10 @@
             bbs.selectBoardList();
         },
 
+        selectBoardInsertVw : () => {
+          callModule.post(Util.getRequestUrl("/mng/cmm/bbs/insertBoardVw.do"), {}, 'get')
+        },
+
         selectBoardList : () => {
           var param = {}
           callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardList.do"), param, (result) => {
@@ -36,6 +40,18 @@
 </script>
 
 <div>
+    <div class="search__results btn">
+        <div>
+            <span>총</span>
+            <span id="totCnt">0</span>
+            <span>건</span>
+        </div>
+        <div class="btn__box">
+            <button class="btn__bluegreen" onclick="bbs.selectBoardInsertVw();">
+                <span>등록</span>
+            </button>
+        </div>
+    </div>
     <div class="table-box">
         <table>
             <caption class="hidden">관리자 게시판 목록</caption>

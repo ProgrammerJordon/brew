@@ -7,14 +7,22 @@
 
         },
 
+        selectBoardListVw : () => {
+            callModule.post(Util.getRequestUrl("/mng/cmm/bbs/selectBoardListVw.do"), {}, 'get')
+        },
+
         insertBoard : () => {
-            var param = {
-                title : $("#title").val(),
-                contents : $("#contents").val(),
-            }
-            callModule.call(Util.getRequestUrl("/mng/cmm/bbs/insertBoard.do"), param, (result) => {
-                console.log(result);
-            })
+            MessageUtil.confirm("공지사항을 등록하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    var param = {
+                        title : $("#title").val(),
+                        contents : $("#contents").val(),
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/insertBoard.do"), param, (result) => {
+                        console.log(result);
+                    })
+                }
+            }, "등록", "취소")
         }
     }
 
@@ -54,9 +62,18 @@
             </tbody>
         </table>
     </div>
-    <div class="btn__box btn">
-        <div>
-            <button class="btn__blue" onclick="bbs.insertBoard();">등록</button>
+    <div class="btn">
+        <div class="btn__box">
+            <div class="left">
+                <button class="btn__gray" onclick="bbs.selectBoardListVw();">
+                    <span>목록</span>
+                </button>
+            </div>
+            <div class="right">
+                <button class="btn__blue" onclick="bbs.insertBoard();">
+                    <span>등록</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>
