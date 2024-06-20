@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed May 11 15:49:38 KST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FileDAO">
+
+    <resultMap id="fileList" type="brew.cmm.module.file.service.FileVO">
+        <result property="atchFileId" column="ATCH_FILE_ID"/>
+        <result property="fileCn" column="FILE_CN"/>
+        <result property="fileExtsn" column="FILE_EXTSN"/>
+        <result property="fileMg" column="FILE_SIZE"/>
+        <result property="fileSn" column="FILE_SN"/>
+        <result property="fileStrePath" column="FILE_STRE_PATH"/>
+        <result property="orignlFileNm" column="ORIGNL_FILE_NM"/>
+        <result property="streFileNm" column="STRE_FILE_NM"/>
+        <result property="creatDt" column="CREAT_DT"/>
+    </resultMap>
+
+    <resultMap id="fileDetail" type="brew.cmm.module.file.service.FileVO">
+        <result property="atchFileId" column="ATCH_FILE_ID"/>
+        <result property="fileCn" column="FILE_CN"/>
+        <result property="fileExtsn" column="FILE_EXTSN"/>
+        <result property="fileMg" column="FILE_SIZE"/>
+        <result property="fileSn" column="FILE_SN"/>
+        <result property="fileStrePath" column="FILE_STRE_PATH"/>
+        <result property="orignlFileNm" column="ORIGNL_FILE_NM"/>
+        <result property="streFileNm" column="STRE_FILE_NM"/>
+    </resultMap>
+
+
+    <select id="selectFileList" parameterType="FileVO" resultMap="fileList">
+
+        SELECT A.*
+        FROM ATCHFILE A
+        WHERE 1=1
+          AND A.ATCH_FILE_ID = #{atchFileId}
+          AND A.USE_AT = 'Y'
+        ORDER BY A.FILE_SN
+
+    </select>
+
+    <insert id="insertFileDetail" parameterType="FileVO">
+
+        INSERT INTO ATCHFILE
+        ( ATCH_FILE_ID, FILE_SN, FILE_STRE_PATH, STRE_FILE_NM,
+          ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN )
+        VALUES
+            ( #{atchFileId}, CAST(#{fileSn} AS NUMERIC), #{fileStrePath}, #{streFileNm},
+              #{orignlFileNm}, #{fileExtsn}, CAST(#{fileMg} AS NUMERIC), #{fileCn} )
+
+    </insert>
+
+    <delete id="deleteFileDetail" parameterType="FileVO">
+
+        DELETE FROM ATCHFILE
+        WHERE 1=1
+          AND A.ATCH_FILE_ID = #{atchFileId}
+          AND A.FILE_SN = CAST(#{fileSn} AS NUMERIC)
+
+    </delete>
+
+    <select id="getMaxFileSN" parameterType="FileVO" resultType="java.lang.Integer">
+
+        SELECT COALESCE(MAX(A.FILE_SN),0)+1 AS FILE_SN
+        FROM ATCHFILE A
+        WHERE A.ATCH_FILE_ID = #{atchFileId}
+
+    </select>
+
+    <select id="selectFileInf" parameterType="FileVO" resultMap="fileDetail">
+
+        SELECT
+            A.ATCH_FILE_ID, A.FILE_CN, A.FILE_SN, A.FILE_STRE_PATH, A.STRE_FILE_NM,
+            A.FILE_EXTSN, A.ORIGNL_FILE_NM, A.FILE_SIZE
+        FROM
+            ATCHFILE A
+        WHERE 1=1
+            AND A.ATCH_FILE_ID = #{atchFileId}
+            AND A.FILE_SN = CAST(#{fileSn} AS NUMERIC)
+
+    </select>
+
+    <select id="selectFileListByFileNm" parameterType="FileVO" resultMap="fileList">
+
+        SELECT
+        a.ATCH_FILE_ID, A.FILE_CN, A.FILE_SN, A.FILE_STRE_PATH, A.STRE_FILE_NM,
+        A.FILE_EXTSN, A.ORIGNL_FILE_NM, A.FILE_SIZE, A.CREAT_PNTTM
+        FROM ATCHFILE A
+        WHERE 1=1
+            AND a.USE_AT = 'Y'
+        <if test="searchCondition == 'streFileNm'">AND
+            A.STRE_FILE_NM LIKE CONCAT ('%', #{searchKeyword},'%')
+        </if>
+        <if test="searchCondition == 'orignlFileNm'">AND
+            A.ORIGNL_FILE_NM LIKE CONCAT ('%', #{searchKeyword},'%')
+        </if>
+        ORDER BY A.ATCH_FILE_ID, A.FILE_SN
+        LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+
+    </select>
+
+    <select id="selectFileListCntByFileNm" parameterType="FileVO" resultType="java.lang.Integer">
+
+        SELECT
+            COUNT(A.ATCH_FILE_ID)
+        FROM ATCHFILE A
+        WHERE 1=1
+            AND A.USE_AT = 'Y'
+        <if test="searchCondition == 'streFileNm'">
+            AND A.STRE_FILE_NM LIKE CONCAT ('%', #{searchKeyword},'%')
+        </if>
+        <if test="searchCondition == 'orignlFileNm'">
+            AND A.ORIGNL_FILE_NM LIKE CONCAT ('%', #{searchKeyword},'%')
+        </if>
+    </select>
+
+    <select id="selectImageFileList" parameterType="FileVO" resultMap="fileList">
+
+        SELECT
+            A.ATCH_FILE_ID, A.FILE_CN, A.FILE_SN, A.FILE_STRE_PATH, A.STRE_FILE_NM,
+            A.FILE_EXTSN, A.ORIGNL_FILE_NM, A.FILE_SIZE, A.CREAT_PNTTM
+        FROM
+            ATCHFILE A
+        WHERE 1=1
+            AND A.ATCH_FILE_ID = #{atchFileId}
+            AND UPPER(A.FILE_EXTSN) IN ('GIF','JPG','BMP','PNG')
+            AND A.USE_AT = 'Y'
+        ORDER BY A.FILE_SN
+
+    </select>
+
+</mapper>

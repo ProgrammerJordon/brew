@@ -1,0 +1,34 @@
+-- 첨부파일 테이블
+create table atchfile
+(
+    atch_file_id   char(20)      not null,
+    file_sn        numeric(10)   not null,
+    file_stre_path varchar(2000) not null,
+    stre_file_nm   varchar(256)  not null,
+    orignl_file_nm varchar(256),
+    file_extsn     varchar(20)   not null,
+    file_cn        text,
+    file_size      numeric(20),
+    constraint atchfile_pk
+        primary key (atch_file_id, file_sn)
+);
+
+comment on table atchfile is '파일상세정보';
+
+comment on column atchfile.atch_file_id is '첨부파일ID';
+
+comment on column atchfile.file_sn is '파일순번';
+
+comment on column atchfile.file_stre_path is '파일저장경로';
+
+comment on column atchfile.stre_file_nm is '저장파일명';
+
+comment on column atchfile.orignl_file_nm is '원본파일명';
+
+comment on column atchfile.file_extsn is '파일확장자';
+
+comment on column atchfile.file_cn is '파일내용';
+
+comment on column atchfile.file_size is '파일크기';
+
+--
