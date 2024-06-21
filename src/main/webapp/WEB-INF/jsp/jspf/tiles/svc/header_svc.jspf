@@ -1,4 +1,52 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/jstl.jspf" %>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
-<%@ include file="/WEB-INF/jsp/jspf/css.jspf" %>
+
+<div class="mb-40" style="display: flex; justify-content: center;">
+    <div style="width: 60vw;">
+        <div class="mb-24" style="display: flex; justify-content: space-between;">
+            <div style="display: flex; align-items: center">
+                <div>
+                    <img src='<c:url value="/images/ico-boundray.svg" />' style="width: 200px; height: 70px;" />
+                </div>
+                <div>
+                    <h2>타이틀</h2>
+                </div>
+            </div>
+            <div class="flex btn__box">
+                <div>
+                    <button class="btn__black__line">
+                        <span>로그인</span>
+                    </button>
+                </div>
+                &nbsp;
+                <div>
+                    <button class="btn__black__line">
+                        <span>APP 다운로드</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: left;">
+            <ul>
+                <li class="mr-40">
+                    <a href="">메뉴1</a>
+                </li>
+                <li class="mr-40">
+                    <a href="">메뉴2</a>
+                </li>
+                <li class="mr-40">
+                    <a href="">메뉴3</a>
+                </li>
+                <li class="mr-40">
+                    <a href="">메뉴4</a>
+                </li>
+                <li class="mr-40">
+                    <a href="">메뉴5</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+    <div style="width: 60vw; height: 100vh;">

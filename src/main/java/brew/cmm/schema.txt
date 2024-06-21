@@ -43,8 +43,8 @@ create table brewbbs
     atchfile_id varchar,
     rgtr_id     varchar,
     rgtr_dt     timestamp,
-    mdfn_id     varchar,
-    mdfn_dt     timestamp
+    mdfr_id     varchar,
+    mdfr_dt     timestamp
 );
 
 comment on table brewbbs is '게시판';
@@ -63,17 +63,9 @@ comment on column brewbbs.rgtr_id is '등록자아이디';
 
 comment on column brewbbs.rgtr_dt is '등록일시';
 
-comment on column brewbbs.mdfn_id is '수정자아이디';
+comment on column brewbbs.mdfr_id is '수정자아이디';
 
-comment on column brewbbs.mdfn_dt is '수정일시';
-
-alter table brewbbs
-    owner to postgres;
-
-create index brewbbs_sn_index
-    on brewbbs (sn);
-
-comment on index brewbbs_sn_index is '게시판인덱스';
+comment on column brewbbs.mdfr_dt is '수정일시';
 
 alter table brewbbs
     owner to postgres;
@@ -82,4 +74,3 @@ create index brewbbs_sn_index
     on brewbbs (sn);
 
 comment on index brewbbs_sn_index is '게시판인덱스';
- Show table preview

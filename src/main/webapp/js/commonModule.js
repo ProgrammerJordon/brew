@@ -973,4 +973,22 @@
             });
         }
     };
+
+    window.gridModule = {
+
+        getPageSize: function(list) {
+            let pageSize = 0;
+            pageSize = Math.floor((list.length - 1) / 10 + 1);
+
+            return pageSize;
+        },
+
+        clear_grid: function(id) {
+            var el = document.querySelector("#"+id);
+
+            while (el.firstChild) {
+                el.removeChild(el.firstChild);
+            }
+        },
+    }
 })();

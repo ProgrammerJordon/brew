@@ -3,34 +3,69 @@
 
 <script>
     const bbs = {
+
+        searchData : {},
+        boardList : [],
+
         init : () => {
             bbs.selectBoardList();
         },
 
         selectBoardInsertVw : () => {
-          callModule.post(Util.getRequestUrl("/mng/cmm/bbs/insertBoardVw.do"), {}, 'get')
+            callModule.post(Util.getRequestUrl("/mng/cmm/bbs/insertBoardVw.do"), {}, 'get')
         },
 
-        selectBoardList : () => {
-          var param = {}
-          callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardList.do"), param, (result) => {
+        selectBoardDtlsVw : (sn) => {
+            var param = {sn : sn}
+            callModule.post(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtlsVw.do"), param, 'get')
+        },
 
-              let el = document.querySelector("#tbody");
+        selectBoardList : (pageIndex) => {
+            var param = {
+                pageIndex : pageIndex || '1'
+            }
 
-              while (el.firstChild) {
-                  el.removeChild(el.firstChild);
-              }
+            bbs.searchData = param;
 
-              for(let i = 0; i < result.boardVOList.length; i++) {
-                  let html = `<tr>
-                                <td>\${result.boardVOList[i].title}</td>
-                                <td>\${result.boardVOList[i].inqCnt}</td>
-                                <td>\${result.boardVOList[i].rgtrId}</td>
-                                <td>\${result.boardVOList[i].rgtrDt}</td>
+            callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardList.do"), param, (result) => {
+
+                bbs.boardList = result.boardVOList || [];
+
+                $("#totCnt").text(bbs.boardList.length.toLocaleString());
+
+                gridModule.clear_grid("tbody");
+
+                for(let i = 0; i < bbs.boardList.length; i++) {
+                    if (bbs.boardList[i].rnum > 10) break;
+
+                    let html = `<tr onclick="bbs.selectBoardDtlsVw(\${bbs.boardList[i].sn});">
+                                <td>\${bbs.boardList[i].title}</td>
+                                <td>\${bbs.boardList[i].inqCnt}</td>
+                                <td>\${bbs.boardList[i].rgtrId}</td>
+                                <td>\${bbs.boardList[i].rgtrDt}</td>
                               </tr>`
-                  $("tbody").append(html);
-              }
-          })
+
+                    $("tbody").append(html);
+                }
+                $('#pagination').page(1, gridModule.getPageSize(bbs.boardList), 'bbs.pageMove');
+            })
+        },
+
+        pageMove: function(pageIndex) {
+            if (!pageIndex) return;
+
+            gridModule.clear_grid("tbody");
+
+            bbs.boardList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
+                let html = `<tr onclick="bbs.selectBoardDtlsVw(\${vo.sn});">
+                                <td>\${vo.title}</td>
+                                <td>\${vo.inqCnt}</td>
+                                <td>\${vo.rgtrId}</td>
+                                <td>\${vo.rgtrDt}</td>
+                           </tr>`
+                $("tbody").append(html);
+            });
+            $('#pagination').page(pageIndex, gridModule.getPageSize(bbs.boardList), 'bbs.pageMove');
         },
     }
 
@@ -40,10 +75,10 @@
 </script>
 
 <div>
-    <div class="search__results btn">
+    <div class="search__results">
         <div>
             <span>총</span>
-            <span id="totCnt">0</span>
+            <span class="num" id="totCnt">0</span>
             <span>건</span>
         </div>
         <div class="btn__box">
@@ -71,8 +106,10 @@
             </thead>
             <tbody id="tbody"></tbody>
         </table>
-        <div class="paging-area">
-            <div class="paging" id="pagination"></div>
-        </div>
+    </div>
+    <div class="paging-area">
+        <div id="pagination" class="paging"></div>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>

@@ -1,17 +1,19 @@
 package brew.mng.cmm.bbs.service;
 
+import brew.cmm.vo.CommonVO;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class BoardVO {
+public class BoardVO extends CommonVO implements Serializable {
 
     private int sn;
     private String title;
     private String contents;
     private int inqCnt;
     private String atchFileId;
-    private String rgtrId;
-    private String rgtrDt;
-    private String mdfnId;
-    private String mdfnDt;
+
+    private int rnum;
+
 }

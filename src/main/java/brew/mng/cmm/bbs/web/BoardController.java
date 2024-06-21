@@ -3,12 +3,12 @@ package brew.mng.cmm.bbs.web;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/mng/cmm/bbs")
@@ -24,7 +24,7 @@ public class BoardController {
 
     @RequestMapping("/selectBoardList.do")
     @ResponseBody
-    public Board selectBoardList(@RequestBody BoardVO vo) {
+    public Board selectBoardList(@RequestBody BoardVO vo, HttpServletResponse response) {
         return boardService.selectBoardList(vo);
     }
 
@@ -39,5 +39,28 @@ public class BoardController {
         return boardService.insertBoard(vo);
     }
 
+    @RequestMapping("/selectBoardDtlsVw.do")
+    public String selectBoardDtlsVw(@RequestParam(name = "sn", required = false) String sn,
+                                    Model model) {
+        model.addAttribute("sn", sn);
+        return "/mng/cmm/bbs/selectBoardDtlsVw";
+    }
 
+    @RequestMapping("/selectBoardDtls.do")
+    @ResponseBody
+    public Board selectBoardDtls(@RequestBody BoardVO vo) {
+        return boardService.selectBoardDtls(vo);
+    }
+
+    @RequestMapping("/updateBoard.do")
+    @ResponseBody
+    public Board updateBoard(@RequestBody BoardVO vo) {
+        return boardService.updateBoard(vo);
+    }
+
+    @RequestMapping("/deleteBoard.do")
+    @ResponseBody
+    public Board deleteBoard(@RequestBody BoardVO vo) {
+        return boardService.deleteBoard(vo);
+    }
 }

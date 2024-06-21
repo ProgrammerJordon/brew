@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/jstl.jspf" %>
-<%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
-<%@ include file="/WEB-INF/jsp/jspf/css.jspf" %>
+<!-- header 윗부분 닫는 태그 -->
+            </div>
+        </div>
+    <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/side_right_mng.jspf" %>
+</div>
+<!-- footer -->
+<div class="mt-40">
+
+</div>
+<!-- 전체 div -->
+</div>

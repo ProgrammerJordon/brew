@@ -837,7 +837,7 @@ footer .footer__bottom .wrap .status>div>div>span:nth-child(2)::after{
 }
 .btn__box [class*="btn__"]{
 	min-width: 90px;
-	padding: 12px;
+	padding: 10px;
 	border-radius: 5px;
 	border: 0;
 	color: #fff;
@@ -951,10 +951,9 @@ td.left{
 	font-weight: 500;
 }
 .btn__box{
-	margin-top: 40px;
+	margin-top: 10px;
 	display: flex;
 	justify-content: space-between;
-	position: relative;
 	min-height: 43px;
 }
 .grid_selectbox{
@@ -1410,6 +1409,15 @@ table input[type="text"],table input[type="number"]{
 }
 .mb-16{
 	margin-bottom: 16px;
+}
+.mr-40{
+	margin-right: 40px;
+}
+.mr-24{
+	margin-right: 24px;
+}
+.mr-16{
+	margin-right: 16px;
 }
 .w50{
 	width: 50px;

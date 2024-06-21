@@ -1,3 +1,4 @@
+<!-- JSTL - script -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -5,52 +6,148 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- plugins - script -->
+<script type="text/javascript" src="/plugins/jquery/jquery-3.7.0.min.js"></script>
+<%--<script type="text/javascript" src="/plugins/jquery/jquery-1.12.4.min.js"></script>--%>
 
 <!-- autonumeric -->
-<script type="text/javascript" src="<c:url value='/plugins/autonumeric/autoNumeric.min.js'/>"></script>
+<script type="text/javascript" src="/plugins/autonumeric/autoNumeric.min.js"></script>
 
 <!-- chart -->
-<script type="text/javascript" src="<c:url value='/plugins/chart/Chart.BoxPlot.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/chart/chart.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/chart/chartjs-adapter-date-fns.bundle.min.js'/>"></script>
+<script type="text/javascript" src="/plugins/chart/chart.js"></script>
+<script type="text/javascript" src="/plugins/chart/chartjs-adapter-date-fns.bundle.min.js"></script>
 
-<!-- jquery -->
-<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-datepicker.ko.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-datepicker.min.js'/>" ></script>
-<link rel="stylesheet" href="<c:url value='/plugins/jquery/bootstrap-datepicker3.standalone.min.css'/>">
+<!-- jquery - plugin-->
+<script type="text/javascript" src="/plugins/jquery/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="/plugins/jquery/bootstrap-datepicker3.standalone.min.css">
 
-<link rel="stylesheet" href='<c:url value="/plugins/jquery/bootstrap-multiselect.css"/>'>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/bootstrap-multiselect.js'/>" ></script>
-<link rel="stylesheet" href='<c:url value="/plugins/jquery/bootstrap-multiselect_ch.css"/>'>
+<link rel="stylesheet" href="/plugins/jquery/bootstrap-multiselect.css">
+<script type="text/javascript" src="/plugins/jquery/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="/plugins/jquery/bootstrap-multiselect_ch.css">
 
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.datetimepicker.full.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.form.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.marquee.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.mCustomScrollbar.concat.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.multi-select.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.number.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.paging.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery.tmpl.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-3.7.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-touch-punch.min.js'/>"></script>
-<link rel="stylesheet" href='<c:url value="/plugins/jquery/jquery-ui.min.css"/>'>
-<script type="text/javascript" src="<c:url value='/plugins/jquery/jquery-ui.min.js'/>"></script>
-<link rel="stylesheet" href='<c:url value="/plugins/jquery/multi-select.css"/>'>
+<script type="text/javascript" src="/plugins/jquery/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.form.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.marquee.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.multi-select.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.number.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.paging.js"></script>
+<script type="text/javascript" src="/plugins/jquery/jquery.tmpl.min.js"></script>
 
-<script type="text/javascript" src="<c:url value='/plugins/jquery/require-2.3.5.min.js'/>" ></script>
+<script type="text/javascript" src="/plugins/jquery/jquery-touch-punch.min.js"></script>
+<link rel="stylesheet" href="/plugins/jquery/jquery-ui.min.css">
+<script type="text/javascript" src="/plugins/jquery/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/plugins/jquery/multi-select.css">
 
 <!-- sweetalert -->
-<script type="text/javascript" src="<c:url value='../../plugins/sweetalert/sweetalert2.min.js'/>"></script>
-<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/borderless.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/material-ui.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/plugins/sweetalert/sweetalert2.min.css"/>'>
+<link rel="stylesheet" href="/plugins/sweetalert/borderless.min.css">
+<link rel="stylesheet" href="/plugins/sweetalert/material-ui.min.css">
+<link rel="stylesheet" href="/plugins/sweetalert/sweetalert2.min.css">
+<script type="text/javascript" src="/plugins/sweetalert/sweetalert2.min.js"></script>
 
 <!-- tingle -->
-<link rel="stylesheet" href='<c:url value="/plugins/tingle/tingle.min.css"/>'>
-<script type="text/javascript" src="<c:url value='/plugins/tingle/tingle.min.js'/>"></script>
+<link rel="stylesheet" href="/plugins/tingle/tingle.min.css">
+<script type="text/javascript" src="/plugins/tingle/tingle.min.js"></script>
 
 <!-- js - script -->
-<script type="text/javascript" src="<c:url value='/js/commonModule.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/datePickerModule.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/messageModule.js'/>"></script>
-<script type="text/javascript" src="<c:url v
+<script type="text/javascript" src="/js/commonModule.js"></script>
+<script type="text/javascript" src="/js/datePickerModule.js"></script>
+<script type="text/javascript" src="/js/messageModule.js"></script>
+<script type="text/javascript" src="/js/popup.js"></script>
+<script type="text/javascript" src="/js/serialize.js"></script>
+<script type="text/javascript" src="/js/validator.js"></script>
+<script type="text/javascript" src="/js/xlsx.js"></script>
+
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/core.css">
+<link rel="stylesheet" href="/css/error.css">
+<link rel="stylesheet" href="/css/loading.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/media.css">
+
+<script type="application/javascript">
+    window.commonData = {
+        contextPath: "/",
+    };
+
+    function popProgressbar (popFunction, closeFunction) {
+        popFunction();
+
+        <%
+            Cookie cookie = new Cookie("loadToken", "TRUE");
+            cookie.setHttpOnly(false); // true -> false로!!!!!
+            cookie.setPath("/"); // 모든 경로에서 접근 가능하도록
+            cookie.setSecure(false);
+            response.addCookie(cookie);
+        %>
+
+        FILEDOWNLOAD_INTERVAL = setInterval(function () {
+            if (getCookie("loadToken") != "") {
+                deleteCookie("loadToken");
+                clearInterval(FILEDOWNLOAD_INTERVAL);
+                closeFunction();
+            }
+        }, 500);
+    }
+
+    function getCookie(name) {
+        var search;
+
+        search = name + "=";
+        offset = document.cookie.indexOf(search);
+
+        if (offset == -1) return "";
+
+        offset += search.length ;
+        end = document.cookie.indexOf(";", offset) ;
+        if (end == -1)	end = document.cookie.length;
+
+        return unescape(document.cookie.substring(offset, end));
+    }
+
+    function deleteCookie(name) {
+        var expdate = new Date();
+        expdate.setTime(expdate.getTime() - 1000);
+        setCookie(name, "", expdate);
+    }
+
+    function setCookie (name, value, expires) {
+        document.cookie = name + "=" + escape(value) + "; expires=" + expires.toGMTString() +  "; path=/";
+    }
+    // 필요시 사용
+    // post 방식
+    //    @RequestMapping("/selectBoardDtlsVw.do")
+    //    public String selectBoardDtlsVw(@ModelAttribute BoardVO vo, Model model) {
+    //        model.addAttribute("vo", vo);
+    //        return "/mng/cmm/bbs/selectBoardDtlsVw";
+    //    }
+
+    // 로딩바
+
+    // Cookie cookie = new Cookie("loadToken", "TRUE");
+    // cookie.setHttpOnly(false);
+    // cookie.setPath("/");
+    // cookie.setSecure(false);
+    // response.addCookie(cookie);
+
+    // $('.ajax-msg').text('대용량 데이터 조회로 인해 시간이 약 30초 정도 소요될 수 있습니다.');
+    // $('.ajax-msg').empty();
+
+    // popProgressbar(
+    //     function() {
+    //         $('#loader-list').css('display', 'flex');
+    //         $('.ajax-msg').text('잠시만 기다려주세요.');
+    //     },
+    //     function() {
+    //         $('#loader-list').css('display', 'none');
+    //         $('.ajax-msg').empty();
+    //     }
+    // );
+
+    // 페이징
+    // vo.setTotalRecordCount(boardDAO.selectBoardListTotcnt(vo));
+    // vo.setRecordCountPerPage(10);
+    // PagingUtil.setPaging(vo);
+
+    // $('#pagination').page(result.boardVO.pageIndex, result.boardVO.pageSize, 'bbs.selectBoardList');
+
+</script>

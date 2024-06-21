@@ -19,7 +19,9 @@
                         contents : $("#contents").val(),
                     }
                     callModule.call(Util.getRequestUrl("/mng/cmm/bbs/insertBoard.do"), param, (result) => {
-                        console.log(result);
+                        MessageUtil.alert(result.boardVO.resultMessage, () => {
+                            bbs.selectBoardListVw();
+                        });
                     })
                 }
             }, "등록", "취소")
@@ -70,7 +72,7 @@
                 </button>
             </div>
             <div class="right">
-                <button class="btn__blue" onclick="bbs.insertBoard();">
+                <button class="btn__bluegreen" onclick="bbs.insertBoard();">
                     <span>등록</span>
                 </button>
             </div>

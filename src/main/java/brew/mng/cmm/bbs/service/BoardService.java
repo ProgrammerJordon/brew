@@ -6,4 +6,7 @@ public interface BoardService {
 
     public Board selectBoardList(BoardVO vo);
     public Board insertBoard(BoardVO vo);
+    public Board selectBoardDtls(BoardVO vo);
+    public Board updateBoard(BoardVO vo);
+    public Board deleteBoard(BoardVO vo);
 }

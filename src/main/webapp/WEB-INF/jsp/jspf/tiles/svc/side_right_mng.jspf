@@ -1,4 +1,2 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/jstl.jspf" %>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
-<%@ include file="/WEB-INF/jsp/jspf/css.jspf" %>
