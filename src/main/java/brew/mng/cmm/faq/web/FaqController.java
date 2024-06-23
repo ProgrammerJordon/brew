@@ -11,4 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FaqController {
 
     private final FaqService faqService;
+
+    @RequestMapping("/selectFaqListVw.do")
+    public String selectFaqListVw() {
+        return "/mng/cmm/faq/selectFaqListVw";
+    }
 }
