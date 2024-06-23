@@ -13,6 +13,6 @@ public class SampleController {
 
     @RequestMapping("/sr_board")
     public String sr_board() {
-        return "/jspf/tiles/mng/sr_board/sr_board";
+        return "/sr_board/sr_board";
     }
 }
