@@ -21,19 +21,19 @@
         <div style="display: flex; justify-content: left;">
             <ul>
                 <li class="mr-40">
-                    <a href="">메뉴1</a>
+                    <a href="/sr_board">성룡s 게시판</a>
                 </li>
                 <li class="mr-40">
-                    <a href="">메뉴2</a>
+                    <a href="/index.do">메뉴2</a>
                 </li>
                 <li class="mr-40">
-                    <a href="">메뉴3</a>
+                    <a href="/index.do">메뉴3</a>
                 </li>
                 <li class="mr-40">
-                    <a href="">메뉴4</a>
+                    <a href="/index.do">메뉴4</a>
                 </li>
                 <li class="mr-40">
-                    <a href="">메뉴5</a>
+                    <a href="/index.do">메뉴5</a>
                 </li>
             </ul>
         </div>
