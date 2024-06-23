@@ -21,10 +21,10 @@
         <div style="display: flex; justify-content: left;">
             <ul>
                 <li class="mr-40">
-                    <a href="/sr_board">성룡s 게시판</a>
+                    <a href="/sr_board">성룡s 게시판1</a>
                 </li>
                 <li class="mr-40">
-                    <a href="/index.do">메뉴2</a>
+                    <a href="/index.do">성룡s 게시판2</a>
                 </li>
                 <li class="mr-40">
                     <a href="/index.do">메뉴3</a>
