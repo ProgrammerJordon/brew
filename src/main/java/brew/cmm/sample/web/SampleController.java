@@ -10,4 +10,9 @@ public class SampleController {
     public String index() {
         return "/index";
     }
+
+    @RequestMapping("/sr_board")
+    public String sr_board() {
+        return "/jspf/tiles/mng/sr_board/sr_board";
+    }
 }
