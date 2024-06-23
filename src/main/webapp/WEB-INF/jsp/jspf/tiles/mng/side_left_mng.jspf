@@ -38,6 +38,10 @@
                 <li>
                     <a href="">FAQ관리</a>
                 </li>
+                <br>
+                <li>
+                    <a href="<c:out value='/mng/cmm/spl/selectSampleListVw.do'/>">샘플코드관리</a>
+                </li>
             </div>
         </div>
 
