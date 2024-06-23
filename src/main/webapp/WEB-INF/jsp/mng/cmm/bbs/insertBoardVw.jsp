@@ -30,6 +30,7 @@
 
     $(function() {
         bbs.init();
+        mmm.selectMenu('cmm');
     })
 </script>
 

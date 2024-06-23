@@ -1,47 +1,38 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 <div style="width: 100vw; height: 100vh; overflow-y: auto;">
-<div class="mb-40" style="display: flex; justify-content: center;">
-    <div style="width: 60vw;">
-        <div class="mb-24" style="display: flex; justify-content: space-between; align-items: center">
-            <div style="display: flex; align-items: center;">
-                <div>
-                    <img src='<c:url value="/images/ico-boundray.svg" />' style="width: 200px; height: 70px;" />
+    <div class="mb-40" style="display: flex; justify-content: center;">
+        <div style="width: 60vw;">
+            <div class="mb-24" style="display: flex; justify-content: space-between; align-items: center">
+                <div style="display: flex; align-items: center;">
+                    <div>
+                        <img src='<c:url value="/images/ico-boundray.svg" />' style="width: 200px; height: 70px;" />
+                    </div>
+                    <div>
+                        <h2>페이지 제목입니다.</h2>
+                    </div>
                 </div>
                 <div>
-                    <h2>페이지 제목입니다.</h2>
+                    <div>
+                        <span>관리자</span>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    <span>관리자</span>
-                </div>
+            <div style="display: flex; justify-content: left;">
+                <ul>
+                    <li class="mr-40" onclick="mmm.selectMenu('cmm')">
+                         <span>공통관리</span>
+                    </li>
+                    <li class="mr-40" onclick="mmm.selectMenu('sys')">
+                        <span>시스템관리</span>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div style="display: flex; justify-content: left;">
-            <ul>
-                <li class="mr-40">
-                    <a href="">메뉴1</a>
-                </li>
-                <li class="mr-40">
-                    <a href="">메뉴2</a>
-                </li>
-                <li class="mr-40">
-                    <a href="">메뉴3</a>
-                </li>
-                <li class="mr-40">
-                    <a href="">메뉴4</a>
-                </li>
-                <li class="mr-40">
-                    <a href="">메뉴5</a>
-                </li>
-            </ul>
         </div>
     </div>
-</div>
 
-<div style="display: flex">
-    <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/side_left_mng.jspf" %>
-    <div style="display: flex; justify-content: center;">
-        <div style="width: 60vw; height: 100vh;">
+    <div style="display: flex">
+        <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/side_left_mng.jspf" %>
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 60vw; height: 100vh;">
 
