@@ -107,3 +107,85 @@ comment on column brewfaq.mdfr_dt is '수정일시';
 
 alter table brewfaq
     owner to postgres;
+
+-- 공통코드
+create table brewcmmcd
+(
+    code_id varchar   not null
+        constraint brewcmmcd_pk
+            primary key,
+    code_nm varchar   not null,
+    code_dc varchar,
+    use_yn  char      not null,
+    rgtr_id varchar   not null,
+    rgtr_dt timestamp not null,
+    mdfr_id varchar   not null,
+    mdfr_dt timestamp not null
+);
+
+comment on table brewcmmcd is '공통코드';
+
+comment on column brewcmmcd.code_id is '코드ID';
+
+comment on constraint brewcmmcd_pk on brewcmmcd is '코드ID';
+
+comment on column brewcmmcd.code_nm is '코드명';
+
+comment on column brewcmmcd.code_dc is '코드설명';
+
+comment on column brewcmmcd.use_yn is '사용여부';
+
+comment on column brewcmmcd.rgtr_id is '등록자ID';
+
+comment on column brewcmmcd.rgtr_dt is '등록일시';
+
+comment on column brewcmmcd.mdfr_id is '수정자ID';
+
+comment on column brewcmmcd.mdfr_dt is '수정일시';
+
+alter table brewcmmcd
+    owner to postgres;
+
+-- 공통코드 상세
+create table brewcmmcddtls
+(
+    code_id varchar   not null
+        constraint brewcmmcddtls_pk_2
+            unique,
+    code    varchar   not null,
+    code_nm varchar   not null,
+    code_dc varchar,
+    use_yn  char      not null,
+    rgtr_id varchar   not null,
+    rgtr_dt timestamp not null,
+    mdfr_id varchar   not null,
+    mdfr_dt timestamp not null,
+    constraint brewcmmcddtls_pk
+        primary key (code_id, code, code_nm)
+);
+
+comment on table brewcmmcddtls is '공통코드상세';
+
+comment on column brewcmmcddtls.code_id is '코드ID';
+
+comment on column brewcmmcddtls.code is '코드';
+
+comment on column brewcmmcddtls.code_nm is '코드명';
+
+comment on column brewcmmcddtls.code_dc is '코드설명';
+
+comment on column brewcmmcddtls.use_yn is '사용여부';
+
+comment on column brewcmmcddtls.rgtr_id is '등록자ID';
+
+comment on column brewcmmcddtls.rgtr_dt is '등록일시';
+
+comment on column brewcmmcddtls.mdfr_id is '수정자ID';
+
+comment on column brewcmmcddtls.mdfr_dt is '수정일시';
+
+alter table brewcmmcddtls
+    owner to postgres;
+
+create index brewcmmcddtls_code_id_code_index
+    on brewcmmcddtls (code_id, code);

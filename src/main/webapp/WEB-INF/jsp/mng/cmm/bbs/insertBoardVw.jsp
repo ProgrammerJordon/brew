@@ -82,3 +82,5 @@
         </div>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>

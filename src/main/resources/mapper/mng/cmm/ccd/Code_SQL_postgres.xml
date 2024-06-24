@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CodeDAO">
+
+    <select id="selectCodeList" parameterType="brew.mng.cmm.ccd.service.CodeVO" resultType="brew.mng.cmm.ccd.service.CodeVO">
+        select
+            code_id,
+            code_nm,
+            code_dc,
+            use_yn,
+            ROW_NUMBER() OVER(ORDER BY code_id DESC) AS RNUM
+        from brew.brewcmmcd
+        order by code_id
+    </select>
+
+    <insert id="insertCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        <selectKey keyProperty="codeId" resultType="string" order="BEFORE">
+            SELECT
+                CASE
+                    WHEN MAX(code_id) IS NULL THEN 'CODE_001'
+                    ELSE 'CODE_' || LPAD((SUBSTRING(MAX(code_id), 6)::INTEGER + 1)::TEXT, 3, '0')
+                END
+            FROM brew.brewcmmcd
+        </selectKey>
+        INSERT INTO brew.brewcmmcd (
+            code_id
+            ,code_nm
+            ,code_dc
+            ,use_yn
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{codeId}
+            ,#{codeNm}
+            ,#{codeDc}
+            ,#{useYn}
+            ,'admin'
+            ,current_timestamp
+            ,'admin'
+            ,current_timestamp
+        )
+    </insert>
+
+    <select id="selectCode" parameterType="brew.mng.cmm.ccd.service.CodeVO" resultType="brew.mng.cmm.ccd.service.CodeVO">
+        select
+            code_id,
+            code_nm,
+            code_dc,
+            use_yn
+        from brew.brewcmmcd
+        where 1=1
+            and code_id = #{codeId}
+    </select>
+
+    <update id="updateCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        update brew.brewcmmcd
+        set
+            code_nm = #{codeNm}
+            ,code_dc = #{codeDc}
+            ,use_yn = #{useYn}
+        where 1=1
+          and code_id = #{codeId}
+    </update>
+
+</mapper>

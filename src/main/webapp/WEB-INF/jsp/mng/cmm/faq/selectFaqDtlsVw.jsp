@@ -62,6 +62,7 @@
 
     $(() => {
         faq.init();
+        mmm.selectMenu('cmm');
     })
 </script>
 
