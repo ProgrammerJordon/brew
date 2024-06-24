@@ -5,6 +5,14 @@
 <script>
     const kakaoJsProperties = '${kakaoJsProperties}';
 
+    const lgi = {
+        insertKakaoLogin : (response) => {
+            let param = {
+
+            }
+        }
+    }
+
     Kakao.init(kakaoJsProperties);
     function kakaoLogin() {
         Kakao.Auth.login({
