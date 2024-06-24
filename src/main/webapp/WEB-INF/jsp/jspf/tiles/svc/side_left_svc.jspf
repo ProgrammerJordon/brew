@@ -1,2 +1,64 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
+
+<script>
+    const mmm = {
+        init : () => {
+
+        },
+
+        selectMenu : (param) => {
+
+            // if(param == 'cmm') {
+            //     $("#cmm").show();
+            //     $("#sys").hide();
+            // }else if(param == 'sys') {
+            //     $("#cmm").hide();
+            //     $("#sys").show();
+            // }
+        }
+    }
+
+    $(function() {
+        mmm.init();
+    })
+</script>
+
+<div style="width: 20vw; height: 100vh;">
+    <div style="display: flex; justify-content: center;">
+        <div id="">
+            <div>
+                <spna>메뉴1</spna>
+            </div>
+            <br>
+            <div>
+                <li>
+                    <a href="">메뉴1-1</a>
+                </li>
+                <br>
+                <li>
+                    <a href="">메뉴1-2</a>
+                </li>
+                <br>
+                <li>
+                    <a href="">메뉴1-3</a>
+                </li>
+                <br>
+                <li>
+                    <a href="">메뉴1-4</a>
+                </li>
+            </div>
+        </div>
+
+        <div id="" style="display: none;">
+            <div>
+                <spna>메뉴2</spna>
+            </div>
+            <br>
+            <div>
+                <li>
+                    <a href="">메뉴2-1</a>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

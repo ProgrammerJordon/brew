@@ -15,6 +15,7 @@
                 <div>
                     <div>
                         <span>관리자</span>
+                        <a href="<c:out value='/'/>">클라이언트</a>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/header_mng.jspf" %>
 
-<div>Index</div>
+<div>관리자 메인화면</div>
+
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>
