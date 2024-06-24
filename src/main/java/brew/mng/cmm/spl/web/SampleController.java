@@ -1,4 +1,4 @@
-package brew.cmm.sample.web;
+package brew.mng.cmm.spl.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
