@@ -27,9 +27,16 @@
 </script>
 
 <div>
-    로그인 페이지 (카카오, 구글, 애플)
     <a href="javascript:kakaoLogin()">
-        <img src="<c:url value="/images/login/kakao_login_medium_narrow.png"/>" style="width: 200px">
+        <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
+    </a>
+    <br><br>
+    <a href="javascript:">
+        <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
+    </a>
+    <br><br>
+    <a href="javascript:">
+        <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
     </a>
 
 </div>
