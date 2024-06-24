@@ -4,7 +4,7 @@
 <script>
     const bbs = {
 
-        searchData : {},
+        searchParams : {},
         boardList : [],
 
         init : () => {
@@ -16,16 +16,16 @@
         },
 
         selectBoardDtlsVw : (sn) => {
-            var param = {sn : sn}
+            let param = {sn : sn}
             callModule.post(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtlsVw.do"), param, 'get')
         },
 
         selectBoardList : (pageIndex) => {
-            var param = {
+            let param = {
                 pageIndex : pageIndex || '1'
             }
 
-            bbs.searchData = param;
+            bbs.searchParams = param;
 
             callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardList.do"), param, (result) => {
 

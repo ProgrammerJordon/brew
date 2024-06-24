@@ -12,7 +12,6 @@ public class BoardVO extends CommonVO implements Serializable {
     private String title;
     private String contents;
     private int inqCnt;
-    private String atchFileId;
 
     private int rnum;
 

@@ -22,6 +22,14 @@
        },
 
        updateBoard : () => {
+
+           var validationGroup = [
+               {id: 'title', name: '제목', mandatory: true},
+               {id: 'contents', name: '내용', mandatory: true},
+           ];
+
+           if (!Util.validateComponent(validationGroup)) return;
+
            MessageUtil.confirm("공지사항을 수정하시겠십니까?", (boolean) => {
                if(boolean) {
                    let param = {
@@ -78,12 +86,6 @@
                 <th>내용</th>
                 <td>
                     <textarea id="contents" name="contents"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <th>첨부파일</th>
-                <td>
-                    <input type="file" id="atchFileId" name="atchFileId" multiple />
                 </td>
             </tr>
             </tbody>

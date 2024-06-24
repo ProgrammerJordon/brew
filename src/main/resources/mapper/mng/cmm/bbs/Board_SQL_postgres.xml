@@ -26,7 +26,6 @@
             ,title
             ,contents
             ,inq_cnt
-            ,atchfile_id
             ,rgtr_id
             ,rgtr_dt
             ,mdfr_id
@@ -37,7 +36,6 @@
                 ,#{title}
                 ,#{contents}
                 ,0
-                ,#{atchFileId}
                 ,'admin'
                 ,current_timestamp
                 ,'admin'

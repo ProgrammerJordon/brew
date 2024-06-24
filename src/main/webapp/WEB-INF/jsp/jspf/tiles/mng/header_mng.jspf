@@ -21,7 +21,7 @@
             <div style="display: flex; justify-content: left;">
                 <ul>
                     <li class="mr-40" onclick="mmm.selectMenu('cmm')">
-                         <span>공통관리</span>
+                        <span>공통관리</span>
                     </li>
                     <li class="mr-40" onclick="mmm.selectMenu('sys')">
                         <span>시스템관리</span>

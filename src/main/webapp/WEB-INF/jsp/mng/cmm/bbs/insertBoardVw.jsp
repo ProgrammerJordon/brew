@@ -12,6 +12,14 @@
         },
 
         insertBoard : () => {
+
+            var validationGroup = [
+                {id: 'title', name: '제목', mandatory: true},
+                {id: 'contents', name: '내용', mandatory: true},
+            ];
+
+            if (!Util.validateComponent(validationGroup)) return;
+
             MessageUtil.confirm("공지사항을 등록하시겠습니까?", (boolean) => {
                 if(boolean) {
                     var param = {
@@ -54,12 +62,6 @@
                     <th>내용</th>
                     <td>
                         <textarea id="contents" name="contents"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th>첨부파일</th>
-                    <td>
-                        <input type="file" id="file" name="file" multiple />
                     </td>
                 </tr>
             </tbody>

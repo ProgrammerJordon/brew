@@ -3,7 +3,6 @@ package brew.mng.cmm.bbs.web;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
