@@ -64,9 +64,27 @@
             code_nm = #{codeNm}
             ,code_dc = #{codeDc}
             ,use_yn = #{useYn}
+            ,mdfr_id = 'admin'
+            ,mdfr_dt = current_timestamp
         where 1=1
           and code_id = #{codeId}
     </update>
+
+    <select id="selectCodedtlsCnt" parameterType="brew.mng.cmm.ccd.service.CodeVO" resultType="int">
+        select count(*)
+        from (
+            select *
+            from brew.brewcmmcddtls
+            where 1=1
+                and code_id = #{codeId}
+             )z
+    </select>
+
+    <delete id="deleteCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        delete from brew.brewcmmcd
+        where 1=1
+          and code_id = #{codeId}
+    </delete>
 
     <insert id="insertCodeDtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
         <selectKey keyProperty="code" resultType="string" order="BEFORE">
@@ -101,4 +119,49 @@
         )
     </insert>
 
+    <select id="selectCodeDtlsList" parameterType="brew.mng.cmm.ccd.service.CodeVO" resultType="brew.mng.cmm.ccd.service.CodeVO">
+        select
+            code_id,
+            code,
+            code_nm,
+            code_dc,
+            use_yn,
+            ROW_NUMBER() OVER(ORDER BY code DESC) AS RNUM
+        from brew.brewcmmcddtls
+        where 1=1
+            and code_id = #{codeId}
+    </select>
+
+    <select id="selectCodedtls" parameterType="brew.mng.cmm.ccd.service.CodeVO" resultType="brew.mng.cmm.ccd.service.CodeVO">
+        select
+            code_id,
+            code,
+            code_nm,
+            code_dc,
+            use_yn
+        from brew.brewcmmcddtls
+        where 1=1
+            and code_id = #{codeId}
+            and code = #{code}
+    </select>
+
+    <update id="updateCodedtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        update brew.brewcmmcddtls
+        set
+            code_nm = #{codeNm}
+            ,code_dc = #{codeDc}
+            ,use_yn = #{useYn}
+            ,mdfr_id = 'admin'
+            ,mdfr_dt = current_timestamp
+        where 1=1
+          and code_id = #{codeId}
+          and code = #{code}
+    </update>
+
+    <delete id="deleteCodedtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        delete from brew.brewcmmcddtls
+        where 1=1
+          and code_id = #{codeId}
+          and code = #{code}
+    </delete>
 </mapper>

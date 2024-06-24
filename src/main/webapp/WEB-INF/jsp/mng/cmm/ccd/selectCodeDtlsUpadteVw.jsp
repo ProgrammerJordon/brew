@@ -3,10 +3,11 @@
 
 <script>
     let codeId = '${codeId}';
+    let code = '${code}';
 
     const ccd = {
         init : () => {
-            ccd.selectCode();
+            ccd.selectCodedtls();
         },
 
         selectCodeDtlsVw : () => {
@@ -14,16 +15,19 @@
             callModule.post(Util.getRequestUrl("/mng/cmm/ccd/selectCodeDtlsVw.do"), param, 'get')
         },
 
-        selectCode : () => {
-            let param = {codeId : codeId}
-            callModule.call(Util.getRequestUrl("/mng/cmm/ccd/selectCode.do"), param, (result) => {
-                $("#codeNm").val(result.codeVO.codeNm)
-                $("#useYn").val(result.codeVO.useYn)
-                $("#codeDc").val(result.codeVO.codeDc)
+        selectCodedtls : () => {
+            let param = {
+                codeId : codeId,
+                code : code
+            }
+            callModule.call(Util.getRequestUrl("/mng/cmm/ccd/selectCodedtls.do"), param, (result) => {
+                $("#codeNm").val(result.codeVO.codeNm);
+                $("#useYn").val(result.codeVO.useYn);
+                $("#codeDc").val(result.codeVO.codeDc);
             })
         },
 
-        updateCode : () => {
+        updateCodedtls : () => {
 
             var validationGroup = [
                 {id: 'codeNm', name: '코드명', mandatory: true},
@@ -32,23 +36,42 @@
 
             if (!Util.validateComponent(validationGroup)) return;
 
-            MessageUtil.confirm("공통코드를 수정하시겠습니까?", (boolean) => {
+            MessageUtil.confirm("공통코드상세를 수정하시겠습니까?", (boolean) => {
                 if(boolean) {
                     let param = {
                         codeId : codeId,
+                        code : code,
                         codeNm : $("#codeNm").val(),
                         useYn : $("#useYn").val(),
                         codeDc : $("#codeDc").val(),
                     }
-                    callModule.call(Util.getRequestUrl("/mng/cmm/ccd/updateCode.do"), param, (result) => {
+                    callModule.call(Util.getRequestUrl("/mng/cmm/ccd/updateCodedtls.do"), param, (result) => {
                         MessageUtil.alert(result.codeVO.resultMessage, () => {
                             ccd.selectCodeDtlsVw();
                         })
                     })
                 }
             }, "수정", "취소")
+        },
+        deleteCodedtls : () => {
+
+            MessageUtil.confirm("공통코드상세를 삭제하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        codeId : codeId,
+                        code : code
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/cmm/ccd/deleteCodedtls.do"), param, (result) => {
+                        MessageUtil.alert(result.codeVO.resultMessage, () => {
+                            ccd.selectCodeDtlsVw();
+                        })
+                    })
+                }
+            }, "삭제", "취소")
         }
+
     }
+
     $(() => {
         ccd.init();
         mmm.selectMenu('cmm');
@@ -58,7 +81,7 @@
 <div>
     <div class="table-box">
         <table>
-            <caption class="hidden">공통코드 등록 화면</caption>
+            <caption class="hidden">공통코드상세 등록 화면</caption>
             <colgroup>
                 <col class="num" width="20%">
                 <col class="num" width="30%">
@@ -97,13 +120,15 @@
                 </button>
             </div>
             <div class="right">
-                <button class="btn__bluegreen" onclick="ccd.updateCode();">
+                <button class="btn__red" onclick="ccd.deleteCodedtls();">
+                    <span>삭제</span>
+                </button>
+                <button class="btn__bluegreen" onclick="ccd.updateCodedtls();">
                     <span>수정</span>
                 </button>
             </div>
         </div>
     </div>
 </div>
-
 
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>

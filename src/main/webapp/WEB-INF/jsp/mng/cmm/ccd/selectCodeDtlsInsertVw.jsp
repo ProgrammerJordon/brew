@@ -20,6 +20,9 @@
                 {id: 'codeNm', name: '코드명', mandatory: true},
                 {id: 'useYn', name: '사용여부', mandatory: true},
             ];
+
+            if (!Util.validateComponent(validationGroup)) return;
+
             MessageUtil.confirm("공통코드상세를 등록하시겠습니까?", (boolean) => {
                 if(boolean) {
                     let param = {

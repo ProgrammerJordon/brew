@@ -66,6 +66,12 @@ public class CodeController {
         return codeService.updateCode(vo);
     }
 
+    @RequestMapping("/deleteCode.do")
+    @ResponseBody
+    public Code deleteCode(@RequestBody CodeVO vo) {
+        return codeService.deleteCode(vo);
+    }
+
     @RequestMapping("/selectCodeDtlsInsertVw.do")
     public String selectCodeDtlsInsertVw(@RequestParam(name = "codeId", required = false) String codeId,
                                          Model model) {
@@ -83,5 +89,32 @@ public class CodeController {
     @ResponseBody
     public Code selectCodeDtlsList(@RequestBody CodeVO vo) {
         return codeService.selectCodeDtlsList(vo);
+    }
+
+    @RequestMapping("/selectCodeDtlsUpadteVw.do")
+    public String selectCodeDtlsUpadteVw(@RequestParam(name = "codeId", required = false) String codeId,
+                                         @RequestParam(name = "code", required = false) String code,
+                                         Model model) {
+        model.addAttribute("codeId", codeId);
+        model.addAttribute("code", code);
+        return "/mng/cmm/ccd/selectCodeDtlsUpadteVw";
+    }
+
+    @RequestMapping("/selectCodedtls.do")
+    @ResponseBody
+    public Code selectCodedtls(@RequestBody CodeVO vo) {
+        return codeService.selectCodedtls(vo);
+    }
+
+    @RequestMapping("/updateCodedtls.do")
+    @ResponseBody
+    public Code updateCodedtls(@RequestBody CodeVO vo) {
+        return codeService.updateCodedtls(vo);
+    }
+
+    @RequestMapping("/deleteCodedtls.do")
+    @ResponseBody
+    public Code deleteCodedtls(@RequestBody CodeVO vo) {
+        return codeService.deleteCodedtls(vo);
     }
 }

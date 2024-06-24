@@ -11,6 +11,11 @@
 
         init : () => {
             ccd.selectCode();
+            ccd.selectCodeDtlsList();
+        },
+
+        selectCodeListVw : () => {
+          callModule.post(Util.getRequestUrl("/mng/cmm/ccd/selectCodeListVw.do"), {}, 'get')
         },
 
         // 공통코드
@@ -30,6 +35,20 @@
                             </tr>`
                 $("#tbody1").append(html);
             })
+        },
+
+        deleteCode : () => {
+
+            MessageUtil.confirm("공통코드를 삭제하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {codeId : codeId}
+                    callModule.call(Util.getRequestUrl("/mng/cmm/ccd/deleteCode.do"), param, (result) => {
+                        MessageUtil.alert(result.codeVO.resultMessage, () => {
+                            ccd.selectCodeListVw();
+                        })
+                    })
+                }
+            }, "삭제", "취소")
         },
 
         // 공통코드 상세
@@ -60,12 +79,12 @@
                     return false;
                 }
 
-                gridModule.clear_grid("tbody");
+                gridModule.clear_grid("tbody2");
 
                 for(let i = 0; i < ccd.codeList.length; i++) {
                     if (ccd.codeList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="ccd.selectCodeDtlsVw1('\${ccd.codeList[i].code}');">
+                    let html = `<tr onclick="ccd.selectCodeDtlsUpadteVw('\${ccd.codeList[i].codeId}', '\${ccd.codeList[i].code}');">
                                 <td>\${ccd.codeList[i].code}</td>
                                 <td>\${ccd.codeList[i].codeNm}</td>
                                 <td>\${ccd.codeList[i].codeDc}</td>
@@ -84,7 +103,7 @@
             gridModule.clear_grid("tbody2");
 
             ccd.codeList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
-                let html = `<tr onclick="ccd.selectCodeDtlsVw1('\${vo.code}');">
+                let html = `<tr onclick="ccd.selectCodeDtlsUpadteVw('\${vo.codeId}', '\${vo.code}');">
                                 <td>\${vo.code}</td>
                                 <td>\${vo.codeNm}</td>
                                 <td>\${vo.codeDc}</td>
@@ -95,6 +114,14 @@
             $('#pagination').page(pageIndex, gridModule.getPageSize(ccd.codeList), 'ccd.pageMove');
         },
 
+        selectCodeDtlsUpadteVw : (codeId, code) => {
+            let param = {
+                codeId : codeId,
+                code : code
+            }
+            callModule.post(Util.getRequestUrl("/mng/cmm/ccd/selectCodeDtlsUpadteVw.do"), param, 'get')
+        }
+
     }
 
     $(() => {
@@ -104,17 +131,6 @@
 </script>
 
 <div>
-    <div class="btn">
-        <div class="btn__box">
-            <div class="left">
-            </div>
-            <div class="right">
-                <button class="btn__red" onclick="">
-                    <span>삭제</span>
-                </button>
-            </div>
-        </div>
-    </div>
     <div class="table-box">
         <table>
             <caption class="hidden">공통코드 목록</caption>
@@ -134,6 +150,20 @@
             </thead>
             <tbody id="tbody1"></tbody>
         </table>
+    </div>
+    <div class="btn">
+        <div class="btn__box">
+            <div class="left">
+                <button class="btn__gray" onclick="ccd.selectCodeListVw();">
+                    <span>목록</span>
+                </button>
+            </div>
+            <div class="right">
+                <button class="btn__red" onclick="ccd.deleteCode();">
+                    <span>삭제</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <br>
@@ -169,6 +199,9 @@
             </thead>
             <tbody id="tbody2"></tbody>
         </table>
+    </div>
+    <div class="paging-area">
+        <div id="pagination" class="paging"></div>
     </div>
 </div>
 
