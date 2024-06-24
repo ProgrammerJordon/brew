@@ -6,16 +6,24 @@
             <div class="mb-24" style="display: flex; justify-content: space-between; align-items: center">
                 <div style="display: flex; align-items: center;">
                     <div>
-                        <img src='<c:url value="/images/ico-boundray.svg" />' style="width: 200px; height: 70px;" />
-                    </div>
-                    <div>
-                        <h2>페이지 제목입니다.</h2>
+                        <a href="<c:url value='/' />">
+                            <img src="<c:url value='/images/ico-boundray.svg' />" style="width: 200px; height: 70px;" />
+                        </a>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <span>로그인</span>
-                        <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">관리자</a>
+                    <div class="btn__box">
+                        <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
+                            <button class="btn__black__line">
+                                <span>로그인</span>
+                            </button>
+                        </a>
+                        &nbsp;
+                        <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
+                            <button class="btn__black__line">
+                                <span>관리자</span>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
