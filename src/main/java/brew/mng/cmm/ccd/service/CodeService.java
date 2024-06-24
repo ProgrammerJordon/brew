@@ -9,5 +9,7 @@ public interface CodeService {
 
     public Code selectCode(CodeVO vo);
     public Code updateCode(CodeVO vo);
+    public Code insertCodeDtls(CodeVO vo);
+    public Code selectCodeDtlsList(CodeVO vo);
 
 }

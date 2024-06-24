@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class CodeVO extends CommonVO implements Serializable {
 
     private String codeId;
+    private String code;
     private String codeNm;
     private String codeDc;
     private String useYn;

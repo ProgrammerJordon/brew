@@ -71,7 +71,7 @@
                                 <td>\${vo.codeDc}</td>
                                 <td>\${vo.useYn}</td>
                            </tr>`
-                $("tbody").append(html);
+                $("#tbody").append(html);
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(ccd.codeList), 'ccd.pageMove');
         },

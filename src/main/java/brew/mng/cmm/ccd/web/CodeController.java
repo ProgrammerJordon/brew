@@ -65,4 +65,23 @@ public class CodeController {
     public Code updateCode(@RequestBody CodeVO vo) {
         return codeService.updateCode(vo);
     }
+
+    @RequestMapping("/selectCodeDtlsInsertVw.do")
+    public String selectCodeDtlsInsertVw(@RequestParam(name = "codeId", required = false) String codeId,
+                                         Model model) {
+        model.addAttribute("codeId", codeId);
+        return "/mng/cmm/ccd/selectCodeDtlsInsertVw";
+    }
+
+    @RequestMapping("/insertCodeDtls.do")
+    @ResponseBody
+    public Code insertCodeDtls(@RequestBody CodeVO vo) {
+        return codeService.insertCodeDtls(vo);
+    }
+
+    @RequestMapping("/selectCodeDtlsList.do")
+    @ResponseBody
+    public Code selectCodeDtlsList(@RequestBody CodeVO vo) {
+        return codeService.selectCodeDtlsList(vo);
+    }
 }

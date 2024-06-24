@@ -27,4 +27,10 @@ public class CodeDAO {
     int updateCode(CodeVO vo) {
         return sqlSession.update("CodeDAO.updateCode", vo);
     }
+    int insertCodeDtls(CodeVO vo) {
+        return sqlSession.insert("CodeDAO.insertCodeDtls",vo);
+    }
+    List<CodeVO> selectCodeDtlsList(CodeVO vo) {
+        return sqlSession.selectList("CodeDAO.selectCodeDtlsList", vo);
+    }
 }

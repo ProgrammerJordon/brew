@@ -149,9 +149,7 @@ alter table brewcmmcd
 -- 공통코드 상세
 create table brewcmmcddtls
 (
-    code_id varchar   not null
-        constraint brewcmmcddtls_pk_2
-            unique,
+    code_id varchar   not null,
     code    varchar   not null,
     code_nm varchar   not null,
     code_dc varchar,

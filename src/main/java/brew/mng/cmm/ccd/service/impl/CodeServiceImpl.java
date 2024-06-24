@@ -51,4 +51,24 @@ public class CodeServiceImpl implements CodeService {
                 .codeVO(vo)
                 .build();
     }
+
+    @Override
+    public Code insertCodeDtls(CodeVO vo) {
+        int result = codeDAO.insertCodeDtls(vo);
+        if(result == 1) {
+            vo.setResultMessage("공통코드가 정상적으로 수정되었습니다.");
+        }else {
+            vo.setResultMessage("공통코드 수정을 실패하였습니다.");
+        }
+        return Code.builder()
+                .codeVO(vo)
+                .build();
+    }
+
+    @Override
+    public Code selectCodeDtlsList(CodeVO vo) {
+        return Code.builder()
+                .codeVOList(codeDAO.selectCodeDtlsList(vo))
+                .build();
+    }
 }

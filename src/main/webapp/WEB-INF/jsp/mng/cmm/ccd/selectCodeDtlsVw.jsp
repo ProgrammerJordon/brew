@@ -5,10 +5,15 @@
     let codeId = '${codeId}';
 
     const ccd = {
+
+        searchParams : {},
+        codeList : [],
+
         init : () => {
             ccd.selectCode();
         },
 
+        // 공통코드
         selectCodeUpdateVw : (codeId) => {
             let param = {codeId : codeId}
             callModule.post(Util.getRequestUrl("/mng/cmm/ccd/selectCodeUpdateVw.do"), param, 'get')
@@ -25,7 +30,70 @@
                             </tr>`
                 $("#tbody1").append(html);
             })
-        }
+        },
+
+        // 공통코드 상세
+        selectCodeDtlsInsertVw : () => {
+            let param = {codeId : codeId}
+            callModule.post(Util.getRequestUrl("/mng/cmm/ccd/selectCodeDtlsInsertVw.do"), param, 'get')
+        },
+
+        selectCodeDtlsList : (pageIndex) => {
+            let param = {
+                codeId : codeId,
+                pageIndex : pageIndex || '1'
+            }
+
+            ccd.searchParams = param;
+
+            callModule.call(Util.getRequestUrl("/mng/cmm/ccd/selectCodeDtlsList.do"), param, (result) => {
+
+                ccd.codeList = result.codeVOList || [];
+
+                $("#totCnt").text(ccd.codeList.length.toLocaleString());
+
+                if(ccd.codeList.length == 0) {
+                    let html = `<tr>
+                                    <td colspan="4">등록된 공통코드상세가 존재하지 않습니다.</td>
+                                </tr>`
+                    $("tbody2").append(html);
+                    return false;
+                }
+
+                gridModule.clear_grid("tbody");
+
+                for(let i = 0; i < ccd.codeList.length; i++) {
+                    if (ccd.codeList[i].rnum > 10) break;
+
+                    let html = `<tr onclick="ccd.selectCodeDtlsVw1('\${ccd.codeList[i].code}');">
+                                <td>\${ccd.codeList[i].code}</td>
+                                <td>\${ccd.codeList[i].codeNm}</td>
+                                <td>\${ccd.codeList[i].codeDc}</td>
+                                <td>\${ccd.codeList[i].useYn}</td>
+                              </tr>`
+
+                    $("#tbody2").append(html);
+                }
+                $('#pagination').page(1, gridModule.getPageSize(ccd.codeList), 'ccd.pageMove');
+            })
+        },
+
+        pageMove: function(pageIndex) {
+            if (!pageIndex) return;
+
+            gridModule.clear_grid("tbody2");
+
+            ccd.codeList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
+                let html = `<tr onclick="ccd.selectCodeDtlsVw1('\${vo.code}');">
+                                <td>\${vo.code}</td>
+                                <td>\${vo.codeNm}</td>
+                                <td>\${vo.codeDc}</td>
+                                <td>\${vo.useYn}</td>
+                           </tr>`
+                $("#tbody2").append(html);
+            });
+            $('#pagination').page(pageIndex, gridModule.getPageSize(ccd.codeList), 'ccd.pageMove');
+        },
 
     }
 
@@ -77,7 +145,7 @@
             <span>건</span>
         </div>
         <div class="btn__box">
-            <button class="btn__bluegreen" onclick="bbs.selectBoardInsertVw();">
+            <button class="btn__bluegreen" onclick="ccd.selectCodeDtlsInsertVw();">
                 <span>등록</span>
             </button>
         </div>

@@ -68,4 +68,37 @@
           and code_id = #{codeId}
     </update>
 
+    <insert id="insertCodeDtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
+        <selectKey keyProperty="code" resultType="string" order="BEFORE">
+            SELECT
+            CASE
+                WHEN MAX(code) IS NULL THEN 'CODE001'
+                ELSE 'CODE' || LPAD((SUBSTRING(MAX(code), 5)::INTEGER + 1)::TEXT, 3, '0')
+            END
+            FROM brew.brewcmmcddtls
+        </selectKey>
+        INSERT INTO brew.brewcmmcddtls (
+            code_id
+            ,code
+            ,code_nm
+            ,code_dc
+            ,use_yn
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{codeId}
+            ,#{code}
+            ,#{codeNm}
+            ,#{codeDc}
+            ,#{useYn}
+            ,'admin'
+            ,current_timestamp
+            ,'admin'
+            ,current_timestamp
+        )
+    </insert>
+
 </mapper>
