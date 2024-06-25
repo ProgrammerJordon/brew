@@ -51,6 +51,7 @@
 <!-- js - script -->
 <script type="text/javascript" src="/js/commonModule.js"></script>
 <script type="text/javascript" src="/js/datePickerModule.js"></script>
+<script type="text/javascript" src="/js/loginModule.js"></script>
 <script type="text/javascript" src="/js/messageModule.js"></script>
 <script type="text/javascript" src="/js/popup.js"></script>
 <script type="text/javascript" src="/js/serialize.js"></script>
@@ -64,55 +65,72 @@
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/media.css">
 
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script type="application/javascript">
     window.commonData = {
         contextPath: "/",
     };
 
-    function popProgressbar (popFunction, closeFunction) {
-        popFunction();
+    const kakaoJsProperties = '${kakaoJsProperties}';
 
-        <%
-            Cookie cookie = new Cookie("loadToken", "TRUE");
-            cookie.setHttpOnly(false); // true -> false로!!!!!
-            cookie.setPath("/"); // 모든 경로에서 접근 가능하도록
-            cookie.setSecure(false);
-            response.addCookie(cookie);
-        %>
+    const obj = {
 
-        FILEDOWNLOAD_INTERVAL = setInterval(function () {
-            if (getCookie("loadToken") != "") {
-                deleteCookie("loadToken");
-                clearInterval(FILEDOWNLOAD_INTERVAL);
-                closeFunction();
+        kakaoLogout : () => {
+            Kakao.init(kakaoJsProperties);
+            if(!Kakao.Auth.getAccessToken()) {
+                console.log("Not login!");
+                return false;
             }
-        }, 500);
+            Kakao.Auth.logout(function() {
+                window.location.href = "/";
+            })
+        }
     }
+    <%--function popProgressbar (popFunction, closeFunction) {--%>
+    <%--    popFunction();--%>
 
-    function getCookie(name) {
-        var search;
+    <%--    <%--%>
+    <%--        Cookie cookie = new Cookie("loadToken", "TRUE");--%>
+    <%--        cookie.setHttpOnly(false); // true -> false로!!!!!--%>
+    <%--        cookie.setPath("/"); // 모든 경로에서 접근 가능하도록--%>
+    <%--        cookie.setSecure(false);--%>
+    <%--        response.addCookie(cookie);--%>
+    <%--    %>--%>
 
-        search = name + "=";
-        offset = document.cookie.indexOf(search);
+    <%--    FILEDOWNLOAD_INTERVAL = setInterval(function () {--%>
+    <%--        if (getCookie("loadToken") != "") {--%>
+    <%--            deleteCookie("loadToken");--%>
+    <%--            clearInterval(FILEDOWNLOAD_INTERVAL);--%>
+    <%--            closeFunction();--%>
+    <%--        }--%>
+    <%--    }, 500);--%>
+    <%--}--%>
 
-        if (offset == -1) return "";
+    <%--function getCookie(name) {--%>
+    <%--    var search;--%>
 
-        offset += search.length ;
-        end = document.cookie.indexOf(";", offset) ;
-        if (end == -1)	end = document.cookie.length;
+    <%--    search = name + "=";--%>
+    <%--    offset = document.cookie.indexOf(search);--%>
 
-        return unescape(document.cookie.substring(offset, end));
-    }
+    <%--    if (offset == -1) return "";--%>
 
-    function deleteCookie(name) {
-        var expdate = new Date();
-        expdate.setTime(expdate.getTime() - 1000);
-        setCookie(name, "", expdate);
-    }
+    <%--    offset += search.length ;--%>
+    <%--    end = document.cookie.indexOf(";", offset) ;--%>
+    <%--    if (end == -1)	end = document.cookie.length;--%>
 
-    function setCookie (name, value, expires) {
-        document.cookie = name + "=" + escape(value) + "; expires=" + expires.toGMTString() +  "; path=/";
-    }
+    <%--    return unescape(document.cookie.substring(offset, end));--%>
+    <%--}--%>
+
+    <%--function deleteCookie(name) {--%>
+    <%--    var expdate = new Date();--%>
+    <%--    expdate.setTime(expdate.getTime() - 1000);--%>
+    <%--    setCookie(name, "", expdate);--%>
+    <%--}--%>
+
+    <%--function setCookie (name, value, expires) {--%>
+    <%--    document.cookie = name + "=" + escape(value) + "; expires=" + expires.toGMTString() +  "; path=/";--%>
+    <%--}--%>
     // 필요시 사용
     // post 방식
     //    @RequestMapping("/selectBoardDtlsVw.do")

@@ -4,6 +4,7 @@ import brew.svc.mem.lgi.service.LoginVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class IndexController {
 
+    @Value("${kakao.js.properties}")
+    private String kakaoJsProperties;
+
     @RequestMapping("/")
     public String selectIndexVw(Model model, HttpServletRequest request) {
+
+        model.addAttribute("kakaoJsProperties", kakaoJsProperties);
+
         HttpSession session = request.getSession(false);
         if (session != null) {
             model.addAttribute("userSn", session.getAttribute("userSn"));
@@ -27,7 +34,8 @@ public class IndexController {
     }
 
     @RequestMapping("/logout.do")
-    public String logout(HttpServletRequest request) {
+    public String logout(Model model, HttpServletRequest request) {
+        model.addAttribute("kakaoJsProperties", kakaoJsProperties);
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

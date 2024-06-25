@@ -43,22 +43,12 @@
                 <td>
                     <input type="text" id="nickNm" name="nickNm" readonly />
                 </td>
-                <th>연계SNS</th>
-                <td>
-                    <input type="text" id="loginSe" name="loginSe" readonly />
-                </td>
-            </tr>
-            <tr>
                 <th>권한구분</th>
                 <td>
                     <select class="selectBox" id="authCd" name="authCd">
                         <option value="A">관리자</option>
                         <option value="Z">일반회원</option>
                     </select>
-                </td>
-                <th>사용여부</th>
-                <td>
-                    <input type="text" id="useYn" name="useYn" readonly />
                 </td>
             </tr>
             </tbody>
