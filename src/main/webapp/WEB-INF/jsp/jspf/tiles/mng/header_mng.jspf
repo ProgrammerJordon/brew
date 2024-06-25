@@ -2,10 +2,11 @@
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 
 <script>
-    const userNm = ${userNm} || "";
-    const nickNm = ${nickNm} || "";
-    const authCd = ${authCd};
-    const profileImgUrl = ${profileImgUrl} || "";
+    const userSn = '${userSn}';
+    const userNm = '${userNm}';
+    const nickNm = '${nickNm}';
+    const authCd = '${authCd}';
+    const profileImgUrl = '${profileImgUrl}';
 </script>
 
 <div style="width: 100vw; height: 100vh; overflow-y: auto;">
@@ -21,22 +22,29 @@
                 </div>
                 <div>
                     <div class="btn__box">
-                        <a href="<c:out value='/'/>">
-                            <button class="btn__black__line">
-                                <span>클라이언트</span>
-                            </button>
-                        </a>
+                        <div>
+                            <a href="<c:out value='/'/>">
+                                <button class="btn__black__line">
+                                    <span>클라이언트</span>
+                                </button>
+                            </a>
+                        </div>
                         &nbsp;
-                        <a href="<c:out value='/logout.do'/>">
-                            <button class="btn__black__line">
-                                <span>로그아웃</span>
-                            </button>
-                        </a>
+                        <div>
+                            <a href="<c:out value='/logout.do'/>">
+                                <button class="btn__black__line">
+                                    <span>로그아웃</span>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div style="display: flex; justify-content: left;">
                 <ul>
+                    <li class="mr-40" onclick="mmm.selectMenu('usr')">
+                        <span>회원관리</span>
+                    </li>
                     <li class="mr-40" onclick="mmm.selectMenu('cmm')">
                         <span>공통관리</span>
                     </li>

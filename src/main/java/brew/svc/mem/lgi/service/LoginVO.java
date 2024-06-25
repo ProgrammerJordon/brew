@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 public class LoginVO extends CommonVO implements Serializable {
 
-    private String sn;
+    private String userSn;
     private String useYn;
     private String loginSe;
     private String authCd;

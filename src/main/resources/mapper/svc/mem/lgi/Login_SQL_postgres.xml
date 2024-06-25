@@ -16,16 +16,16 @@
     </select>
 
     <insert id="insertKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO">
-        <selectKey keyProperty="sn" resultType="string" order="BEFORE">
+        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
             SELECT
             CASE
-            WHEN MAX(sn) IS NULL THEN 'USER_0000000001'
-            ELSE 'USER_' || LPAD((SUBSTRING(MAX(sn), 6)::INTEGER + 1)::TEXT, 10, '0')
+            WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
+            ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
             END
             FROM brew.brewlogin
         </selectKey>
         INSERT INTO brew.brewlogin (
-            sn
+            user_sn
             ,user_id
             ,user_nm
             ,nick_nm
@@ -40,7 +40,7 @@
             ,mdfr_dt
         )
         VALUES (
-            #{sn}
+            #{userSn}
             ,#{userId}
             ,#{userNm}
             ,#{nickNm}
@@ -49,9 +49,9 @@
             ,'Y'
             ,'KAKAO'
             ,'F'
-            ,#{rgtrId}
+            ,#{userSn}
             ,current_timestamp
-            ,#{mdfrId}
+            ,#{userSn}
             ,current_timestamp
         )
     </insert>

@@ -41,7 +41,7 @@ public class LoginController {
     public Login selectKakaoLogin(@RequestBody LoginVO vo, HttpServletRequest request) {
         Login login = loginService.selectKakaoLogin(vo);
         HttpSession session = request.getSession(false);
-        session.setAttribute("sn", login.getLoginVO().getSn());
+        session.setAttribute("userSn", login.getLoginVO().getUserSn());
         session.setAttribute("userId", login.getLoginVO().getUserId());
         session.setAttribute("userNm", login.getLoginVO().getUserNm());
         session.setAttribute("nickNm", login.getLoginVO().getNickNm());

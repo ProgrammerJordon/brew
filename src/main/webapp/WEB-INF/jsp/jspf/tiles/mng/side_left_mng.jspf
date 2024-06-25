@@ -7,11 +7,16 @@
         },
 
         selectMenu : (param) => {
-
-            if(param == 'cmm') {
+            if(param == 'usr') {
+                $("#usr").show();
+                $("#cmm").hide();
+                $("#sys").hide();
+            }else if(param == 'cmm') {
+                $("#usr").hide();
                 $("#cmm").show();
                 $("#sys").hide();
             }else if(param == 'sys') {
+                $("#usr").hide();
                 $("#cmm").hide();
                 $("#sys").show();
             }
@@ -25,6 +30,23 @@
 
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
+
+        <div id="usr" style="display: none;">
+            <div>
+                <span>회원관리</span>
+            </div>
+            <br>
+            <div>
+                <li>
+                    <a href="<c:out value='/mng/usr/usm/selectUserMngListVw.do'/>">회원관리</a>
+                </li>
+                <br>
+                <li>
+                    <a href="<c:out value='/mng/usr/uat/selectUserAuthListVw.do'/>">회원권한관리</a>
+                </li>
+            </div>
+        </div>
+
         <div id="cmm" style="display: none;">
             <div>
                 <spna>공통관리</spna>

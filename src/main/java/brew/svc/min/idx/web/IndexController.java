@@ -16,6 +16,7 @@ public class IndexController {
     public String selectIndexVw(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
+            model.addAttribute("userSn", session.getAttribute("userSn"));
             model.addAttribute("userId", session.getAttribute("userId"));
             model.addAttribute("userNm", session.getAttribute("userNm"));
             model.addAttribute("nickNm", session.getAttribute("nickNm"));

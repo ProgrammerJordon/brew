@@ -192,7 +192,7 @@ create index brewcmmcddtls_code_id_code_index
 
 create table brewlogin
 (
-    sn                varchar   not null
+    user_sn           varchar   not null
         constraint brewlogin_pk
             primary key,
     user_id           varchar   not null,
@@ -211,7 +211,7 @@ create table brewlogin
 
 comment on table brewlogin is '로그인';
 
-comment on column brewlogin.sn is '일련번호';
+comment on column brewlogin.user_sn is '일련번호';
 
 comment on column brewlogin.user_id is '사용자ID';
 
@@ -241,4 +241,4 @@ alter table brewlogin
     owner to postgres;
 
 create index brewlogin_sn_idx
-    on brewlogin (sn);
+    on brewlogin (user_sn);

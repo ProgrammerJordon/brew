@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 
 <script>
+    const userSn = '${userSn}';
     const userId = '${userId}';
     const userNm = '${userNm}';
     const nickNm = '${nickNm}';
