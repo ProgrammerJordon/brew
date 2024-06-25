@@ -1,5 +1,39 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
+
+<script>
+    const userId = '${userId}';
+    const userNm = '${userNm}';
+    const nickNm = '${nickNm}';
+    const authCd = '${authCd}';
+    const profileImgUrl = '${profileImgUrl}';
+
+    const header = {
+        init : () => {
+
+            if(userId != null && userId != "") {
+                $("#login").hide();
+                $("#logout").show();
+                // 관리자 버튼 생성
+                if(authCd == 'A') {
+                    $("#admin").show();
+                }else {
+                    $("#admin").hide();
+                }
+            }else {
+                $("#login").show();
+                $("#logout").hide();
+                $("#admin").hide();
+            }
+        },
+
+    }
+
+    $(() => {
+        header.init();
+    })
+</script>
+
 <div style="width: 100vw; height: 100vh; overflow-y: auto;">
     <div class="mb-40" style="display: flex; justify-content: center;">
         <div style="width: 60vw;">
@@ -13,17 +47,29 @@
                 </div>
                 <div>
                     <div class="btn__box">
-                        <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
-                            <button class="btn__black__line">
-                                <span>로그인</span>
-                            </button>
-                        </a>
+                        <div id="admin">
+                            <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
+                                <button class="btn__black__line">
+                                    <span>관리자</span>
+                                </button>
+                            </a>
+                        </div>
                         &nbsp;
-                        <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
-                            <button class="btn__black__line">
-                                <span>관리자</span>
-                            </button>
-                        </a>
+                        <div id="login">
+                            <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
+                                <button class="btn__black__line">
+                                    <span>로그인</span>
+                                </button>
+                            </a>
+                        </div>
+                        &nbsp;
+                        <div id="logout">
+                            <a href="<c:out value='/logout.do'/>">
+                                <button class="btn__black__line">
+                                    <span>로그아웃</span>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

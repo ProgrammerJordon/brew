@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoginDAO">
+
+    <select id="selectSignInYn" parameterType="brew.svc.mem.lgi.service.LoginVO" resultType="int">
+        select count(*)
+        from (
+            select *
+            from brew.brewlogin
+            where 1=1
+                and user_id = #{userId}
+             )z
+    </select>
+
+    <insert id="insertKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO">
+        <selectKey keyProperty="sn" resultType="string" order="BEFORE">
+            SELECT
+            CASE
+            WHEN MAX(sn) IS NULL THEN 'USER_0000000001'
+            ELSE 'USER_' || LPAD((SUBSTRING(MAX(sn), 6)::INTEGER + 1)::TEXT, 10, '0')
+            END
+            FROM brew.brewlogin
+        </selectKey>
+        INSERT INTO brew.brewlogin (
+            sn
+            ,user_id
+            ,user_nm
+            ,nick_nm
+            ,profile_img_url
+            ,thumbnail_img_url
+            ,use_yn
+            ,login_se
+            ,auth_cd
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{sn}
+            ,#{userId}
+            ,#{userNm}
+            ,#{nickNm}
+            ,#{profileImgUrl}
+            ,#{thumbnailImgUrl}
+            ,'Y'
+            ,'KAKAO'
+            ,'F'
+            ,#{rgtrId}
+            ,current_timestamp
+            ,#{mdfrId}
+            ,current_timestamp
+        )
+    </insert>
+
+    <select id="selectKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO" resultType="brew.svc.mem.lgi.service.LoginVO">
+        select *
+        from brew.brewlogin
+        where 1=1
+            and user_id = #{userId}
+    </select>
+
+</mapper>

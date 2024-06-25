@@ -25,7 +25,7 @@
 
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
-        <div id="cmm">
+        <div id="cmm" style="display: none;">
             <div>
                 <spna>공통관리</spna>
             </div>

@@ -1,5 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
+
+<script>
+    const userNm = ${userNm} || "";
+    const nickNm = ${nickNm} || "";
+    const authCd = ${authCd};
+    const profileImgUrl = ${profileImgUrl} || "";
+</script>
+
 <div style="width: 100vw; height: 100vh; overflow-y: auto;">
     <div class="mb-40" style="display: flex; justify-content: center;">
         <div style="width: 60vw;">
@@ -16,6 +24,12 @@
                         <a href="<c:out value='/'/>">
                             <button class="btn__black__line">
                                 <span>클라이언트</span>
+                            </button>
+                        </a>
+                        &nbsp;
+                        <a href="<c:out value='/logout.do'/>">
+                            <button class="btn__black__line">
+                                <span>로그아웃</span>
                             </button>
                         </a>
                     </div>
