@@ -5,8 +5,10 @@ import brew.mng.usr.usm.service.UserService;
 import brew.mng.usr.usm.service.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -25,5 +27,18 @@ public class UserController {
     @ResponseBody
     public User selectUserMngList(@RequestBody UserVO vo) {
         return userService.selectUserMngList(vo);
+    }
+
+    @RequestMapping("/selectUserMngDtlsVw.do")
+    public String selectUserMngDtlsVw(@RequestParam (name = "userSn") String userSn,
+                                      Model model) {
+        model.addAttribute("userSn", userSn);
+        return "/mng/usr/usm/selectUserMngDtlsVw";
+    }
+
+    @RequestMapping("/selectUserMngDtls.do")
+    @ResponseBody
+    public User selectUserMngDtls(@RequestBody UserVO vo) {
+        return userService.selectUserMngDtls(vo);
     }
 }

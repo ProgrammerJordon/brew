@@ -28,16 +28,20 @@
         order by user_sn desc
     </select>
 
-<!--    <select id="selectUserAuthDtls" parameterType="brew.mng.usr.uat.service.UserAuthVO" resultType="brew.mng.usr.uat.service.UserAuthVO">-->
-<!--        select-->
-<!--            user_sn,-->
-<!--            user_id,-->
-<!--            user_nm,-->
-<!--            nick_nm,-->
-<!--            auth_cd-->
-<!--        from brew.brewlogin-->
-<!--        where 1=1-->
-<!--          and user_sn = #{userSn}-->
-<!--    </select>-->
+    <select id="selectUserMngDtls" parameterType="brew.mng.usr.usm.service.UserVO" resultType="brew.mng.usr.usm.service.UserVO">
+        select
+            user_sn,
+            user_id,
+            user_nm,
+            nick_nm,
+            profile_img_url,
+            auth_cd,
+            login_se,
+            use_yn,
+            TO_CHAR(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
+        from brew.brewlogin
+        where 1=1
+          and user_sn = #{userSn}
+    </select>
 
 </mapper>

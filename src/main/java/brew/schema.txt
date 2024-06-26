@@ -206,7 +206,8 @@ create table brewlogin
     mdfr_id           varchar   not null,
     mdfr_dt           timestamp not null,
     auth_cd           varchar   not null,
-    thumbnail_img_url varchar
+    thumbnail_img_url varchar,
+    exit_yn           varchar   not null
 );
 
 comment on table brewlogin is '로그인';
@@ -236,6 +237,8 @@ comment on column brewlogin.mdfr_dt is '수정일시';
 comment on column brewlogin.auth_cd is '권한코드';
 
 comment on column brewlogin.thumbnail_img_url is '썸네일이미지경로';
+
+comment on column brewlogin.exit_yn is '탈퇴여부';
 
 alter table brewlogin
     owner to postgres;

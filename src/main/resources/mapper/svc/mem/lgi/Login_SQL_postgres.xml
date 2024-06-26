@@ -34,6 +34,7 @@
             ,use_yn
             ,login_se
             ,auth_cd
+            ,exit_yn
             ,rgtr_id
             ,rgtr_dt
             ,mdfr_id
@@ -49,6 +50,7 @@
             ,'Y'
             ,'KAKAO'
             ,'F'
+            ,'N'
             ,#{userSn}
             ,current_timestamp
             ,#{userSn}

@@ -18,4 +18,11 @@ public class UserServiceImpl implements UserService {
                 .userVOList(userDAO.selectUserMngList(vo))
                 .build();
     }
+
+    @Override
+    public User selectUserMngDtls(UserVO vo) {
+        return User.builder()
+                .userVO(userDAO.selectUserMngDtls(vo))
+                .build();
+    }
 }

@@ -16,4 +16,8 @@ public class UserDAO {
     List<UserVO> selectUserMngList(UserVO vo) {
         return sqlSession.selectList("UserDAO.selectUserMngList", vo);
     }
+
+    UserVO selectUserMngDtls(UserVO vo) {
+        return sqlSession.selectOne("UserDAO.selectUserMngDtls", vo);
+    }
 }

@@ -12,6 +12,7 @@ public class LoginVO extends CommonVO implements Serializable {
     private String useYn;
     private String loginSe;
     private String authCd;
+    private String exitYn;
     private int count;
     private int result;
 
