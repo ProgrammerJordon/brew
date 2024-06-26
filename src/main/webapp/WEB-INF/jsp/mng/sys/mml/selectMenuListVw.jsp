@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/header_mng.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template_top.jspf" %>
 
 <script>
     const mml = {
@@ -17,4 +17,4 @@
 
 <div>메뉴 시스템관리</div>
 
-<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template-bottom.jspf" %>

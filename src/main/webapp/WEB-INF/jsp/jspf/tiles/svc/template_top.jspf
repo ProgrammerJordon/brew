@@ -1,0 +1,65 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
+</head>
+
+<script>
+    const session = {
+        userSn : `${userSn}`,
+        userId : `${userId}`,
+        userNm : `${userNm}`,
+        nickNm : `${nickNm}`,
+        authCd : `${authCd}`,
+        profileImgUrl : `${profileImgUrl}`
+    }
+
+    window.commonData = {
+        contextPath: "/",
+    };
+
+    const kakaoJsProperties = '${kakaoJsProperties}';
+    Kakao.init(kakaoJsProperties);
+    Kakao.isInitialized();
+
+    const header = {
+        init : () => {
+
+            if(session.userId != null && session.userId != "") {
+                $("#login").hide();
+                $("#logout").show();
+                // 관리자 버튼 생성
+                if(session.authCd == 'A') {
+                    $("#admin").show();
+                }else {
+                    $("#admin").hide();
+                }
+            }else {
+                $("#login").show();
+                $("#logout").hide();
+                $("#admin").hide();
+            }
+        },
+
+    }
+
+    $(() => {
+        header.init();
+    })
+
+</script>
+
+<body class="main">
+    <div class="body">
+        <div class="sub__body">
+            <div style="display: flex; justify-content: center;">
+                <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/header_svc.jspf" %>
+            </div>
+            <div style="display: flex;">
+                <div>
+                    <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/side_left_svc.jspf" %>
+                </div>
+                <div style="width: 60vw">
+                    <!-- 메인페이지 -->
+

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/header_mng.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template_top.jspf" %>
 
 <script>
     const uat = {
@@ -12,13 +12,19 @@
         },
 
         selectUserAuthDtlsVw : (userSn) => {
-            let param = {userSn : userSn}
+            let param = {
+                userSn : userSn,
+            }
             callModule.post(Util.getRequestUrl("/mng/usr/uat/selectUserAuthDtlsVw.do"), param, 'get');
         },
 
         selectUserAuthList : (pageIndex) => {
             let param = {
-                pageInde : pageIndex || '1'
+                loginSe : $("#loginSe").val(),
+                useYn : $("#useYn").val(),
+                authCd : $("#authCd").val(),
+                searchKeyword : $("#searchKeyword").val(),
+                pageIndex : pageIndex || '1'
             }
 
             uat.searchParams = param;
@@ -29,6 +35,8 @@
 
                 $("#totCnt").text(uat.uatList.length.toLocaleString());
 
+                gridModule.clear_grid("tbody");
+
                 if(uat.uatList.length == 0) {
                     let html = `<tr>
                                     <td colspan="6">등록된 회원이 존재하지 않습니다.</td>
@@ -36,8 +44,6 @@
                     $("tbody").append(html);
                     return false;
                 }
-
-                gridModule.clear_grid("tbody");
 
                 for(let i = 0; i < uat.uatList.length; i++) {
                     if(uat.uatList[i].rnum > 10) break;
@@ -84,6 +90,47 @@
 </script>
 
 <div>
+    <div class="search-box">
+        <ul style="margin-right: 2%;">
+            <li>
+                <div class="search__type__select">
+                    <label for="loginSe" class="search__title">연계SNS</label>
+                    <select id="loginSe" name="loginSe">
+                        <option value="">전체</option>
+                        <option value="KAKAO">KAKAO</option>
+                        <option value="GOOGLE">GOOGLE</option>
+                        <option value="APPLE">APPLE</option>
+                    </select>
+                </div>
+                <div class="search__type__select">
+                    <label for="useYn" class="search__title">활성화여부</label>
+                    <select id="useYn" name="useYn">
+                        <option value="">전체</option>
+                        <option value="Y">활성화</option>
+                        <option value="N">미활성화</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="search__type__select">
+                    <label for="authCd" class="search__title">권한코드</label>
+                    <select id="authCd" name="authCd">
+                        <option value="">전체</option>
+                        <option value="A">관리자</option>
+                        <option value="Z">일반회원</option>
+                    </select>
+                </div>
+                <div class="search__type__input">
+                    <label for="searchKeyword" class="search__title">유저검색</label>
+                    <input id="searchKeyword" name="searchKeyword" />
+                </div>
+            </li>
+        </ul>
+        <button class="btn__search icon" onclick="uat.selectUserAuthList();">
+            <span>조회</span>
+        </button>
+    </div>
+    <br>
     <div class="search__results">
         <div>
             <span>총</span>
@@ -120,4 +167,4 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template-bottom.jspf" %>

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/tiles/svc/header_svc.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/svc/template_top.jspf" %>
 
 <script>
     const lgi = {
@@ -9,8 +9,6 @@
         },
 
         kakaoLogin : () => {
-            Kakao.init(kakaoJsProperties);
-            Kakao.isInitialized();
             Kakao.Auth.login({
                 success: function (response) {
                     Kakao.API.request({
@@ -29,10 +27,8 @@
                                 mdfrId : response.id
                             }
                             callModule.call(Util.getRequestUrl("/svc/mem/lgi/insertKakaoLogin.do"), param, (result) =>{
-                                MessageUtil.alert(result.loginVO.resultMessage, () => {
-                                    callModule.call(Util.getRequestUrl("/svc/mem/lgi/selectKakaoLogin.do"), param, () => {
-                                        lgi.selectIndexVw();
-                                    })
+                                callModule.call(Util.getRequestUrl("/svc/mem/lgi/selectKakaoLogin.do"), param, () => {
+                                    lgi.selectIndexVw();
                                 })
                             })
 
@@ -50,19 +46,24 @@
     }
 </script>
 
-<div>
-    <a href="javascript:lgi.kakaoLogin()">
-        <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
-    </a>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div>
+        <a href="javascript:lgi.kakaoLogin()">
+            <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
+        </a>
+    </div>
     <br><br>
-    <a href="javascript:">
-        <img src="<c:url value=""/>">
-    </a>
+    <div>
+        <a href="javascript:">
+            <img src="<c:url value=""/>">
+        </a>
+    </div>
     <br><br>
-    <a href="javascript:">
-        <img src="<c:url value=""/>">
-    </a>
-
+    <div>
+        <a href="javascript:">
+            <img src="<c:url value=""/>">
+        </a>
+    </div>
 </div>
 
-<%@ include file="/WEB-INF/jsp/jspf/tiles/svc/footer_svc.jspf" %>
+<%@ include file="/WEB-INF/jsp/jspf/tiles/svc/template_bottom.jspf" %>

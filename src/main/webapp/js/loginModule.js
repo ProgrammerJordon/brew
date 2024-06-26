@@ -1,8 +1,8 @@
 (function () {
     window.kakao = {
 
-        kakaoLogin : () => {
-            Kakao.init(kakaoJsProperties);
+        kakaoLogin : (param) => {
+            Kakao.init(param);
             Kakao.isInitialized();
             Kakao.Auth.login({
                 success: function (response) {
@@ -25,16 +25,18 @@
         },
 
         kakaoLogout : (param) => {
-            Kakao.init(param);
-            Kakao.isInitailized();
-            if(!Kakao.Auth.getAccessToken()) {
-                console.log("No AccessToken!");
-                return false;
+            if (Kakao.Auth.getAccessToken()) {
+                Kakao.API.request({
+                    url: '/v1/user/unlink',
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    fail: function (error) {
+                        console.log(error)
+                    },
+                })
+                Kakao.Auth.setAccessToken(undefined)
             }
-            Kakao.Auth.logout(function() {
-                console.log("Success Logout!");
-                window.location.href = "/";
-            })
         }
     }
 

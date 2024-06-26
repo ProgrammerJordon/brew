@@ -1,0 +1,62 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
+</head>
+<script>
+
+    const session = {
+        userSn : `${userSn}`,
+        userId : `${userId}`,
+        userNm : `${userNm}`,
+        nickNm : `${nickNm}`,
+        authCd : `${authCd}`,
+        profileImgUrl : `${profileImgUrl}`
+    }
+
+    const kakaoJsProperties = '${kakaoJsProperties}';
+
+    window.commonData = {
+        contextPath: "/",
+    };
+
+    const mmm = {
+
+        movePage : (param) => {
+            window.location.href = "${pageContext.request.contextPath }" + param;
+        },
+
+        selectMenu: (param) => {
+            if(param == 'usr') {
+                $("#usr").show();
+                $("#cmm").hide();
+                $("#sys").hide();
+            }else if(param == 'cmm') {
+                $("#usr").hide();
+                $("#cmm").show();
+                $("#sys").hide();
+            }else if(param == 'sys') {
+                $("#usr").hide();
+                $("#cmm").hide();
+                $("#sys").show();
+            }
+        },
+    }
+
+
+</script>
+
+<body class="main">
+    <div class="body">
+        <div class="sub__body">
+            <div style="display: flex; justify-content: center;">
+                <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/header_mng.jspf" %>
+            </div>
+            <div style="display: flex;">
+                <div>
+                    <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/side_left_mng.jspf" %>
+                </div>
+                <div style="width: 60vw">
+                    <!-- 메인페이지 -->
+

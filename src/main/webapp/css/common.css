@@ -531,8 +531,8 @@ footer .footer__bottom .wrap .status>div>div>span:nth-child(2)::after{
 
 /* sub__body 시작 */
 .sub__body{
-	padding-top: 60px;
-	width: calc(100% - 333px);
+	padding-top: 20px;
+	width: 100%;
 	margin-bottom: 80px;
 }
 .sub__body .search__form{
@@ -547,8 +547,6 @@ footer .footer__bottom .wrap .status>div>div>span:nth-child(2)::after{
 	flex: 1;
 	display: flex;
 	align-items: center;
-	gap: 16px;
-	margin-bottom: 40px;
 	padding: 16px;
 	background: #F4F6F9;
 	border: 1px dashed var(--border-color);
@@ -561,6 +559,7 @@ footer .footer__bottom .wrap .status>div>div>span:nth-child(2)::after{
 	gap: 4px;
 }
 .sub__body .search-box>ul::after{
+	display: flex;
 	content: none;
 }
 .sub__body .search-box>ul>li{

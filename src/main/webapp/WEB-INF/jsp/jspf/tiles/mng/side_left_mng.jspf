@@ -1,89 +1,80 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script>
-    const mmm = {
-        init : () => {
-
-        },
-
-        selectMenu : (param) => {
-            if(param == 'usr') {
-                $("#usr").show();
-                $("#cmm").hide();
-                $("#sys").hide();
-            }else if(param == 'cmm') {
-                $("#usr").hide();
-                $("#cmm").show();
-                $("#sys").hide();
-            }else if(param == 'sys') {
-                $("#usr").hide();
-                $("#cmm").hide();
-                $("#sys").show();
-            }
-        }
-    }
-
-    $(function() {
-        mmm.init();
-    })
-</script>
-
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
-
         <div id="usr" style="display: none;">
-            <div>
-                <span>회원관리</span>
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">회원관리</span>
             </div>
             <br>
-            <div>
-                <li>
-                    <a href="<c:out value='/mng/usr/usm/selectUserMngListVw.do'/>">회원관리</a>
-                </li>
-                <br>
-                <li>
-                    <a href="<c:out value='/mng/usr/uat/selectUserAuthListVw.do'/>">회원권한관리</a>
-                </li>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('/mng/usr/usm/selectUserMngListVw.do');">
+                            <a>회원정보관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('/mng/usr/uat/selectUserAuthListVw.do');">
+                            <a>회원권한관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>회원가입내역</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>회원탈퇴내역</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div id="cmm" style="display: none;">
-            <div>
-                <spna>공통관리</spna>
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">공통관리</span>
             </div>
             <br>
-            <div>
-                <li>
-                    <a href="<c:out value='/mng/cmm/bbs/selectBoardListVw.do'/>">공지사항관리</a>
-                </li>
-                <br>
-                <li>
-                    <a href="<c:out value='/mng/cmm/faq/selectFaqListVw.do'/>">FAQ관리</a>
-                </li>
-                <br>
-                <li>
-                    <a href="<c:out value='/mng/cmm/ccd/selectCodeListVw.do'/>">공통코드관리</a>
-                </li>
-                <br>
-                <li>
-                    <a href="<c:out value='/mng/cmm/spl/selectSampleListVw.do'/>">샘플코드관리</a>
-                </li>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li>
+                            <a onclick="mmm.movePage('/mng/cmm/bbs/selectBoardListVw.do');">공지사항관리</a>
+                        </li>
+                        <br>
+                        <li>
+                            <a onclick="mmm.movePage('/mng/cmm/faq/selectFaqListVw.do');">FAQ관리</a>
+                        </li>
+                        <br>
+                        <li>
+                            <a onclick="mmm.movePage('/mng/cmm/ccd/selectCodeListVw.do');">공통코드관리</a>
+                        </li>
+                        <br>
+                        <li>
+                            <a onclick="mmm.movePage('/mng/cmm/spl/selectSampleListVw.do');">샘플코드관리</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div id="sys" style="display: none;">
-            <div>
-                <spna>시스템관리</spna>
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">시스템관리</span>
             </div>
             <br>
-            <div>
-                <li>
-                    <a href="<c:out value='/mng/sys/mml/selectMenuListVw.do'/>">메뉴관리</a>
-                </li>
-                <br>
-                <li>
-                    <a href="">로그관리</a>
-                </li>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li>
+                            <a onclick="mmm.movePage('/mng/sys/mml/selectMenuListVw.do');">메뉴관리</a>
+                        </li>
+                        <br>
+                        <li>
+                            <a href="">로그관리</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

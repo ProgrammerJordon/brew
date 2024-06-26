@@ -16,6 +16,21 @@
             auth_cd,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
         from brew.brewlogin
+        where 1=1
+            <if test="loginSe != null and loginSe != ''">
+                and login_se = #{loginSe}
+            </if>
+            <if test="useYn != null and useYn != ''">
+                and use_yn = #{useYn}
+            </if>
+            <if test="authCd != null and authCd != ''">
+                and auth_cd = #{authCd}
+            </if>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                and user_id like '%' || #{searchKeyword} || '%'
+                    or user_nm like '%' || #{searchKeyword} || '%'
+                    or nick_nm like '%' || #{searchKeyword} || '%'
+            </if>
         order by user_sn desc
     </select>
 

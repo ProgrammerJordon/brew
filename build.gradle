@@ -48,17 +48,15 @@ dependencies {
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 
-	// ORM - JPA
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation group: 'org.glassfish.tyrus', name: 'tyrus-server', version: '1.14'
-//	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
-
 	// ORM - Mybatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
-	// QueryDsl
-//	implementation 'com.querydsl:querydsl-jpa:5.0.0'
-//	implementation 'com.querydsl:querydsl-apt:5.0.0:jpa'
+	// 로그
+	implementation 'org.slf4j:slf4j-api:1.7.32'
+
+	// OAuth2
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
 	// Test
 	implementation 'org.springframework.boot:spring-boot-starter-test'

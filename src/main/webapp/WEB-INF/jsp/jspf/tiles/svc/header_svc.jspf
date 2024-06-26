@@ -1,94 +1,53 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 
-<script>
-    const userSn = '${userSn}';
-    const userId = '${userId}';
-    const userNm = '${userNm}';
-    const nickNm = '${nickNm}';
-    const authCd = '${authCd}';
-    const profileImgUrl = '${profileImgUrl}';
-
-    const header = {
-        init : () => {
-
-            if(userId != null && userId != "") {
-                $("#login").hide();
-                $("#logout").show();
-                // 관리자 버튼 생성
-                if(authCd == 'A') {
-                    $("#admin").show();
-                }else {
-                    $("#admin").hide();
-                }
-            }else {
-                $("#login").show();
-                $("#logout").hide();
-                $("#admin").hide();
-            }
-        },
-
-    }
-
-    $(() => {
-        header.init();
-    })
-</script>
-
-<div style="width: 100vw; height: 100vh; overflow-y: auto;">
-    <div class="mb-40" style="display: flex; justify-content: center;">
-        <div style="width: 60vw;">
-            <div class="mb-24" style="display: flex; justify-content: space-between; align-items: center">
-                <div style="display: flex; align-items: center;">
-                    <div>
-                        <a href="<c:url value='/' />">
-                            <img src="<c:url value='/images/ico-boundray.svg' />" style="width: 200px; height: 70px;" />
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <div class="btn__box">
-                        <div id="admin">
-                            <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
-                                <button class="btn__black__line">
-                                    <span>관리자</span>
-                                </button>
-                            </a>
-                        </div>
-                        &nbsp;
-                        <div id="login">
-                            <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
-                                <button class="btn__black__line">
-                                    <span>로그인</span>
-                                </button>
-                            </a>
-                        </div>
-                        &nbsp;
-                        <div id="logout">
-                            <a href="<c:out value='/logout.do'/>">
-                                <button class="btn__black__line">
-                                    <span>로그아웃</span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+<div style="width: 60vw;">
+    <div class="mb-24" style="display: flex; justify-content: space-between; align-items: center">
+        <div style="display: flex; align-items: center;">
+            <div>
+                <a href="<c:url value='/' />">
+                    <img src="<c:url value='/images/ico-boundray.svg' />" style="width: 200px; height: 70px;" />
+                </a>
             </div>
-            <div style="display: flex; justify-content: left;">
-                <ul>
-                    <li class="mr-40" onclick="">
-                        <span>메뉴1</span>
-                    </li>
-                    <li class="mr-40" onclick="">
-                        <span>메뉴2</span>
-                    </li>
-                </ul>
+        </div>
+        <div>
+            <div class="btn__box">
+                <div id="admin">
+                    <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
+                        <button class="btn__black__line">
+                            <span>관리자</span>
+                        </button>
+                    </a>
+                </div>
+                &nbsp;
+                <div id="login">
+                    <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
+                        <button class="btn__black__line">
+                            <span>로그인</span>
+                        </button>
+                    </a>
+                </div>
+                &nbsp;
+                <div id="logout">
+                    <a href="<c:out value='/logout.do'/>">
+                        <button class="btn__black__line" onclick="kakao.kakaoLogout(kakaoJsProperties)">
+                            <span>로그아웃</span>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+    <div style="display: flex; justify-content: left;">
+        <ul>
+            <li class="mr-40" onclick="">
+                <span>메뉴1</span>
+            </li>
+            <li class="mr-40" onclick="">
+                <span>메뉴2</span>
+            </li>
+        </ul>
+    </div>
+</div>
 
-    <div style="display: flex">
-        <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/side_left_svc.jspf" %>
-        <div style="display: flex; justify-content: center;">
-            <div style="width: 60vw; height: 100vh;">
+
 
