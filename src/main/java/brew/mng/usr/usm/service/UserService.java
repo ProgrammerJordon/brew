@@ -6,4 +6,6 @@ public interface UserService {
 
     public User selectUserMngList(UserVO vo);
     public User selectUserMngDtls(UserVO vo);
+    public User updateUserMng(UserVO vo);
+    public User exitUserMng(UserVO vo);
 }

@@ -41,4 +41,16 @@ public class UserController {
     public User selectUserMngDtls(@RequestBody UserVO vo) {
         return userService.selectUserMngDtls(vo);
     }
+
+    @RequestMapping("/updateUserMng.do")
+    @ResponseBody
+    public User updateUserMng(@RequestBody UserVO vo) {
+        return userService.updateUserMng(vo);
+    }
+
+    @RequestMapping("/exitUserMng.do")
+    @ResponseBody
+    public User exitUserMng(@RequestBody UserVO vo) {
+        return userService.exitUserMng(vo);
+    }
 }

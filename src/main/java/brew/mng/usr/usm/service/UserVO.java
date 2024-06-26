@@ -21,5 +21,7 @@ public class UserVO extends CommonVO implements Serializable {
     private String useYn;
     private String exitYn;
 
+    private String exitSn;
+
     private int rnum;
 }

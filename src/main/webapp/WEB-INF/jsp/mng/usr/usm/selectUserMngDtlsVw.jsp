@@ -10,6 +10,10 @@
             usm.selectUserMngDtls();
         },
 
+        selectUserMngListVw : () => {
+            callModule.post(Util.getRequestUrl("/mng/usr/usm/selectUserMngListVw.do"), {}, 'post')
+        },
+
         selectUserMngDtls : () => {
             let param = {userSn : usm.userSn}
             callModule.call(Util.getRequestUrl("/mng/usr/usm/selectUserMngDtls.do"), param, (result) => {
@@ -25,6 +29,49 @@
                 var profileImgUrl = result.userVO.profileImgUrl;
                 $("#profileImgUrl").attr("src", profileImgUrl);
             })
+        },
+
+        updateUserMng : () => {
+
+            var validationGroup = [
+                {id: 'nickNm', name: '닉네임', mandatory: true},
+                {id: 'useYn', name: '사용여부', mandatory: true},
+            ];
+
+            if (!Util.validateComponent(validationGroup)) return;
+
+            MessageUtil.confirm("회원정보를 수정하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        userSn : usm.userSn,
+                        nickNm : $("#nickNm").val(),
+                        useYn : $("#useYn").val()
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/usr/usm/updateUserMng.do"), param, (result) => {
+                        MessageUtil.alert(result.userVO.resultMessage, () => {
+                            usm.selectUserMngListVw();
+                        })
+                    })
+                }
+            })
+        },
+        exitUserMng : () => {
+            MessageUtil.confirm("회원탈퇴를 진행하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    MessageUtil.confirm("회원탈퇴시 이전 데이터를 복구할 수 없습니다.\n 그래도 진행하시겠습니까?", (boolean) => {
+                        if(boolean) {
+                            let param = {
+                                userSn : usm.userSn
+                            }
+                            callModule.call(Util.getRequestUrl("/mng/usr/usm/exitUserMng.do"), param, (result) => {
+                                MessageUtil.alert(result.userVO.resultMessage, () => {
+                                    usm.selectUserMngListVw();
+                                })
+                            })
+                        }
+                    }, "탈퇴", "취소")
+                }
+            }, "진행", "취소")
         }
     }
 
@@ -106,16 +153,16 @@
     <div class="btn">
         <div class="btn__box">
             <div class="left">
-                <button class="btn__gray" onclick="">
+                <button class="btn__gray" onclick="usm.selectUserMngListVw();">
                     <span>목록</span>
                 </button>
             </div>
             <div class="right">
-                <button class="btn__red" onclick="">
+                <button class="btn__red" onclick="usm.exitUserMng();">
                     <span>회원탈퇴</span>
                 </button>
                 &nbsp;
-                <button class="btn__bluegreen" onclick="">
+                <button class="btn__bluegreen" onclick="usm.updateUserMng();">
                     <span>수정</span>
                 </button>
             </div>

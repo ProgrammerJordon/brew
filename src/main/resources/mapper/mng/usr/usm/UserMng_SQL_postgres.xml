@@ -35,13 +35,75 @@
             user_nm,
             nick_nm,
             profile_img_url,
+            thumbnail_img_url,
             auth_cd,
             login_se,
             use_yn,
-            TO_CHAR(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
         from brew.brewlogin
         where 1=1
           and user_sn = #{userSn}
     </select>
+    <update id="updateUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
+        update brew.brewlogin
+        set
+            nick_nm = #{nickNm},
+            use_yn = #{useYn},
+            mdfr_id = #{userSn},
+            mdfr_dt = current_timestamp
+        where 1=1
+            and user_sn = #{userSn}
+    </update>
 
+    <update id="updateExitUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
+        update brew.brewlogin
+        set
+            exit_yn = 'Y',
+            use_yn = 'N',
+            mdfr_id = #{userSn},
+            mdfr_dt = current_timestamp
+        where 1=1
+          and user_sn = #{userSn}
+    </update>
+
+    <insert id="insertExitUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
+
+        <selectKey keyProperty="exitSn" resultType="string" order="BEFORE">
+            SELECT
+                CASE
+                    WHEN MAX(exit_sn) IS NULL THEN 'EXIT_0000000001'
+                    ELSE 'EXIT_' || LPAD((SUBSTRING(MAX(exit_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
+                END
+            FROM brew.brewexit
+        </selectKey>
+
+        INSERT INTO brew.brewexit(
+            exit_sn,
+            user_sn,
+            user_id,
+            nick_nm,
+            profile_img_url,
+            user_nm,
+            use_yn,
+            login_se,
+            auth_cd,
+            thumbnail_img_url,
+            rgtr_id,
+            rgtr_dt
+        )
+        VALUES (
+            #{exitSn},
+            #{userSn},
+            #{userId},
+            #{nickNm},
+            #{profileImgUrl},
+            #{userNm},
+            #{useYn},
+            #{loginSe},
+            #{authCd},
+            #{thumbnailImgUrl},
+            #{userSn},
+            current_timestamp
+        )
+    </insert>
 </mapper>
