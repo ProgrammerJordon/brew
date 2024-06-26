@@ -1,6 +1,5 @@
 package brew.mng.cmm.bbs.service.impl;
 
-import brew.cmm.util.PagingUtil;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
