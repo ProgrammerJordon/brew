@@ -16,4 +16,12 @@ public class UserAuthDAO {
     List<UserAuthVO> selectUserAuthList(UserAuthVO vo) {
         return sqlSession.selectList("UserAuthDAO.selectUserAuthList", vo);
     }
+
+    UserAuthVO selectUserAuthDtls(UserAuthVO vo) {
+        return sqlSession.selectOne("UserAuthDAO.selectUserAuthDtls", vo);
+    }
+
+    int updateUserAuth(UserAuthVO vo) {
+        return sqlSession.update("UserAuthDAO.updateUserAuth", vo);
+    }
 }

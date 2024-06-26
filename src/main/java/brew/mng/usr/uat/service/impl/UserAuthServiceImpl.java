@@ -18,4 +18,24 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .userAuthVOList(userAuthDAO.selectUserAuthList(vo))
                 .build();
     }
+
+    @Override
+    public UserAuth selectUserAuthDtls(UserAuthVO vo) {
+        return UserAuth.builder()
+                .userAuthVO(userAuthDAO.selectUserAuthDtls(vo))
+                .build();
+    }
+
+    @Override
+    public UserAuth updateUserAuth(UserAuthVO vo) {
+        int result = userAuthDAO.updateUserAuth(vo);
+        if(result == 1) {
+            vo.setResultMessage("회원권한이 정상적으로 수정되었습니다.");
+        }else {
+            vo.setResultMessage("회원권한 수정에 실패하였습니다.");
+        }
+        return UserAuth.builder()
+                .userAuthVO(vo)
+                .build();
+    }
 }

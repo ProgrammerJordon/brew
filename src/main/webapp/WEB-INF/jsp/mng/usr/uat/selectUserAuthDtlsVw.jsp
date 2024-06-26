@@ -2,12 +2,43 @@
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/header_mng.jspf" %>
 
 <script>
-    const authSn = '${userSn}';
+    let authSn = '${userSn}';
 
     const uat = {
         init : () => {
-
+            uat.selectUserAuthDtls();
         },
+
+        selectUserAuthListVw : () => {
+            callModule.post(Util.getRequestUrl("/mng/usr/uat/selectUserAuthListVw.do"), {}, 'post')
+        },
+
+        selectUserAuthDtls : () => {
+            let param = {userSn: authSn}
+            callModule.call(Util.getRequestUrl("/mng/usr/uat/selectUserAuthDtls.do"), param, (result) => {
+                $("#userId").text(result.userAuthVO.userId);
+                $("#userNm").text(result.userAuthVO.userNm || "-");
+                $("#nickNm").text(result.userAuthVO.nickNm || "-");
+                $("#authCd").val(result.userAuthVO.authCd);
+            })
+        },
+
+        updateUserAuth : () => {
+
+            MessageUtil.confirm("회원권한을 수정하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        userSn : authSn,
+                        authCd: $("#authCd").val()
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/usr/uat/updateUserAuth.do"), param, (result) => {
+                        MessageUtil.alert(result.userAuthVO.resultMessage, () => {
+                            uat.selectUserAuthListVw();
+                        })
+                    })
+                }
+            })
+        }
     }
 
     $(() => {
@@ -31,17 +62,17 @@
             <tr>
                 <th>사용자ID</th>
                 <td>
-                    <input type="text" id="userId" name="userId" readonly />
+                    <span id="userId" name="userId"></span>
                 </td>
                 <th>사용자명</th>
                 <td>
-                    <input type="text" id="userNm" name="userNm" readonly />
+                    <span id="userNm" name="userNm"></span>
                 </td>
             </tr>
             <tr>
                 <th>닉네임</th>
                 <td>
-                    <input type="text" id="nickNm" name="nickNm" readonly />
+                    <span id="nickNm" name="nickNm"></span>
                 </td>
                 <th>권한구분</th>
                 <td>
@@ -57,12 +88,12 @@
     <div class="btn">
         <div class="btn__box">
             <div class="left">
-                <button class="btn__gray" onclick="">
+                <button class="btn__gray" onclick="uat.selectUserAuthListVw()">
                     <span>목록</span>
                 </button>
             </div>
             <div class="right">
-                <button class="btn__bluegreen" onclick="">
+                <button class="btn__bluegreen" onclick="uat.updateUserAuth();">
                     <span>수정</span>
                 </button>
             </div>

@@ -35,4 +35,16 @@ public class UserAuthController {
         model.addAttribute("userSn", userSn);
         return "/mng/usr/uat/selectUserAuthDtlsVw";
     }
+
+    @RequestMapping("/selectUserAuthDtls.do")
+    @ResponseBody
+    public UserAuth selectUserAuthDtls(@RequestBody UserAuthVO vo) {
+        return userAuthService.selectUserAuthDtls(vo);
+    }
+
+    @RequestMapping("/updateUserAuth.do")
+    @ResponseBody
+    public UserAuth updateUserAuth(@RequestBody UserAuthVO vo) {
+        return userAuthService.updateUserAuth(vo);
+    }
 }
