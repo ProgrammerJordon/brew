@@ -1,20 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <!-- header 윗부분 닫는 태그 -->
-                            </div>
-                        </div>
-                        <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/side_right_svc.jspf" %>
-                    </div>
-    <!-- footer -->
-                <div class="mt-40">
 
-                </div>
-            <!-- 전체 div -->
-            </div>
+<div>
+    <div>
+        footer
+    </div>
+    <div>
         <ul id="loader-list" class="loader-list" style="display:none">
             <li>
                 <span class="loader1-6"></span>
                 <strong class="ajax-msg"></strong>
             </li>
         </ul>
-    </body>
-</html>
+    </div>
+</div>
+
