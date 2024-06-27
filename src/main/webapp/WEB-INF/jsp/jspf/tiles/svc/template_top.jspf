@@ -13,6 +13,7 @@
         userId : `${userId}`,
         userNm : `${userNm}`,
         nickNm : `${nickNm}`,
+        loginSe : `${loginSe}`,
         authCd : `${authCd}`,
         profileImgUrl : `${profileImgUrl}`
     }
@@ -48,6 +49,23 @@
 
     $(() => {
         header.init();
+        debugger;
+        if(session.userSn == null || session.userSn == '') {
+
+            let el = document.querySelector("#rightProfile");
+            el.style.display = "none";
+
+        }else {
+
+            let el = document.querySelector("#rightProfile");
+            el.style.display = "block";
+
+            $("#profileImg").attr('src', session.profileImgUrl);
+            $("#userId").text(session.userId);
+            $("#nickNm").text(session.nickNm);
+            $("#loginSe").text(session.loginSe);
+            $("#authCd").text(session.authCd == "A" ? "관리자" : "일반회원");
+        }
     })
 
 </script>

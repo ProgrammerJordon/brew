@@ -1,9 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div style="width: 20vw; height: 100vh; display: flex; justify-content: center;">
-    <div>
+<div style="width: 20vw; height: 100vh; display: flex; justify-content: center; text-align: center;">
+    <div id="rightProfile" style="display: none">
         <div style="top: 100px;">
-            <img id="profileImg" width="300px;" height="300px;" style="border-radius: 30px;" />
+            <img id="profileImg" width="300px;" height="300px;" style="border-radius: 50px;" />
+        </div>
+        <div>
+            <span id="nickNm" style="font-size: 2em;"></span>
+        </div>
+        <div>
+            <span id="loginSe" style="font-size: 1.5em;"></span>
+            <span> : </span>
+            <span id="userId" style="font-size: 1.5em;"></span>
+        </div>
+        <div>
+            <span id="authCd" style="font-size: 1.5em;"></span>
         </div>
     </div>
 </div>
