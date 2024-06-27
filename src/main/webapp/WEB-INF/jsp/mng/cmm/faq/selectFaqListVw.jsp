@@ -81,7 +81,7 @@
 
     $(() => {
         faq.init();
-        mmm.selectMenu('cmm');
+        mmm.selectMenu('cmm', 'FAQ관리');
     })
 </script>
 

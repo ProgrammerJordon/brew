@@ -34,7 +34,7 @@
 
                 if(usm.usmList.length == 0) {
                     let html = `<tr>
-                                    <td colspan="6">등록된 회원이 존재하지 않습니다.</td>
+                                    <td colspan="7">등록된 회원이 존재하지 않습니다.</td>
                                 </tr>`
                     $("tbody").append(html);
                     return false;
@@ -44,12 +44,13 @@
                     if(usm.usmList[i].rnum > 10) break;
 
                     let html = `<tr onclick="usm.selectUserMngDtlsVw('\${usm.usmList[i].userSn}')">
-                                <td>\${usm.usmList[i].userId}</td>
-                                <td>\${usm.usmList[i].userNm != null ? usm.usmList[i].userNm : "-"}</td>
-                                <td>\${usm.usmList[i].nickNm != null ? usm.usmList[i].nickNm : "-"}</td>
-                                <td>\${usm.usmList[i].loginSe}</td>
-                                <td>\${usm.usmList[i].authCd}</td>
-                                <td>\${usm.usmList[i].useYn}</td>
+                                    <td><img src="\${usm.usmList[i].profileImgUrl}" alt="blank_" style="width: 25%; height: 25%; border-radius: 20px;" /></td>
+                                    <td>\${usm.usmList[i].userId}</td>
+                                    <td>\${usm.usmList[i].userNm != null ? usm.usmList[i].userNm : "-"}</td>
+                                    <td>\${usm.usmList[i].nickNm != null ? usm.usmList[i].nickNm : "-"}</td>
+                                    <td>\${usm.usmList[i].loginSe}</td>
+                                    <td>\${usm.usmList[i].authCd == 'A' ? "관리자" : "일반회원"}</td>
+                                    <td>\${usm.usmList[i].useYn == 'Y' ? "활성화" : "비황성화"}</td>
                               </tr>`
 
                     $("tbody").append(html);
@@ -66,12 +67,13 @@
             usm.usmList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
 
                 let html = `<tr onclick="usm.selectUserMngDtlsVw('\${vo.userSn}')">
+                                <td><img src="\${vo.profileImgUrl}" alt="blank_" style="width: 25%; height: 25%; border-radius: 20px;" /></td>
                                 <td>\${vo.userId}</td>
                                 <td>\${vo.userNm != null ? vo.userNm : "-"}</td>
                                 <td>\${vo.nickNm != null ? vo.nickNm : "-"}</td>
                                 <td>\${vo.loginSe}</td>
-                                <td>\${vo.authCd}</td>
-                                <td>\${vo.useYn}</td>
+                                <td>\${vo.authCd == 'A' ? "관리자" : "일반회원"}</td>
+                                <td>\${vo.useYn == 'Y' ? "활성화" : "비황성화"}</td>
                            </tr>`
                 $("tbody").append(html);
             });
@@ -81,7 +83,7 @@
 
     $(() => {
         usm.init();
-        mmm.selectMenu("usr")
+        mmm.selectMenu("usr", "회원정보관리")
     })
 </script>
 
@@ -119,7 +121,8 @@
         <table>
             <caption class="hidden">회원정보관리 목록</caption>
             <colgroup>
-                <col class="num" width="30%">
+                <col class="num" width="10%">
+                <col class="num" width="20%">
                 <col class="num" width="20%">
                 <col class="num" width="20%">
                 <col class="num" width="10%">
@@ -128,6 +131,7 @@
             </colgroup>
             <thead>
             <tr>
+                <th>프로필</th>
                 <th>회원ID</th>
                 <th>회원명</th>
                 <th>닉네임</th>

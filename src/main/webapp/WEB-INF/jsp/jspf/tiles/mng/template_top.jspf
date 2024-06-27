@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew</title>
     <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 </head>
 <script>
@@ -24,10 +26,10 @@
     const mmm = {
 
         movePage : (param) => {
-            window.location.href = "${pageContext.request.contextPath }" + param;
+            window.location.href = "${pageContext.request.contextPath}" + param;
         },
 
-        selectMenu: (param) => {
+        selectMenu: (param, title) => {
             if(param == 'usr') {
                 $("#usr").show();
                 $("#cmm").hide();
@@ -41,8 +43,14 @@
                 $("#cmm").hide();
                 $("#sys").show();
             }
+
+            $("#title").text(title)
         },
     }
+
+    $(() => {
+        $('#profileImg').attr('src', session.profileImgUrl);
+    })
 
 
 </script>

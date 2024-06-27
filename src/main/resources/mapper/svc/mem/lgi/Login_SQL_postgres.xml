@@ -58,6 +58,41 @@
         )
     </insert>
 
+    <insert id="insertKakaoSignIn" parameterType="brew.svc.mem.lgi.service.LoginVO">
+        INSERT INTO brew.brewsignin (
+            user_sn
+            ,user_id
+            ,user_nm
+            ,nick_nm
+            ,profile_img_url
+            ,thumbnail_img_url
+            ,use_yn
+            ,login_se
+            ,auth_cd
+            ,exit_yn
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{userSn}
+            ,#{userId}
+            ,#{userNm}
+            ,#{nickNm}
+            ,#{profileImgUrl}
+            ,#{thumbnailImgUrl}
+            ,'Y'
+            ,'KAKAO'
+            ,'F'
+            ,'N'
+            ,#{userSn}
+            ,current_timestamp
+            ,#{userSn}
+            ,current_timestamp
+        )
+    </insert>
+
     <select id="selectKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO" resultType="brew.svc.mem.lgi.service.LoginVO">
         select *
         from brew.brewlogin

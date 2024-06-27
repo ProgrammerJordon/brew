@@ -250,11 +250,11 @@ create index brewlogin_sn_idx
 
 create table brewexit
 (
-    exit_sn           varchar   not null
+    exit_sn           varchar                                      not null
         constraint brewexit_pk
             primary key,
-    user_sn           varchar   not null,
-    user_id           varchar   not null,
+    user_sn           varchar                                      not null,
+    user_id           varchar                                      not null,
     nick_nm           varchar,
     profile_img_url   varchar,
     user_nm           varchar,
@@ -262,8 +262,11 @@ create table brewexit
     login_se          varchar,
     auth_cd           varchar,
     thumbnail_img_url varchar,
-    rgtr_id           varchar   not null,
-    rgtr_dt           timestamp not null
+    revival_yn        varchar   default 'N'::character varying     not null,
+    rgtr_id           varchar                                      not null,
+    rgtr_dt           timestamp                                    not null,
+    mdfr_id           varchar   default 'admin'::character varying not null,
+    mdfr_dt           timestamp default CURRENT_TIMESTAMP          not null
 );
 
 comment on table brewexit is '회원탈퇴';
@@ -288,12 +291,71 @@ comment on column brewexit.auth_cd is '권한코드';
 
 comment on column brewexit.thumbnail_img_url is '썸네일이미지경로';
 
+comment on column brewexit.revival_yn is '복구여부';
+
 comment on column brewexit.rgtr_id is '등록자ID';
 
 comment on column brewexit.rgtr_dt is '등록일시';
+
+comment on column brewexit.mdfr_id is '수정자ID';
+
+comment on column brewexit.mdfr_dt is '수정일시';
 
 alter table brewexit
     owner to postgres;
 
 create index brewexit_exit_sn_index
     on brewexit (exit_sn);
+
+-- 회원가입내역
+
+create table brewsignin
+(
+    user_sn           varchar,
+    user_id           varchar,
+    nick_nm           varchar,
+    profile_img_url   varchar,
+    user_nm           varchar,
+    use_yn            char,
+    login_se          varchar,
+    auth_cd           varchar,
+    thumbnail_img_url varchar,
+    exit_yn           varchar,
+    rgtr_id           varchar   not null,
+    rgtr_dt           timestamp not null,
+    mdfr_id           varchar   not null,
+    mdfr_dt           timestamp not null
+);
+
+comment on table brewsignin is '회원가입내역';
+
+comment on column brewsignin.user_sn is '일련번호';
+
+comment on column brewsignin.user_id is '사용자ID';
+
+comment on column brewsignin.nick_nm is '닉네임';
+
+comment on column brewsignin.profile_img_url is '프로필이미지경로';
+
+comment on column brewsignin.user_nm is '사용자명';
+
+comment on column brewsignin.use_yn is '사용여부';
+
+comment on column brewsignin.login_se is '로그인구분';
+
+comment on column brewsignin.auth_cd is '권한코드';
+
+comment on column brewsignin.thumbnail_img_url is '썸네일이미지경로';
+
+comment on column brewsignin.exit_yn is '탈퇴여부';
+
+comment on column brewsignin.rgtr_id is '등록자ID';
+
+comment on column brewsignin.rgtr_dt is '등록일시';
+
+comment on column brewsignin.mdfr_id is '수정자ID';
+
+comment on column brewsignin.mdfr_dt is '수정일시';
+
+alter table brewsignin
+    owner to postgres;

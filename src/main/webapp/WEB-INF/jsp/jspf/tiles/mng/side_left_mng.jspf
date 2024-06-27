@@ -22,7 +22,7 @@
                             <a>회원가입내역</a>
                         </li>
                         <br>
-                        <li onclick="mmm.movePage('');">
+                        <li onclick="mmm.movePage('/mng/usr/uex/selectUserExitListVw.do');">
                             <a>회원탈퇴내역</a>
                         </li>
                     </ul>

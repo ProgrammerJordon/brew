@@ -79,7 +79,7 @@
 
     $(function () {
         bbs.init();
-        mmm.selectMenu('cmm');
+        mmm.selectMenu('cmm', '공지사항관리');
     })
 </script>
 

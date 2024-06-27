@@ -79,7 +79,7 @@
 
     $(()=> {
         ccd.init();
-        mmm.selectMenu('cmm');
+        mmm.selectMenu('cmm', '공통코드관리');
     })
 </script>
 

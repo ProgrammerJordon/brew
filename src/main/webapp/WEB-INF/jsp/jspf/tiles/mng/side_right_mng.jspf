@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div style="width: 20vw; height: 100vh;">
-
+<div style="width: 20vw; height: 100vh; display: flex; justify-content: center;">
+    <div>
+        <div style="top: 100px;">
+            <img id="profileImg" width="300px;" height="300px;" style="border-radius: 30px;" />
+        </div>
+    </div>
 </div>

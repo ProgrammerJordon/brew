@@ -19,6 +19,10 @@ public class LoginDAO {
         return sqlSession.insert("LoginDAO.insertKakaoLogin", vo);
     }
 
+    int insertKakaoSignIn(LoginVO vo) {
+        return sqlSession.insert("LoginDAO.insertKakaoSignIn", vo);
+    }
+
     LoginVO selectKakaoLogin(LoginVO vo) {
         return sqlSession.selectOne("LoginDAO.selectKakaoLogin", vo);
     }

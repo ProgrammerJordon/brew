@@ -14,9 +14,11 @@
             login_se,
             use_yn,
             auth_cd,
+            profile_img_url,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
         from brew.brewlogin
         where 1=1
+            and exit_yn = 'N'
             <if test="loginSe != null and loginSe != ''">
                 and login_se = #{loginSe}
             </if>

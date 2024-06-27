@@ -14,9 +14,11 @@
             login_se,
             use_yn,
             auth_cd,
+            profile_img_url,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
         from brew.brewlogin
         where 1=1
+            and exit_yn = 'N'
         <if test="authCd != null and authCd != ''">
             and auth_cd = #{authCd}
         </if>
@@ -88,6 +90,7 @@
             login_se,
             auth_cd,
             thumbnail_img_url,
+            revival_yn,
             rgtr_id,
             rgtr_dt
         )
@@ -102,6 +105,7 @@
             #{loginSe},
             #{authCd},
             #{thumbnailImgUrl},
+            'N',
             #{userSn},
             current_timestamp
         )

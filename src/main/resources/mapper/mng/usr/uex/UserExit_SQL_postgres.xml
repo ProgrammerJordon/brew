@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserExitDAO">
+
+    <select id="selectUserExitList" parameterType="brew.mng.usr.uex.service.UserExitVO" resultType="brew.mng.usr.uex.service.UserExitVO">
+        select
+            exit_sn,
+            user_sn,
+            user_id,
+            user_nm,
+            nick_nm,
+            profile_img_url,
+            login_se,
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
+            to_char(mdfr_dt, 'YYYY-MM-DD') as mdfr_dt,
+            revival_yn,
+            ROW_NUMBER() OVER(ORDER BY exit_sn DESC) AS RNUM
+        from brew.brewexit
+        where 1=1
+        <if test="authCd != null and authCd != ''">
+            and auth_cd = #{authCd}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            and user_id like '%' || #{searchKeyword} || '%'
+                or user_nm like '%' || #{searchKeyword} || '%'
+                or nick_nm like '%' || #{searchKeyword} || '%'
+        </if>
+        order by exit_sn desc
+    </select>
+
+    <update id="updateUserExit" parameterType="brew.mng.usr.uex.service.UserExitVO">
+        update brew.brewlogin
+               set
+                   use_yn = 'Y',
+                   exit_yn = 'N',
+                   mdfr_id = #{userSn},
+                   mdfr_dt = current_timestamp
+        where 1=1
+            and user_sn = #{userSn}
+    </update>
+
+    <update id="updateUserLoginExit" parameterType="brew.mng.usr.uex.service.UserExitVO">
+        update brew.brewexit
+            set
+                revival_yn = 'Y',
+                mdfr_id = #{userSn},
+                mdfr_dt = current_timestamp
+        where 1=1
+            and exit_sn = #{exitSn}
+
+    </update>
+</mapper>

@@ -2,19 +2,23 @@
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template_top.jspf" %>
 
 <script>
-    const mml = {
+    const usi = {
         init : () => {
+            usi.selectUserSignInList();
+        },
+
+        selectUserSignInList : () => {
 
         }
     }
 
-    $(function() {
-        mml.init();
-        mmm.selectMenu('sys', '메뉴관리');
+    $(() => {
+        usi.init();
     })
-
 </script>
 
-<div>메뉴 시스템관리</div>
+<div>
+
+</div>
 
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template-bottom.jspf" %>

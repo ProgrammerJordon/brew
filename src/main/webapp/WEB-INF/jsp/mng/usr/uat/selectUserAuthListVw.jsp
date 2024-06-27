@@ -39,7 +39,7 @@
 
                 if(uat.uatList.length == 0) {
                     let html = `<tr>
-                                    <td colspan="6">등록된 회원이 존재하지 않습니다.</td>
+                                    <td colspan="7">등록된 회원이 존재하지 않습니다.</td>
                                 </tr>`
                     $("tbody").append(html);
                     return false;
@@ -49,12 +49,13 @@
                     if(uat.uatList[i].rnum > 10) break;
 
                     let html = `<tr onclick="uat.selectUserAuthDtlsVw('\${uat.uatList[i].userSn}')">
-                                <td>\${uat.uatList[i].userId}</td>
-                                <td>\${uat.uatList[i].userNm != null ? uat.uatList[i].userNm : "-"}</td>
-                                <td>\${uat.uatList[i].nickNm != null ? uat.uatList[i].nickNm : "-"}</td>
-                                <td>\${uat.uatList[i].loginSe}</td>
-                                <td>\${uat.uatList[i].authCd}</td>
-                                <td>\${uat.uatList[i].useYn}</td>
+                                    <td><img src="\${uat.uatList[i].profileImgUrl}" alt="blank_" style="width: 25%; height: 25%; border-radius: 20px;" /></td>
+                                    <td>\${uat.uatList[i].userId}</td>
+                                    <td>\${uat.uatList[i].userNm != null ? uat.uatList[i].userNm : "-"}</td>
+                                    <td>\${uat.uatList[i].nickNm != null ? uat.uatList[i].nickNm : "-"}</td>
+                                    <td>\${uat.uatList[i].loginSe}</td>
+                                    <td>\${uat.uatList[i].authCd == 'A' ? "관리자" : "일반회원"}</td>
+                                    <td>\${uat.uatList[i].useYn == 'Y' ? "활성화" : "비활성화"}</td>
                               </tr>`
 
                     $("tbody").append(html);
@@ -70,12 +71,13 @@
             uat.uatList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
 
                 let html = `<tr onclick="uat.selectUserAuthDtlsVw('\${vo.userSn}')">
+                                <td><img src="\${vo.profileImgUrl}" alt="blank_" style="width: 25%; height: 25%; border-radius: 20px;" /></td>
                                 <td>\${vo.userId}</td>
                                 <td>\${vo.userNm != null ? vo.userNm : "-"}</td>
                                 <td>\${vo.nickNm != null ? vo.nickNm : "-"}</td>
                                 <td>\${vo.loginSe}</td>
-                                <td>\${vo.authCd}</td>
-                                <td>\${vo.useYn}</td>
+                                <td>\${vo.authCd == 'A' ? "관리자" : "일반회원"}</td>
+                                <td>\${vo.useYn == 'Y' ? "활성화" : "비활성화"}</td>
                            </tr>`
                 $("tbody").append(html);
             });
@@ -85,7 +87,7 @@
 
     $(() => {
         uat.init();
-        mmm.selectMenu("usr")
+        mmm.selectMenu("usr", "회원권한관리")
     })
 </script>
 
@@ -142,7 +144,8 @@
         <table>
             <caption class="hidden">회원권한 목록</caption>
             <colgroup>
-                <col class="num" width="30%">
+                <col class="num" width="10%">
+                <col class="num" width="20%">
                 <col class="num" width="20%">
                 <col class="num" width="20%">
                 <col class="num" width="10%">
@@ -151,6 +154,7 @@
             </colgroup>
             <thead>
             <tr>
+                <th>프로필</th>
                 <th>회원ID</th>
                 <th>회원명</th>
                 <th>닉네임</th>

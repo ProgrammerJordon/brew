@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew</title>
     <%@ include file="/WEB-INF/jsp/jspf/script.jspf" %>
 </head>
 
