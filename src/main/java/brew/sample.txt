@@ -81,3 +81,59 @@
     // $('#pagination').page(result.boardVO.pageIndex, result.boardVO.pageSize, 'bbs.selectBoardList');
 
 </script>
+
+
+
+        fn_egov_bispEmgcInfoExpln : function () {
+            var BispEmgcInfoExpln = document.getElementById("BispEmgcInfoExpln");
+
+            var currentDisplay = BispEmgcInfoExpln.style.display;
+
+            if (currentDisplay === "none" || currentDisplay === "") {
+                BispEmgcInfoExpln.style.display = "block";
+            } else {
+                BispEmgcInfoExpln.style.display = "none";
+            }
+        },
+
+
+<div class="popup__window widget pop" id="BispEmgcInfoExpln" style="left:700px; top:800px; display:none;">
+        <div class="popup__header">
+            <p class="title">생물종출현정보</p>
+            <button class="btn__close" onclick="bei.fn_egov_bispEmgcInfoExpln()"><span class="hidden">닫기</span></button>
+        </div>
+        <div class="popup__body scroll-list" style="min-width: unset; width: 900px; height: 550px;">
+            <div class="btn__box" style="margin-top: 0; gap: 5px; justify-content: center;">
+                <div class="table-box">
+                    <table>
+                        <caption class="hidden">생물종출현정보 컬럼 설명</caption>
+                        <colgroup>
+                            <col class="col-num" style="width: 25%;">
+                            <col class="col-num" style="width: 35%;">
+                            <col class="col-num" style="width: 40%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>국문</th>
+                                <th>영문</th>
+                                <th>항목 설명</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>KTSN 번호</th>
+                                <td>KTSN_Number</td>
+                                <td>한국형 생물종목록 연번체계 번호</td>
+                            </tr>
+                            <tr>
+                                <th>국립생물자원관 분류군</th>
+                                <td>National_Institute_of_Biological_Resources_Taxonomy</td>
+                                <td>국립생물자원관분류군명</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

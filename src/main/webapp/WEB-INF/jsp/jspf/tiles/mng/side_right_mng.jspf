@@ -23,6 +23,7 @@
 </div>
 
 <script>
+    // 추후 통계데이터 주입예정
     let graph = document.getElementById('profileChart').getContext('2d');
     let profileChart = new Chart(graph, {
         type: 'doughnut',

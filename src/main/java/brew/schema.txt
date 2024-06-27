@@ -1,35 +1,65 @@
--- 첨부파일 테이블
-create table atchfile
+-- 파일속성
+-- auto-generated definition
+create table comtnfile
 (
-    atch_file_id   char(20)      not null,
+    atch_file_id char(20)  not null
+        constraint comtnfile_pk
+            primary key,
+    creat_pnttm  timestamp not null,
+    use_at       char      not null
+        constraint comtnfile_ck
+            check (use_at = ANY (ARRAY ['N'::bpchar, 'Y'::bpchar]))
+);
+
+comment on table comtnfile is '파일속성';
+
+comment on column comtnfile.atch_file_id is '첨부파일ID';
+
+comment on column comtnfile.creat_pnttm is '생성시점';
+
+comment on column comtnfile.use_at is '사용여부';
+
+alter table comtnfile
+    owner to postgres;
+
+-- 파일상세정보
+-- auto-generated definition
+create table comtnfiledetail
+(
+    atch_file_id   char(20)      not null
+        constraint comtnfiledetail_fk
+            references comtnfile,
     file_sn        numeric(10)   not null,
     file_stre_path varchar(2000) not null,
     stre_file_nm   varchar(256)  not null,
     orignl_file_nm varchar(256),
     file_extsn     varchar(20)   not null,
     file_cn        text,
-    file_size      numeric(20),
-    constraint atchfile_pk
+    file_size      numeric(8),
+    constraint comtnfiledetail_pk
         primary key (atch_file_id, file_sn)
 );
 
-comment on table atchfile is '파일상세정보';
+comment on table comtnfiledetail is '파일상세정보';
 
-comment on column atchfile.atch_file_id is '첨부파일ID';
+comment on column comtnfiledetail.atch_file_id is '첨부파일ID';
 
-comment on column atchfile.file_sn is '파일순번';
+comment on column comtnfiledetail.file_sn is '파일순번';
 
-comment on column atchfile.file_stre_path is '파일저장경로';
+comment on column comtnfiledetail.file_stre_path is '파일저장경로';
 
-comment on column atchfile.stre_file_nm is '저장파일명';
+comment on column comtnfiledetail.stre_file_nm is '저장파일명';
 
-comment on column atchfile.orignl_file_nm is '원본파일명';
+comment on column comtnfiledetail.orignl_file_nm is '원본파일명';
 
-comment on column atchfile.file_extsn is '파일확장자';
+comment on column comtnfiledetail.file_extsn is '파일확장자';
 
-comment on column atchfile.file_cn is '파일내용';
+comment on column comtnfiledetail.file_cn is '파일내용';
 
-comment on column atchfile.file_size is '파일크기';
+comment on column comtnfiledetail.file_size is '파일크기';
+
+alter table comtnfiledetail
+    owner to postgres;
 
 -- 게시판
 create table brewbbs
