@@ -2,6 +2,79 @@
 
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
+
+        <div id="bpm" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">배너·팝업관리</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('');">
+                            <a>배너관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>팝업관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>광고관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="cts" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">콘텐츠관리</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('');">
+                            <a>홍보자료관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>법령·시책관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>용어사전관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="dtm" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">데이터관리</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('');">
+                            <a>메타데이터관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>수집정보관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>파일관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div id="usr" style="display: none;">
             <div style="text-align: center;">
                 <span style="font-size: 2em;">회원관리</span>
@@ -52,6 +125,30 @@
                         <br>
                         <li>
                             <a onclick="mmm.movePage('/mng/cmm/spl/selectSampleListVw.do');">샘플코드관리</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="uss" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">사용통계관리</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('');">
+                            <a>방문자수</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>로그인이력</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>개인정보접근이력</a>
                         </li>
                     </ul>
                 </div>

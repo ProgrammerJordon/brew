@@ -31,43 +31,45 @@
         },
 
         selectMenu: (param, title) => {
-            if(param == 'usr') {
-                $("#usr").show();
-                $("#cmm").hide();
-                $("#sys").hide();
-            }else if(param == 'cmm') {
-                $("#usr").hide();
-                $("#cmm").show();
-                $("#sys").hide();
-            }else if(param == 'sys') {
-                $("#usr").hide();
-                $("#cmm").hide();
-                $("#sys").show();
+
+            let sections = {
+                bpm: '#bpm',
+                cts: '#cts',
+                dtm: '#dtm',
+                usr: '#usr',
+                cmm: '#cmm',
+                uss: '#uss',
+                sys: '#sys'
+            };
+
+            for (let key in sections) {
+                $(sections[key]).hide();
+            }
+
+            if (sections[param]) {
+                $(sections[param]).show();
             }
 
             $("#title").text(title)
+
+            if(session.userSn == null || session.userSn == '') {
+
+                let el = document.querySelector("#rightProfile");
+                el.style.display = "none";
+
+            }else {
+
+                let el = document.querySelector("#rightProfile");
+                el.style.display = "block";
+
+                $("#profileImg").attr('src', session.profileImgUrl);
+                $("#ui").text(session.userId);
+                $("#nn").text(session.nickNm);
+                $("#ls").text(session.loginSe);
+                $("#ac").text(session.authCd == "A" ? "관리자" : "일반회원");
+            }
         },
     }
-
-    $(() => {
-        if(session.userSn == null || session.userSn == '') {
-
-            let el = document.querySelector("#rightProfile");
-            el.style.display = "none";
-
-        }else {
-
-            let el = document.querySelector("#rightProfile");
-            el.style.display = "block";
-
-            $("#profileImg").attr('src', session.profileImgUrl);
-            $("#userId").text(session.userId);
-            $("#nickNm").text(session.nickNm);
-            $("#loginSe").text(session.loginSe);
-            $("#authCd").text(session.authCd == "A" ? "관리자" : "일반회원");
-        }
-    })
-
 </script>
 
 <body class="main">

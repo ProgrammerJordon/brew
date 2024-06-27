@@ -3,18 +3,45 @@
 <div style="width: 20vw; height: 100vh; display: flex; justify-content: center; text-align: center;">
     <div id="rightProfile" style="display: none">
         <div style="top: 100px;">
-            <img id="profileImg" width="300px;" height="300px;" style="border-radius: 50px;" />
+            <img id="profileImg" width="300px;" height="300px;" style="border-radius: 50px; transition: 0.3s ease" />
         </div>
         <div>
-            <span id="nickNm" style="font-size: 2em;"></span>
+            <span id="nn" style="font-size: 2em;"></span>
         </div>
         <div>
-            <span id="loginSe" style="font-size: 1.5em;"></span>
+            <span id="ls" style="font-size: 1.5em;"></span>
             <span> : </span>
-            <span id="userId" style="font-size: 1.5em;"></span>
+            <span id="ui" style="font-size: 1.5em;"></span>
         </div>
         <div>
-            <span id="authCd" style="font-size: 1.5em;"></span>
+            <span id="ac" style="font-size: 1.5em;"></span>
+        </div>
+        <div>
+            <canvas id="profileChart" width="400" height="400"></canvas>
         </div>
     </div>
 </div>
+
+<script>
+    let graph = document.getElementById('profileChart').getContext('2d');
+    let profileChart = new Chart(graph, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Red',
+                'Blue',
+                'Yellow'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [300, 50, 100],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+    });
+</script>

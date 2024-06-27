@@ -36,10 +36,22 @@
         <div class="tab__list type03">
             <ul>
                 <li class="active" style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('bpm')">배너·팝업관리</a>
+                </li>
+                <li  style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('cts')">콘텐츠관리</a>
+                </li>
+                <li  style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('dtm')">데이터관리</a>
+                </li>
+                <li style="cursor: pointer;">
                     <a onclick="mmm.selectMenu('usr')" >회원관리</a>
                 </li>
                 <li  style="cursor: pointer;">
                     <a onclick="mmm.selectMenu('cmm')">공통관리</a>
+                </li>
+                <li style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('uss')" >사용통계관리</a>
                 </li>
                 <li style="cursor: pointer;">
                     <a onclick="mmm.selectMenu('sys')">시스템관리</a>

@@ -61,10 +61,10 @@
             el.style.display = "block";
 
             $("#profileImg").attr('src', session.profileImgUrl);
-            $("#userId").text(session.userId);
-            $("#nickNm").text(session.nickNm);
-            $("#loginSe").text(session.loginSe);
-            $("#authCd").text(session.authCd == "A" ? "관리자" : "일반회원");
+            $("#ui").text(session.userId);
+            $("#nn").text(session.nickNm);
+            $("#ls").text(session.loginSe);
+            $("#ac").text(session.authCd == "A" ? "관리자" : "일반회원");
         }
     })
 
