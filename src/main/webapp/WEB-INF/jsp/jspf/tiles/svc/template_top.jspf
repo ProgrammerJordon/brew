@@ -49,7 +49,7 @@
 
     $(() => {
         header.init();
-        debugger;
+
         if(session.userSn == null || session.userSn == '') {
 
             let el = document.querySelector("#rightProfile");
