@@ -16,8 +16,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class BrewCommonUtil {
 
@@ -302,6 +305,66 @@ public class BrewCommonUtil {
                 out.close();
             }
 
+        }
+    }
+
+    public static void downloadZip(List<String> atchFileId, String zipName, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        List<FileVO> files = new ArrayList<>();
+
+        for(int i = 0; i < atchFileId.size(); i++) {
+            FileVO fvo = new FileVO();
+            fvo.setAtchFileId(atchFileId.get(i));
+            List<FileVO> fileList = fileMngService.selectFileInfs(fvo);
+            for (int j = 0; j < fileList.size(); j++) {
+                files.add(fileList.get(j));
+            }
+        }
+
+        if (!files.isEmpty()) {
+
+            try {
+                String mimetype = "application/zip";
+                String userAgent = request.getHeader("User-Agent");
+                HashMap<String, String> result = BrewBrowerUtil.getBrowser(userAgent);
+                if (!BrewBrowerUtil.MSIE.equals(result.get(BrewBrowerUtil.TYPEKEY))) {
+                    mimetype = "application/x-stuff";
+                }
+                String contentDisposition = BrewBrowerUtil.getDisposition(URLEncoder.encode(zipName, StandardCharsets.UTF_8.toString()) + ".zip", userAgent, "UTF-8");
+                response.setContentType(mimetype);
+                response.setHeader("Content-Disposition", contentDisposition.replaceAll("[\\r\\n]", ""));
+
+                OutputStream os = response.getOutputStream();
+
+                try (ZipOutputStream zos = new ZipOutputStream(os)) {
+                    for (FileVO fileVO : files) {
+                        File file = new File(fileVO.getFileStrePath(), fileVO.getStreFileNm());
+                        try (FileInputStream fis = new FileInputStream(file)) {
+                            ZipEntry zipEntry = new ZipEntry(fileVO.getOrignlFileNm());
+                            zos.putNextEntry(zipEntry);
+
+                            byte[] buffer = new byte[1024];
+                            int length;
+                            while ((length = fis.read(buffer)) > 0) {
+                                zos.write(buffer, 0, length);
+                            }
+                        }
+                    }
+                    zos.closeEntry();
+                    zos.flush();
+                }
+            } catch (IOException e) {
+                System.out.println("IOException 발생: " + e.getMessage());
+            }
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<script type='text/javascript'>");
+                out.println("alert('다운로드할 파일이 없습니다.');");
+                out.println("window.history.back();");
+                out.println("</script>");
+                out.flush();
+            }
         }
     }
 }
