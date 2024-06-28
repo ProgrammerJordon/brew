@@ -169,7 +169,7 @@ public class FileVO extends CommonVO {
     /**
      * fileSize attribute 값을 설정한다.
      * 
-     * @param fileMg
+     * @param fileSize
      *            the fileMg to set
      */
     public void setFileSize(String fileSize) {

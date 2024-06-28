@@ -3,21 +3,6 @@ package brew.cmm.service;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Class Name : EgovFileMngService.java
- * @Description : 파일정보의 관리를 위한 서비스 인터페이스
- * @Modification Information
- *
- *    수정일       수정자         수정내용
- *    -------        -------     -------------------
- *    2009. 3. 25.     이삼섭    최초생성
- *
- * @author 공통 서비스 개발팀 이삼섭
- * @since 2009. 3. 25.
- * @version
- * @see
- *
- */
 public interface FileMngService {
 
     /**
