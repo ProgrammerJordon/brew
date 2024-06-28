@@ -35,7 +35,7 @@
     <div class="tab__body type01" style="display: flex; justify-content: left; margin-bottom: 30px;">
         <div class="tab__list type03">
             <ul>
-                <li class="active" style="cursor: pointer;">
+                <li style="cursor: pointer;">
                     <a onclick="mmm.selectMenu('bpm')">배너·팝업관리</a>
                 </li>
                 <li  style="cursor: pointer;">

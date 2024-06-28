@@ -4,7 +4,7 @@
                     <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/side_right_svc.jspf" %>
                 </div>
                 </div>
-                <div>
+                <div style="width: 100vw; height: 20vh;">
                     <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/footer_svc.jspf" %>
                 </div>
             </div>
