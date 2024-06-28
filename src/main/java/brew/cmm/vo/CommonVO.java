@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder(toBuilder = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class CommonVO {
 
     private String frstRegistPnttm;

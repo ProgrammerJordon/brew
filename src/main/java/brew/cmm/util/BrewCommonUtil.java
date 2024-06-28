@@ -9,9 +9,12 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+
 import java.io.*;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URLEncoder;
@@ -147,7 +150,7 @@ public class BrewCommonUtil {
             response.setCharacterEncoding("UTF-8");
             response.setHeader("Content-Disposition", "attachment;filename=\"" + URLEncoder.encode(fileName+".csv", StandardCharsets.UTF_8.toString()) + "\"");
 
-            Cookie cookie = new Cookie("fileDownloadToken", "TRUE");
+            Cookie cookie = new Cookie("loadToken", "TRUE");
             cookie.setHttpOnly(false);
             cookie.setPath("/");
             cookie.setSecure(false);
@@ -189,56 +192,56 @@ public class BrewCommonUtil {
         }
     }
 
-//    public static void downloadExcel(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
-//
-//        response.setContentType("ms-vnd/excel");
-//        response.setHeader("Content-Disposition", "attachment;filename=\"" + URLEncoder.encode(fileName + ".xlsx", StandardCharsets.UTF_8.toString()) + "\"");
-//
-//        Cookie cookie = new Cookie("fileDownloadToken", "TRUE");
-//        cookie.setHttpOnly(false);
-//        cookie.setPath("/");
-//        cookie.setSecure(false);
-//        response.addCookie(cookie);
-//
-//        XSSFWorkbook wb = new XSSFWorkbook();
-//        XSSFSheet sheet = wb.createSheet(fileName);
-//        XSSFRow row = null;
-//        int rowNum = 0;
-//
-//        row = sheet.createRow(rowNum++);
-//
-//        for(int i =0; i < header.length; i++) {
-//            row.createCell(i).setCellValue(header[i]);
-//        }
-//
-//        Object firstObj = dataList.get(0);
-//        Field[] fields = firstObj.getClass().getDeclaredFields();
-//
-//        for (Object obj : dataList) {
-//            row = sheet.createRow(rowNum++);
-//            for (int i = 0; i < fields.length; i++) {
-//                fields[i].setAccessible(true);
-//                Object value = fields[i].get(obj);
-//                if (value != null) {
-//                    row.createCell(i).setCellValue(value.toString());
-//                } else {
-//                    row.createCell(i).setCellValue("");
-//                }
-//            }
-//        }
-//
-//        try {
-//            wb.write(response.getOutputStream());
-//        } catch (IOException e) {
-//            System.out.println("엑셀 다운로드 중 오류 발생: " + e.getMessage());
-//        } finally {
-//            try {
-//                wb.close();
-//            } catch (IOException e) {
-//                System.out.println("엑셀 다운로드 이후 오류 발생: " + e.getMessage());
-//            }
-//        }
-//    }
+    public static void downloadExcel(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
+
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + URLEncoder.encode(fileName + ".xlsx", StandardCharsets.UTF_8.toString()) + "\"");
+
+        Cookie cookie = new Cookie("loadToken", "TRUE");
+        cookie.setHttpOnly(false);
+        cookie.setPath("/");
+        cookie.setSecure(false);
+        response.addCookie(cookie);
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet(fileName);
+        XSSFRow row = null;
+        int rowNum = 0;
+
+        row = sheet.createRow(rowNum++);
+
+        for(int i =0; i < header.length; i++) {
+            row.createCell(i).setCellValue(header[i]);
+        }
+
+        Object firstObj = dataList.get(0);
+        Field[] fields = firstObj.getClass().getDeclaredFields();
+
+        for (Object obj : dataList) {
+            row = sheet.createRow(rowNum++);
+            for (int i = 0; i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                Object value = fields[i].get(obj);
+                if (value != null) {
+                    row.createCell(i).setCellValue(value.toString());
+                } else {
+                    row.createCell(i).setCellValue("");
+                }
+            }
+        }
+
+        try {
+            wb.write(response.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("엑셀 다운로드 중 오류 발생: " + e.getMessage());
+        } finally {
+            try {
+                wb.close();
+            } catch (IOException e) {
+                System.out.println("엑셀 다운로드 이후 오류 발생: " + e.getMessage());
+            }
+        }
+    }
 
     public static void downloadAtchFile(String atchFileId, String fileSn, HttpServletRequest request, HttpServletResponse response) throws Exception {
 

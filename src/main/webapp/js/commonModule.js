@@ -723,11 +723,11 @@
                 clearBtn: true,
                 todayBtn: true,
 
-                /* 커스텁 옵션 */
+                /* 커스텀 옵션 */
                 initialDate: '',
                 startDate: '',
                 endDate: ''
-            }
+            };
 
             const datePickerOptions = {...defaultOptions, ...options};
 
@@ -735,16 +735,16 @@
                 elIdArr = [elIdArr];
             }
 
-            elIdArr.forEach((el, idx)=> {
+            elIdArr.forEach((el, idx) => {
                 const element = $(`#${el}`);
-                element.attr('autocomplete', 'off');    //인풋박스 자동완성 기능 해제
+                element.attr('autocomplete', 'off');    // 인풋박스 자동완성 기능 해제
                 element.attr('readonly', datePickerOptions.readonly);
 
-                //initialDate 배열로 전달할 경우 elIdArr과 index가 일치해야함
+                // initialDate 배열로 전달할 경우 elIdArr과 index가 일치해야 함
                 if (Array.isArray(datePickerOptions.initialDate)) {
-                    element.val(datePickerOptions.initialDate[idx] ?? '');
+                    element.val(datePickerOptions.initialDate[idx] !== null && datePickerOptions.initialDate[idx] !== undefined ? datePickerOptions.initialDate[idx] : '');
                 } else {
-                    element.val(datePickerOptions.initialDate ?? '');
+                    element.val(datePickerOptions.initialDate !== null && datePickerOptions.initialDate !== undefined ? datePickerOptions.initialDate : '');
                 }
                 element.datepicker(datePickerOptions);
             });

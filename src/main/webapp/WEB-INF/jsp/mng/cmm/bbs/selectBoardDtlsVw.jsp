@@ -76,18 +76,18 @@
             </colgroup>
             <thead></thead>
             <tbody>
-            <tr>
-                <th>제목</th>
-                <td>
-                    <input type="text" id="title" name="title" />
-                </td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td>
-                    <textarea id="contents" name="contents"></textarea>
-                </td>
-            </tr>
+                <tr>
+                    <th>제목</th>
+                    <td>
+                        <input type="text" id="title" name="title" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <textarea id="contents" name="contents"></textarea>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

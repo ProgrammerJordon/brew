@@ -1,48 +1,4 @@
 <script type="application/javascript">
-    <%--function popProgressbar (popFunction, closeFunction) {--%>
-    <%--    popFunction();--%>
-
-    <%--    <%--%>
-    <%--        Cookie cookie = new Cookie("loadToken", "TRUE");--%>
-    <%--        cookie.setHttpOnly(false); // true -> false로!!!!!--%>
-    <%--        cookie.setPath("/"); // 모든 경로에서 접근 가능하도록--%>
-    <%--        cookie.setSecure(false);--%>
-    <%--        response.addCookie(cookie);--%>
-    <%--    %>--%>
-
-    <%--    FILEDOWNLOAD_INTERVAL = setInterval(function () {--%>
-    <%--        if (getCookie("loadToken") != "") {--%>
-    <%--            deleteCookie("loadToken");--%>
-    <%--            clearInterval(FILEDOWNLOAD_INTERVAL);--%>
-    <%--            closeFunction();--%>
-    <%--        }--%>
-    <%--    }, 500);--%>
-    <%--}--%>
-
-    <%--function getCookie(name) {--%>
-    <%--    var search;--%>
-
-    <%--    search = name + "=";--%>
-    <%--    offset = document.cookie.indexOf(search);--%>
-
-    <%--    if (offset == -1) return "";--%>
-
-    <%--    offset += search.length ;--%>
-    <%--    end = document.cookie.indexOf(";", offset) ;--%>
-    <%--    if (end == -1)	end = document.cookie.length;--%>
-
-    <%--    return unescape(document.cookie.substring(offset, end));--%>
-    <%--}--%>
-
-    <%--function deleteCookie(name) {--%>
-    <%--    var expdate = new Date();--%>
-    <%--    expdate.setTime(expdate.getTime() - 1000);--%>
-    <%--    setCookie(name, "", expdate);--%>
-    <%--}--%>
-
-    <%--function setCookie (name, value, expires) {--%>
-    <%--    document.cookie = name + "=" + escape(value) + "; expires=" + expires.toGMTString() +  "; path=/";--%>
-    <%--}--%>
     // 필요시 사용
     // post 방식
     //    @RequestMapping("/selectBoardDtlsVw.do")
