@@ -3,7 +3,7 @@
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
 
-        <div id="bpm">
+        <div id="bpm" style="display: none;">
             <div style="text-align: center;">
                 <span style="font-size: 2em;">배너·팝업관리</span>
             </div>

@@ -84,6 +84,7 @@
 
     $(() => {
         min.init();
+        mmm.selectMenu('bpm')
     })
 </script>
 <div>

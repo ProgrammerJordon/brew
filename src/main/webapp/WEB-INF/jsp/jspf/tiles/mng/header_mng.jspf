@@ -14,14 +14,13 @@
         </div>
         <div>
             <div class="btn__box">
-                <div>
+                <div class="mr-16">
                     <a href="<c:out value='/'/>">
                         <button class="btn__black__line">
                             <span>클라이언트</span>
                         </button>
                     </a>
                 </div>
-                &nbsp;
                 <div>
                     <a href="<c:out value='/logout.do'/>">
                         <button class="btn__black__line" onclick="kakao.kakaoLogout(kakaoJsProperties)">
