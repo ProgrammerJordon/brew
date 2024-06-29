@@ -50,24 +50,8 @@
                 $(sections[param]).show();
             }
 
-            $("#title").text(title)
+            $("#menuTitle").text(title)
 
-            if(session.userSn == null || session.userSn == '') {
-
-                let el = document.querySelector("#rightProfile");
-                el.style.display = "none";
-
-            }else {
-
-                let el = document.querySelector("#rightProfile");
-                el.style.display = "block";
-
-                $("#profileImg").attr('src', session.profileImgUrl);
-                $("#ui").text(session.userId);
-                $("#nn").text(session.nickNm);
-                $("#ls").text(session.loginSe);
-                $("#ac").text(session.authCd == "A" ? "관리자" : "일반회원");
-            }
         },
     }
 </script>

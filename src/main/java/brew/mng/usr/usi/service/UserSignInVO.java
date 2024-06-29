@@ -1,22 +1,18 @@
-package brew.svc.mem.lgi.service;
+package brew.mng.usr.usi.service;
 
 import brew.cmm.vo.CommonVO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class LoginVO extends CommonVO implements Serializable {
+public class UserSignInVO extends CommonVO implements Serializable {
 
     private String userSn;
     private String useYn;
     private String loginSe;
     private String authCd;
     private String exitYn;
-    private int count;
-    private int result;
 
     private String userId;
     private String userNm;
@@ -24,5 +20,5 @@ public class LoginVO extends CommonVO implements Serializable {
     private String profileImgUrl;
     private String thumbnailImgUrl;
 
-
+    private int rnum;
 }

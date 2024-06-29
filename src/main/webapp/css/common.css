@@ -34,7 +34,7 @@ select{
 	gap: 32px;
 }
 .wrap{
-	width: 1440px;
+	width: 60vw;
 	margin: 0 auto;
 }
 
@@ -335,6 +335,7 @@ nav .wrap>ul>li:last-child::after{
 
 /* footer 시작 */
 footer{
+	width: 100vw;
 	background-color: var(--footer-color);
 }
 footer .footer__top{

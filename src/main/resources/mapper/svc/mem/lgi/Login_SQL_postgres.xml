@@ -49,7 +49,7 @@
             ,#{thumbnailImgUrl}
             ,'Y'
             ,'KAKAO'
-            ,'F'
+            ,'Z'
             ,'N'
             ,#{userSn}
             ,current_timestamp

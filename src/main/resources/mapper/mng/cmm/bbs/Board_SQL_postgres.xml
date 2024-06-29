@@ -9,12 +9,16 @@
         select
             sn,
             title,
+            contents,
             inq_cnt,
             rgtr_id,
             to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
             ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
         from brew.brewbbs
         order by sn desc
+        <if test="mainYn eq 'Y'.toString()">
+            limit 5
+        </if>
     </select>
 
     <insert id="insertBoard" parameterType="brew.mng.cmm.bbs.service.BoardVO">

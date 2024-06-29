@@ -1,12 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div style="width: 20vw; height: 100vh; display: flex; justify-content: center; text-align: center;">
-    <div id="rightProfile" style="display: none">
+    <div id="rightProfile" style="display: block;">
         <div style="top: 100px;">
             <img id="profileImg" width="300px;" height="300px;" style="border-radius: 50px; transition: 0.3s ease" />
         </div>
+        <br>
         <div>
             <span id="nn" style="font-size: 2em;"></span>
+            <span>( </span>
+            <span id="ac" style="font-size: 1.5em;"></span>
+            <span> )</span>
         </div>
         <div>
             <span id="ls" style="font-size: 1.5em;"></span>
@@ -14,19 +18,48 @@
             <span id="ui" style="font-size: 1.5em;"></span>
         </div>
         <div>
-            <span id="ac" style="font-size: 1.5em;"></span>
         </div>
+        <br>
         <div>
-            <canvas id="profileChart" width="400" height="400"></canvas>
+            <canvas id="profileChart" width="300" height="300"></canvas>
         </div>
     </div>
 </div>
 
 <script>
+
+    let srm = {
+        init : () => {
+            srm.selectCheckSession();
+        },
+        selectCheckSession : () => {
+            if(session.userSn == null || session.userSn == '') {
+
+                let el = document.querySelector("#rightProfile");
+                el.style.display = "none";
+
+            }else {
+
+                let el = document.querySelector("#rightProfile");
+                el.style.display = "block";
+
+                $("#profileImg").attr('src', session.profileImgUrl);
+                $("#ui").text(session.userId);
+                $("#nn").text(session.nickNm);
+                $("#ls").text(session.loginSe);
+                $("#ac").text(session.authCd == "A" ? "관리자" : "일반회원");
+            }
+        }
+    }
+
+    $(() => {
+        srm.init();
+    })
+
     // 추후 통계데이터 주입예정
     let graph = document.getElementById('profileChart').getContext('2d');
     let profileChart = new Chart(graph, {
-        type: 'doughnut',
+        type: 'polarArea',
         data: {
             labels: [
                 'Red',

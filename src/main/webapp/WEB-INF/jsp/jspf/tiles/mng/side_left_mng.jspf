@@ -3,7 +3,7 @@
 <div style="width: 20vw; height: 100vh;">
     <div style="display: flex; justify-content: center;">
 
-        <div id="bpm" style="display: none;">
+        <div id="bpm">
             <div style="text-align: center;">
                 <span style="font-size: 2em;">배너·팝업관리</span>
             </div>
@@ -91,7 +91,7 @@
                             <a>회원권한관리</a>
                         </li>
                         <br>
-                        <li onclick="mmm.movePage('');">
+                        <li onclick="mmm.movePage('/mng/usr/usi/selectUserSignInListVw.do');">
                             <a>회원가입내역</a>
                         </li>
                         <br>

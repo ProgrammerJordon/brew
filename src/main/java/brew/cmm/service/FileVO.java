@@ -2,6 +2,7 @@ package brew.cmm.service;
 
 import brew.cmm.vo.CommonVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Class Name : FileVO.java
@@ -19,6 +20,7 @@ import lombok.Data;
  *
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class FileVO extends CommonVO {
 
     /**
