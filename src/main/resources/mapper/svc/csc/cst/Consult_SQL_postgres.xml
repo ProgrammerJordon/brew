@@ -5,4 +5,42 @@
 
 <mapper namespace="ConsultDAO">
 
+    <insert id="insertConsult" parameterType="brew.svc.csc.cst.service.ConsultVO">
+        <selectKey keyProperty="sn" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(sn) + 1, 1) FROM brew.brewcst
+        </selectKey>
+            INSERT INTO brew.brewcst (
+                sn
+                ,title
+                ,contents
+                ,inq_cnt
+                ,rgtr_id
+                ,rgtr_dt
+                ,mdfr_id
+                ,mdfr_dt
+            )
+            VALUES (
+                #{sn}
+                ,#{title}
+                ,#{contents}
+                ,0
+                ,'admin'
+                ,current_timestamp
+                ,'admin'
+                ,current_timestamp
+            )
+    </insert>
+
+    <select id="selectConsultList" parameterType="brew.svc.csc.cst.service.ConsultVO" resultType="brew.svc.csc.cst.service.ConsultVO">
+        select
+            sn,
+            title,
+            contents,
+            inq_cnt,
+            rgtr_id,
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
+            ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
+        from brew.brewcst
+        order by sn desc
+    </select>
 </mapper>

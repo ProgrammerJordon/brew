@@ -11,7 +11,7 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('csc');">
+                        <li onclick="mmm.movePage('/svc/csc/cst/selectConsultListVw.do');">
                             <a>문의사항</a>
                         </li>
                     </ul>
