@@ -389,3 +389,49 @@ comment on column brewsignin.mdfr_dt is '수정일시';
 
 alter table brewsignin
     owner to postgres;
+
+
+-- 문의사항
+
+create table brewcst
+(
+    sn          integer not null
+        constraint brewcst_pk
+            primary key,
+    title       varchar not null,
+    contents    varchar not null,
+    inq_cnt     integer,
+    atchfile_id varchar,
+    rgtr_id     varchar,
+    rgtr_dt     timestamp,
+    mdfr_id     varchar,
+    mdfr_dt     timestamp
+);
+
+comment on table brewcst is '문의사항';
+
+comment on column brewcst.sn is '일련번호';
+
+comment on column brewcst.title is '게시판제목';
+
+comment on column brewcst.contents is '게시판내용';
+
+comment on column brewcst.inq_cnt is '조회수';
+
+comment on column brewcst.atchfile_id is '첨부파일아이디';
+
+comment on column brewcst.rgtr_id is '등록자아이디';
+
+comment on column brewcst.rgtr_dt is '등록일시';
+
+comment on column brewcst.mdfr_id is '수정자아이디';
+
+comment on column brewcst.mdfr_dt is '수정일시';
+
+alter table brewcst
+    owner to postgres;
+
+create index brewcst_sn_index
+    on brewcst (sn);
+
+comment on index brewcst_sn_index is '문의사항인덱스';
