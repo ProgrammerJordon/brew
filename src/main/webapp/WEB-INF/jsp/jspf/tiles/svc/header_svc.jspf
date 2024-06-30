@@ -5,7 +5,7 @@
         <div style="display: flex; align-items: center;">
             <div>
                 <a href="<c:url value='/' />">
-                    <img src='<c:url value="/images/logo/unnamed.jpg" />' width="300px;" height="100px;" />
+                    <img src='<c:url value="/images/ico-logo-brew.png" />' width="300px;" height="100px;" />
                 </a>
             </div>
         </div>
@@ -35,15 +35,14 @@
             </div>
         </div>
     </div>
-    <div style="display: flex; justify-content: left;">
-        <ul>
-            <li class="mr-40" onclick="">
-                <span>메뉴1</span>
-            </li>
-            <li class="mr-40" onclick="">
-                <span>메뉴2</span>
-            </li>
-        </ul>
+    <div class="tab__body type01" style="display: flex; justify-content: left; margin-bottom: 30px;">
+        <div class="tab__list type03">
+            <ul>
+                <li style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('csc')">고객센터</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

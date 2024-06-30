@@ -44,7 +44,42 @@
                 $("#admin").hide();
             }
         },
+    }
 
+    const mmm = {
+
+        movePage : (param) => {
+            window.location.href = "${pageContext.request.contextPath}" + param;
+        },
+
+        selectMenu: (param, title) => {
+
+            let sections = {
+
+                // 서비스
+                csc : '#csc',
+
+                // 관리자
+                bpm: '#bpm',
+                cts: '#cts',
+                dtm: '#dtm',
+                usr: '#usr',
+                cmm: '#cmm',
+                uss: '#uss',
+                sys: '#sys'
+            };
+
+            for (let key in sections) {
+                $(sections[key]).hide();
+            }
+
+            if (sections[param]) {
+                $(sections[param]).show();
+            }
+
+            $("#menuTitle").text(title)
+
+        },
     }
 
     $(() => {
