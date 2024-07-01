@@ -11,6 +11,7 @@
         <setting name="jdbcTypeForNull" value="VARCHAR"></setting>
 
         <setting name="cacheEnabled" value="false" />
+
     </settings>
 
 </configuration>
