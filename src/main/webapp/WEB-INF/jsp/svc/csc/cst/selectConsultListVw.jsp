@@ -17,8 +17,8 @@
         },
 
         selectConsultDtlsVw : (sn) => {
-            let parma = {sn : sn}
-            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultDtlsVw.do"), parma, 'get');
+            let param = {sn : sn}
+            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultDtlsVw.do"), param, 'get');
         },
 
         selectConsultList : function() {

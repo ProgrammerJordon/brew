@@ -6,7 +6,7 @@
     const cst = {
 
         sn : '${vo.sn}',
-        vodt : {},
+        vo_dt : {},
 
         init : () => {
             cst.selectConsultDtVw();
@@ -16,7 +16,7 @@
             let param = {sn : cst.sn}
 
             callModule.call(Util.getRequestUrl("/svc/csc/cst/selectConsultDtVw.do"), param, (result) => {
-                cst.vodt = result.consultVO;
+                cst.vo_dt = result.consultVO;
             })
         }
 
@@ -40,13 +40,13 @@
             <tr>
                 <th>제목</th>
                 <td>
-                    ${cst.vodt.title}
+                    ${cst.vo_dt.title}
                 </td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td>
-                    ${cst.vodt.contents}
+                    ${cst.vo_dt.contents}
                 </td>
             </tr>
             </tbody>
