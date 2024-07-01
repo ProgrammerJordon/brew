@@ -49,7 +49,7 @@
 <script type="text/javascript" src="/plugins/tingle/tingle.min.js"></script>
 
 <!-- ckeditor-->
-<script type="text/javascript" src="/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 
 <!-- js - script -->
 <script type="text/javascript" src="/js/common.js"></script>

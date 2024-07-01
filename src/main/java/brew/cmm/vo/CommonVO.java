@@ -2,10 +2,12 @@ package brew.cmm.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class CommonVO {
 
     private String frstRegistPnttm;

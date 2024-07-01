@@ -34,7 +34,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// security
+	// AOP
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// DB
@@ -54,7 +57,7 @@ dependencies {
 	// ORM - Mybatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
-	// 로그
+	// Log
 	implementation 'org.slf4j:slf4j-api'
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
