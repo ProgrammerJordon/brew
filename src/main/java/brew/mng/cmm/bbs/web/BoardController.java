@@ -1,5 +1,6 @@
 package brew.mng.cmm.bbs.web;
 
+import brew.cmm.service.ppt.BrewProperties;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
