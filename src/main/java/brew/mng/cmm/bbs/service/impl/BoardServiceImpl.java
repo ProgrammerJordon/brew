@@ -44,7 +44,7 @@ public class BoardServiceImpl implements BoardService {
     public Board updateBoard(BoardVO vo) {
         int result = boardDAO.updateBoard(vo);
         if(result == 1) {
-            vo.setResultMessage("공지사항이 정상적으로 수정되어습니다.");
+            vo.setResultMessage("공지사항이 정상적으로 수정되었습니다.");
         }else {
             vo.setResultMessage("공지사항 수정을 실패하였습니다.");
         }
