@@ -5,6 +5,8 @@ import brew.cmm.service.fms.FileVO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,15 +19,20 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.InetAddress;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class BrewCommonUtil {
+
+    protected static Logger logger = LoggerFactory.getLogger(BrewCommonUtil.class);
 
     private static FileMngService fileMngService;
 
@@ -142,6 +149,50 @@ public class BrewCommonUtil {
         }
 
         return true;
+    }
+
+    public static boolean isDataContained(List<String> list, String str) {
+
+        boolean isContained = false;
+        String tempUrl = null;
+
+        for (String data : list) {
+
+            char[] tempChar = data.toCharArray();
+
+            if (tempChar[tempChar.length - 1] == '*') {
+                tempUrl = String.valueOf(Arrays.copyOfRange(tempChar, 0, tempChar.length - 2));
+            } else {
+                tempUrl = data;
+            }
+
+            if (str.contains(tempUrl)) {
+                isContained = true;
+                break;
+            }
+
+            if ("**".equalsIgnoreCase(tempUrl)) {
+                isContained = true;
+                break;
+            }
+
+        }
+
+        return isContained;
+
+    }
+
+    public static String getHostName() {
+        String hostName = "";
+
+        try {
+            hostName = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            hostName = "";
+            logger.warn(e.getMessage());
+        }
+
+        return hostName;
     }
 
     public static void downloadCSV(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
