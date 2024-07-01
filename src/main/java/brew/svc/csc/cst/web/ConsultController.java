@@ -33,9 +33,6 @@ public class ConsultController {
     @RequestMapping("/insertConsult.do")
     @ResponseBody // 화면에 JSON 값을 뿌려
     public Consult insertConsult(@RequestBody ConsultVO vo) {
-        // result.consultList[0].sn, totle
-        // result.consultVO.sn, title
-        // result.boardVO.sn
         Consult result = consultService.insertConsult(vo);
 
         return result;
@@ -48,11 +45,19 @@ public class ConsultController {
     }
 
     @RequestMapping("/selectConsultDtlsVw.do")
-    public String selectConsultDtlsVw(@RequestParam (name = "sn") int sn,
+    public String selectConsultDtlsVw(@RequestParam(name = "sn") int sn,
                                       ConsultVO vo,
                                       Model model) {
         vo.setSn(sn);
         model.addAttribute("vo", vo);
+
         return "/svc/csc/cst/selectConsultDtlsVw";
     }
+
+    @RequestMapping("/selectConsultDtVw.do")
+    @ResponseBody
+    public Consult selectConsultDtVw(@RequestBody ConsultVO vo) {
+        return consultService.selectConsultDtVw(vo);
+    }
+
 }

@@ -43,4 +43,15 @@
         from brew.brewcst
         order by sn desc
     </select>
+
+    <select id="selectConsultDtVw" parameterType="brew.svc.csc.cst.service.ConsultVO" resultType="brew.svc.csc.cst.service.ConsultVO">
+        select
+            sn,
+            title,
+            contents
+        from
+            brew.brewcst
+        where
+            sn = #{sn}
+    </select>
 </mapper>

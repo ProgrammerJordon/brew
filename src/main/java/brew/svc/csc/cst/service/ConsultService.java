@@ -9,4 +9,6 @@ public interface ConsultService {
     // 컨트롤러 함수 요청 -> 인터페이스 함수를 골라줘 -> 임플리먼트 실행을해
 
     public Consult selectConsultList(ConsultVO vo);
+
+    public Consult selectConsultDtVw(ConsultVO vo);
 }

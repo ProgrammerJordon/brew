@@ -20,4 +20,8 @@ public class ConsultDAO {
     List<ConsultVO> selectConsultList(ConsultVO vo) {
         return sqlSession.selectList("ConsultDAO.selectConsultList", vo);
     }
+
+    public ConsultVO selectConsultDtVw(ConsultVO vo) {
+        return sqlSession.selectOne("ConsultDAO.selectConsultDtVw", vo);
+    }
 }

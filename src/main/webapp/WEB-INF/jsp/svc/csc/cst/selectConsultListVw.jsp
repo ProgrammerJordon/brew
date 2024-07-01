@@ -96,7 +96,7 @@
     </div>
     <div class="table-box">
         <table>
-            <caption class="hidden">관리자 게시판 목록</caption>
+            <caption class="hidden">문의사항 게시판 목록</caption>
             <colgroup>
                 <col class="num" width="60%">
                 <col class="num" width="10%">
