@@ -1,4 +1,4 @@
-package brew.cmm.service;
+package brew.cmm.service.fms;
 
 import java.util.List;
 import java.util.Map;

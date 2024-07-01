@@ -1,4 +1,4 @@
-package brew.cmm.service;
+package brew.cmm.service.fms;
 
 import brew.cmm.vo.CommonVO;
 import lombok.Data;

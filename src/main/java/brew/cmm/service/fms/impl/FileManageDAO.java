@@ -1,6 +1,6 @@
-package brew.cmm.service.impl;
+package brew.cmm.service.fms.impl;
 
-import brew.cmm.service.FileVO;
+import brew.cmm.service.fms.FileVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;

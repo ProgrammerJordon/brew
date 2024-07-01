@@ -1,6 +1,6 @@
-package brew.cmm.service.impl;
-import brew.cmm.service.FileMngService;
-import brew.cmm.service.FileVO;
+package brew.cmm.service.fms.impl;
+import brew.cmm.service.fms.FileMngService;
+import brew.cmm.service.fms.FileVO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
