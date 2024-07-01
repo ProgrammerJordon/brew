@@ -17,18 +17,18 @@ public class BrewApplicationException extends RuntimeException {
     public BrewApplicationException() {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
         if(this.message == null) {
-            this.message = this.brewMessageUtil.getMessage("fail.common.msg");
+            this.message = brewMessageUtil.getMessage("fail.common.msg");
         }
     }
 
     public BrewApplicationException(String message) {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.message = BrewMessageUtil.getMessage(message);
+        this.message = brewMessageUtil.getMessage(message);
     }
 
     public BrewApplicationException(String messageCode, Object[] args) {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.message = BrewMessageUtil.getMessage(messageCode, args);
+        this.message = brewMessageUtil.getMessage(messageCode, args);
     }
 
     public BrewApplicationException(String message, HttpStatus httpStatusCode) {
