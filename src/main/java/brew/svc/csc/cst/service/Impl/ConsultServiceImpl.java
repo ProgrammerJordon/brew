@@ -43,4 +43,9 @@ public class ConsultServiceImpl implements ConsultService {
                 .consultVO(consultDAO.selectConsultDtVw(vo))
                 .build();
     }
+
+//    @Override
+//    public Consult updateConsult(ConsultVO vo) {
+//        return Consult.builder();
+//    }
 }

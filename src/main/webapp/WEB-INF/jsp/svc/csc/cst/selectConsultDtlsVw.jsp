@@ -6,18 +6,35 @@
     const cst = {
 
         sn : '${vo.sn}',
-        vo_dt : {},
 
         init : () => {
             cst.selectConsultDtVw();
         },
 
+        //화면에 값 뿌리기
         selectConsultDtVw : () => {
             let param = {sn : cst.sn}
 
             callModule.call(Util.getRequestUrl("/svc/csc/cst/selectConsultDtVw.do"), param, (result) => {
-                cst.vo_dt = result.consultVO;
+                $("#title").val(result.consultVO.title);
+                $("#contents").val(result.consultVO.contents);
             })
+        },
+
+        //목록으로 돌아가기
+        selectConsultListVw : () => {
+            let param = {}
+            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultListVw.do"), param, "post");
+        },
+
+        updateConsult : () => {
+            let param = {
+                sn : cst.sn,
+                title : $("#title").val,
+                contents : $("#contents").val,
+            }
+
+            callModule.post(Util.getRequestUrl("/svc/csc/cst/updateConsult.do"), param, "post");
         }
 
     }
@@ -40,13 +57,13 @@
             <tr>
                 <th>제목</th>
                 <td>
-                    ${cst.vo_dt.title}
+                    <input type="text" id="title" name="title" readonly/>
                 </td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td>
-                    ${cst.vo_dt.contents}
+                    <textarea id="contents" name="contents" readonly></textarea>
                 </td>
             </tr>
             </tbody>
@@ -55,7 +72,7 @@
     <div class="btn">
         <div class="btn__box">
             <div class="left">
-                <button class="btn__gray" onclick="">
+                <button class="btn__gray" onclick="cst.selectConsultListVw();">
                     <span>목록</span>
                 </button>
             </div>
@@ -63,7 +80,7 @@
                 <button class="btn__red" onclick="">
                     <span>삭제</span>
                 </button>
-                <button class="btn__bluegreen" onclick="">
+                <button class="btn__bluegreen" onclick="cst.updateConsult();">
                     <span>수정</span>
                 </button>
             </div>

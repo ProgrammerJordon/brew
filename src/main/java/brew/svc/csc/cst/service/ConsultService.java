@@ -11,4 +11,6 @@ public interface ConsultService {
     public Consult selectConsultList(ConsultVO vo);
 
     public Consult selectConsultDtVw(ConsultVO vo);
+
+//    public Consult updateConsult(ConsultVO vo);
 }

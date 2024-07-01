@@ -6,10 +6,7 @@ import brew.svc.csc.cst.service.ConsultVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/svc/csc/cst")
@@ -60,4 +57,9 @@ public class ConsultController {
         return consultService.selectConsultDtVw(vo);
     }
 
+//    @RequestMapping("/updateConsult.do")
+//    @ResponseBody
+//    public Consult updateConsult(@RequestBody ConsultVO vo) {
+//        return consultService.updateConsult(vo);
+//    }
 }
