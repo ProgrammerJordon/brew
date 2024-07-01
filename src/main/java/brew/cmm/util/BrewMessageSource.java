@@ -35,11 +35,7 @@ public class BrewMessageSource extends ReloadableResourceBundleMessageSource imp
      * @return String
      */
     public String getMessage(String code) {
-        String message = getReloadableResourceBundleMessageSource().getMessage(code, null, Locale.getDefault());
-        if(message == null) {
-            message = "";
-        }
-        return message;
+        return getReloadableResourceBundleMessageSource().getMessage(code, null, Locale.getDefault());
     }
 
     /**
