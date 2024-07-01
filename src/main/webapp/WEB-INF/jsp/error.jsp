@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="wrap type01">
 	<div class="error__box">
 		<div>
