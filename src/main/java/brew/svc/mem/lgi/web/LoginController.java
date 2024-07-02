@@ -24,29 +24,11 @@ public class LoginController {
 
     @RequestMapping("/selectLoginVw.do")
     public String selectLoginVw(Model model) {
-        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
+
+        model.addAttribute("kakaoKey", BrewProperties.getProperty("kakao.js.properties"));
+        model.addAttribute("kakaoDirecturl", BrewProperties.getProperty("kakao.redirect.url"));
+
         return "/svc/mem/lgi/selectLoginVw";
     }
 
-    @RequestMapping("/insertKakaoLogin.do")
-    @ResponseBody
-    public Login insertKakaoLogin(@RequestBody LoginVO vo) {
-        return loginService.insertKakaoLogin(vo);
-    }
-
-    @RequestMapping("/selectKakaoLogin.do")
-    @ResponseBody
-    public Login selectKakaoLogin(@RequestBody LoginVO vo, HttpServletRequest request) {
-        Login login = loginService.selectKakaoLogin(vo);
-        HttpSession session = request.getSession(false);
-        session.setAttribute("userSn", login.getLoginVO().getUserSn());
-        session.setAttribute("userId", login.getLoginVO().getUserId());
-        session.setAttribute("userNm", login.getLoginVO().getUserNm());
-        session.setAttribute("nickNm", login.getLoginVO().getNickNm());
-        session.setAttribute("authCd", login.getLoginVO().getAuthCd());
-        session.setAttribute("loginSe", login.getLoginVO().getLoginSe());
-        session.setAttribute("profileImgUrl", login.getLoginVO().getProfileImgUrl());
-        session.setAttribute("thumbnailImgUrl", login.getLoginVO().getThumbnailImgUrl());
-        return login;
-    }
 }

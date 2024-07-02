@@ -34,13 +34,4 @@ public class IndexController {
         return "/svc/min/idx/index";
     }
 
-    @RequestMapping("/logout.do")
-    public String logout(Model model, HttpServletRequest request) {
-        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "redirect:/index.do";
-    }
 }

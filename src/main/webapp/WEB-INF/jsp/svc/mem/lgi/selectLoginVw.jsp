@@ -3,46 +3,17 @@
 
 <script>
     const lgi = {
+        kakaoKey : '${kakaoKey}',
+        kakaoDirecturl : '${kakaoDirecturl}',
 
         selectIndexVw : () => {
             callModule.post(Util.getRequestUrl("/index.do"), {}, 'post')
         },
 
         kakaoLogin : () => {
-            Kakao.Auth.login({
-                success: function (response) {
-                    Kakao.API.request({
-                        url: '/v2/user/me',
-                        success: function (response) {
-                            let accessToken = Kakao.Auth.getAccessToken();
-                            Kakao.Auth.setAccessToken(accessToken);
+            kakao.kakaoLogin(lgi.kakaoKey, lgi.kakaoDirecturl)
+        }
 
-                            let param = {
-                                userId : response.id,
-                                userNm : response.name || null,
-                                nickNm : response.kakao_account.profile.nickname || null,
-                                profileImgUrl : response.kakao_account.profile.profile_image_url || null,
-                                thumbnailImgUrl : response.kakao_account.profile.thumbnail_image_url || null,
-                                rgtrId : response.id,
-                                mdfrId : response.id
-                            }
-                            callModule.call(Util.getRequestUrl("/svc/mem/lgi/insertKakaoLogin.do"), param, (result) =>{
-                                callModule.call(Util.getRequestUrl("/svc/mem/lgi/selectKakaoLogin.do"), param, () => {
-                                    lgi.selectIndexVw();
-                                })
-                            })
-
-                        },
-                        fail: function (error) {
-                            alert(JSON.stringify(error))
-                        },
-                    })
-                },
-                fail: function (error) {
-                    alert(JSON.stringify(error))
-                },
-            })
-        },
     }
 </script>
 

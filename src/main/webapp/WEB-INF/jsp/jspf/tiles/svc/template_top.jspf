@@ -22,10 +22,6 @@
         contextPath: "/",
     };
 
-    const kakaoJsProperties = '${kakaoJsProperties}';
-    Kakao.init(kakaoJsProperties);
-    Kakao.isInitialized();
-
     const header = {
         init : () => {
 
@@ -59,14 +55,6 @@
                 // 서비스
                 csc : '#csc',
 
-                // 관리자
-                bpm: '#bpm',
-                cts: '#cts',
-                dtm: '#dtm',
-                usr: '#usr',
-                cmm: '#cmm',
-                uss: '#uss',
-                sys: '#sys'
             };
 
             for (let key in sections) {

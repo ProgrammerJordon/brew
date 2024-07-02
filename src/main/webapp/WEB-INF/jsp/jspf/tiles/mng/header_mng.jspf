@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <a href="<c:out value='/logout.do'/>">
-                        <button class="btn__black__line" onclick="kakao.kakaoLogout(kakaoJsProperties)">
+                        <button class="btn__black__line" onclick="sns.logout();">
                             <span>로그아웃</span>
                         </button>
                     </a>

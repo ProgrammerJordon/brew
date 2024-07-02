@@ -1,43 +1,13 @@
 (function () {
     window.kakao = {
 
-        kakaoLogin : (param) => {
-            Kakao.init(param);
+        kakaoLogin : (key, redirectUri) => {
+            Kakao.init(key);
             Kakao.isInitialized();
-            Kakao.Auth.login({
-                success: function (response) {
-                    Kakao.API.request({
-                        url: '/v2/user/me',
-                        success: function (response) {
-                            var accessToken = Kakao.Auth.getAccessToken();
-                            Kakao.Auth.setAccessToken(accessToken);
-                            return response;
-                        },
-                        fail: function (error) {
-                            console.log(JSON.stringify(error))
-                        },
-                    })
-                },
-                fail: function (error) {
-                    console.log(JSON.stringify(error))
-                },
-            })
+            Kakao.Auth.authorize({
+                redirectUri: redirectUri
+            });
         },
-
-        kakaoLogout : (param) => {
-            if (Kakao.Auth.getAccessToken()) {
-                Kakao.API.request({
-                    url: '/v1/user/unlink',
-                    success: function (response) {
-                        console.log(response)
-                    },
-                    fail: function (error) {
-                        console.log(error)
-                    },
-                })
-                Kakao.Auth.setAccessToken(undefined)
-            }
-        }
     }
 
     window.google = {
@@ -50,5 +20,11 @@
 
     window.naver = {
 
+    }
+
+    window.sns = {
+        logout : () => {
+            callModule.post(Util.getRequestUrl("/logout.do"), null, 'get');
+        }
     }
 })();
