@@ -2,37 +2,45 @@ package brew.cmm.exception;
 
 import brew.cmm.util.BrewMessageUtil;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @SuppressWarnings("serial")
-public class BrewApplicationException extends RuntimeException {
+public class BrewApplicationException extends RuntimeException implements ApplicationContextAware {
 
-    private BrewMessageUtil brewMessageUtil;
+    private static ApplicationContext context;
+
     private HttpStatus httpStatusCode;
     private String message;
 
     public BrewApplicationException() {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        if(this.message == null) {
-            this.message = brewMessageUtil.getMessage("fail.common.msg");
-        }
+        this.message = getBrewMessageUtil().getMessage("에러가 발생하였습니다.");
     }
 
     public BrewApplicationException(String message) {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.message = brewMessageUtil.getMessage(message);
+        this.message = getBrewMessageUtil().getMessage(message);
     }
 
     public BrewApplicationException(String messageCode, Object[] args) {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.message = brewMessageUtil.getMessage(messageCode, args);
+        this.message = getBrewMessageUtil().getMessage(messageCode, args);
     }
 
     public BrewApplicationException(String message, HttpStatus httpStatusCode) {
         this.httpStatusCode = httpStatusCode;
         this.message = message;
+    }
+
+    private BrewMessageUtil getBrewMessageUtil() {
+        return context.getBean(BrewMessageUtil.class);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        context = applicationContext;
     }
 }

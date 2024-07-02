@@ -1,8 +1,11 @@
 package brew.cmm.exception;
 
+import brew.cmm.util.BrewMessageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class BrewExceptionHandler {
 
+    @Autowired
+    private ApplicationContext context;
+
     @ExceptionHandler(value = {Exception.class})
     protected String handleException(HttpServletRequest request, HttpServletResponse response, Model model, Exception e) {
 
@@ -19,15 +25,16 @@ public class BrewExceptionHandler {
         e.printStackTrace();
         log.error("************************************************************");
 
-        if (isAjaxRequest(request) == false) {
-            BrewApplicationException applicationException = new BrewApplicationException();
-            model.addAttribute("errorCode", applicationException.getHttpStatusCode());
-            model.addAttribute("errorMessage", applicationException.getMessage());
+        BrewMessageUtil brewMessageUtil = context.getBean(BrewMessageUtil.class);
+        String errorMessage = brewMessageUtil.getMessage("에러가 발생하였습니다.");
+
+        if (!isAjaxRequest(request)) {
+            model.addAttribute("errorCode", HttpStatus.INTERNAL_SERVER_ERROR);
+            model.addAttribute("errorMessage", errorMessage);
             return "/error";
         } else {
-            response.setStatus(new BrewApplicationException().getHttpStatusCode().value());
-            model.addAttribute("errorMessage", new BrewApplicationException().getMessage());
-
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            model.addAttribute("errorMessage", errorMessage);
             return "jsonView";
         }
     }
@@ -40,14 +47,13 @@ public class BrewExceptionHandler {
         e.printStackTrace();
         log.error("************************************************************");
 
-        if (isAjaxRequest(request) == false) {
+        if (!isAjaxRequest(request)) {
             model.addAttribute("errorCode", e.getHttpStatusCode() != null ? e.getHttpStatusCode().value() : HttpStatus.INTERNAL_SERVER_ERROR.value());
             model.addAttribute("errorMessage", e.getMessage());
             return "/error";
         } else {
             response.setStatus(e.getHttpStatusCode().value());
             model.addAttribute("errorMessage", e.getMessage());
-
             return "jsonView";
         }
     }
