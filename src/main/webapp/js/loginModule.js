@@ -11,7 +11,15 @@
     }
 
     window.google = {
-
+        googleLogin : (key, redirectUri) => {
+            let url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
+                key +
+                '&redirect_uri=' +
+                redirectUri +
+                '&response_type=code' +
+                '&scope=email profile';
+            window.location.href = url;
+        }
     }
 
     window.instagram = {

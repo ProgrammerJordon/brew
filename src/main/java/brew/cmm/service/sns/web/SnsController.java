@@ -7,11 +7,16 @@ import brew.svc.mem.lgi.service.LoginVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -158,6 +163,69 @@ public class SnsController {
         }
         return null;
     }
+
+    // 구글
+
+    private final String GOOGLE_API_KEY = BrewProperties.getProperty("google.api.properties");
+    private final String GOOGLE_CLIENT_ID = BrewProperties.getProperty("google.clientId.properties");
+    private final String GOOGLE_PASSWORD_KEY = BrewProperties.getProperty("google.clientPassword.properties");
+    private final String GOOGLE_REDIRECT_URI = BrewProperties.getProperty("google.redirect.url");
+    private final String GOOGLE_CALLBACK_URI = BrewProperties.getProperty("google.callback.url");
+
+//    @RequestMapping("/googleOauth.do")
+//    @ResponseBody
+//    public String googleOauth(@RequestParam("code") String code) throws JSONException {
+//        String accessTokenUrl = "https://oauth2.googleapis.com/token";
+//
+//        // POST 요청을 보내기 위한 RestTemplate 객체 생성
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        // POST 요청을 위한 파라미터 설정
+//        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+//        requestBody.add("code", code);
+//        requestBody.add("client_id", GOOGLE_CLIENT_ID);
+//        requestBody.add("client_secret", GOOGLE_PASSWORD_KEY);
+//        requestBody.add("redirect_uri", GOOGLE_CALLBACK_URI);
+//        requestBody.add("grant_type", "authorization_code");
+//
+//        // 액세스 토큰 요청 및 응답 받기
+//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(accessTokenUrl, requestBody, String.class);
+//
+//        // 응답에서 액세스 토큰 추출
+//        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+//            String responseBody = responseEntity.getBody();
+//            JSONObject jsonResponse = new JSONObject(responseBody);
+//            String accessToken = jsonResponse.getString("access_token");
+//
+//            // 여기서 액세스 토큰을 사용하여 추가 작업을 수행할 수 있음
+//            // 예를 들어, 구글 API 호출이나 사용자 정보 가져오기 등
+//            // 여기서는 단순히 응답을 반환하거나 JSON으로 파싱하여 필요한 작업을 수행할 수 있음
+//            return responseBody;
+//        } else {
+//            // 오류 처리
+//            return "Error occurred: " + responseEntity.getStatusCodeValue();
+//        }
+//    }
+
+//    @GetMapping("/googleCallback.do")
+//    @ResponseBody
+//    public String getUserInfo(@RequestParam("accessToken") String accessToken) {
+//        String userInfoUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setBearerAuth(accessToken);
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        ResponseEntity<String> responseEntity = restTemplate.exchange(userInfoUrl, HttpMethod.GET, entity, String.class);
+//
+//        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+//            return responseEntity.getBody();
+//        } else {
+//            return "Error occurred: " + responseEntity.getStatusCodeValue();
+//        }
+//    }
+
 
     @RequestMapping("/logout.do")
     public String snsLogout(HttpServletRequest request) {

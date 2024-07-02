@@ -4,7 +4,12 @@
 <script>
     const lgi = {
         kakaoKey : '${kakaoKey}',
-        kakaoDirecturl : '${kakaoDirecturl}',
+        kakaoDirecturl : '${kakaoRedirectUrl}',
+
+        googleKey : '${googleKey}',
+        googleRedirectUrl : '${googleRedirectUrl}',
+        googleClientId : '${googleClientId}',
+        googleClientPassword : '${googleClientPassword}',
 
         selectIndexVw : () => {
             callModule.post(Util.getRequestUrl("/index.do"), {}, 'post')
@@ -12,6 +17,10 @@
 
         kakaoLogin : () => {
             kakao.kakaoLogin(lgi.kakaoKey, lgi.kakaoDirecturl)
+        },
+
+        googleLogin: () => {
+            google.googleLogin(lgi.googleClientId, lgi.googleRedirectUrl)
         }
 
     }
@@ -25,8 +34,8 @@
     </div>
     <br><br>
     <div>
-        <a href="javascript:">
-            <img src="<c:url value=""/>">
+        <a href="javascript:lgi.googleLogin();">
+            <img src="<c:url value="/images/ico-login__google.svg"/>">
         </a>
     </div>
     <br><br>
