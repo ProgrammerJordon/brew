@@ -1,5 +1,6 @@
 package brew.svc.min.idx.web;
 
+import brew.cmm.service.ppt.BrewProperties;
 import brew.svc.mem.lgi.service.LoginVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class IndexController {
 
-    @Value("${kakao.js.properties}")
-    private String kakaoJsProperties;
-
     @RequestMapping("/index.do")
     public String selectIndexVw(Model model, HttpServletRequest request) {
 
-        model.addAttribute("kakaoJsProperties", kakaoJsProperties);
+        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
 
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -35,7 +33,7 @@ public class IndexController {
 
     @RequestMapping("/logout.do")
     public String logout(Model model, HttpServletRequest request) {
-        model.addAttribute("kakaoJsProperties", kakaoJsProperties);
+        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
