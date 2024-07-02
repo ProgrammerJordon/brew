@@ -3,7 +3,7 @@
 
 
 <div>
-    여기다가 게시판을 만들어 봅시다.
+    샘플페이지입니다.
 </div>
 
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template-bottom.jspf" %>
