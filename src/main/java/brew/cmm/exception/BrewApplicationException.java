@@ -1,5 +1,6 @@
 package brew.cmm.exception;
 
+import brew.cmm.service.ppt.BrewProperties;
 import brew.cmm.util.BrewMessageUtil;
 import lombok.Getter;
 import org.springframework.context.ApplicationContext;
@@ -17,7 +18,7 @@ public class BrewApplicationException extends RuntimeException implements Applic
 
     public BrewApplicationException() {
         this.httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.message = getBrewMessageUtil().getMessage("에러가 발생하였습니다.");
+        this.message = getBrewMessageUtil().getMessage(BrewProperties.getProperty("fail.common.msg"));
     }
 
     public BrewApplicationException(String message) {

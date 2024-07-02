@@ -1,5 +1,6 @@
 package brew.svc.mem.lgi.web;
 
+import brew.cmm.service.ppt.BrewProperties;
 import brew.svc.mem.lgi.service.LoginVO;
 import brew.svc.mem.lgi.service.Login;
 import brew.svc.mem.lgi.service.LoginService;
@@ -19,14 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class LoginController {
 
-    @Value("${kakao.js.properties}")
-    private String kakaoJsProperties;
-
     private final LoginService loginService;
 
     @RequestMapping("/selectLoginVw.do")
     public String selectLoginVw(Model model) {
-        model.addAttribute("kakaoJsProperties", kakaoJsProperties);
+        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
         return "/svc/mem/lgi/selectLoginVw";
     }
 

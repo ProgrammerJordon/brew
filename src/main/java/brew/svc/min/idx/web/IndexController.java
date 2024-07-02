@@ -16,7 +16,7 @@ public class IndexController {
     @Value("${kakao.js.properties}")
     private String kakaoJsProperties;
 
-    @RequestMapping("/")
+    @RequestMapping("/index.do")
     public String selectIndexVw(Model model, HttpServletRequest request) {
 
         model.addAttribute("kakaoJsProperties", kakaoJsProperties);
@@ -40,6 +40,6 @@ public class IndexController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/";
+        return "redirect:/index.do";
     }
 }

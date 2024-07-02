@@ -15,7 +15,7 @@
         <div>
             <div class="btn__box">
                 <div class="mr-16">
-                    <a href="<c:out value='/'/>">
+                    <a href="<c:out value='/index.do'/>">
                         <button class="btn__black__line">
                             <span>클라이언트</span>
                         </button>

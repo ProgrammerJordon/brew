@@ -5,7 +5,7 @@
     const lgi = {
 
         selectIndexVw : () => {
-            callModule.post(Util.getRequestUrl("/"), {}, 'post')
+            callModule.post(Util.getRequestUrl("/index.do"), {}, 'post')
         },
 
         kakaoLogin : () => {

@@ -21,7 +21,7 @@
     </div>
     <div class="btn__box center">
         <a style="text-align: center; text-decoration: none;" href="javascript:history.go(-1);" class="btn__gray">이전페이지로</a>
-        <a style="text-align: center; text-decoration: none;" href="/" class="btn__blue">홈으로</a>
+        <a style="text-align: center; text-decoration: none;" href="/index.do" class="btn__blue">홈으로</a>
     </div>
 </div>
 <style>

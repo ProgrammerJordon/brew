@@ -1,5 +1,6 @@
 package brew.cmm.exception;
 
+import brew.cmm.service.ppt.BrewProperties;
 import brew.cmm.util.BrewMessageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ public class BrewExceptionHandler {
         log.error("************************************************************");
 
         BrewMessageUtil brewMessageUtil = context.getBean(BrewMessageUtil.class);
-        String errorMessage = brewMessageUtil.getMessage("에러가 발생하였습니다.");
+        String errorMessage = brewMessageUtil.getMessage(BrewProperties.getProperty("fail.common.msg"));
 
         if (!isAjaxRequest(request)) {
             model.addAttribute("errorCode", HttpStatus.INTERNAL_SERVER_ERROR);
