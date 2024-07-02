@@ -1,11 +1,9 @@
 package brew.svc.min.idx.web;
 
 import brew.cmm.service.ppt.BrewProperties;
-import brew.svc.mem.lgi.service.LoginVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
+
+    @RequestMapping("/")
+    public String indexVw() {
+        return "redirect:/index.do";
+    }
 
     @RequestMapping("/index.do")
     public String selectIndexVw(Model model, HttpServletRequest request) {
