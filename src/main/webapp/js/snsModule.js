@@ -27,7 +27,15 @@
     }
 
     window.naver = {
+            naverLgoin : (key, uri) => {
+                let url = 'https://nid.naver.com/oauth2.0/authorize' +
+                    '?response_type=code' +
+                    '&client_id=' + key +
+                    '&redirect_uri=' + uri +
+                    '&state=STATE';
 
+                window.location.href = url;
+            }
     }
 
     window.sns = {

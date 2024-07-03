@@ -24,6 +24,14 @@ public class LoginVO extends CommonVO implements Serializable {
     private String givenNm;
     private String familyNm;
 
+    private String birthYear;
+    private String birthDay;
+    private String mobile;
+    private String mobileE;
+    private String age;
+    private String gender;
+
+
     private String accessToken;
     private String useYn;
     private String authCd;
@@ -31,5 +39,6 @@ public class LoginVO extends CommonVO implements Serializable {
 
     private int count;
     private int result;
+
 
 }

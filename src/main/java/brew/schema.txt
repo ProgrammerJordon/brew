@@ -226,22 +226,28 @@ create table brewlogin
         constraint brewlogin_pk
             primary key,
     user_id           varchar   not null,
-    login_se          varchar   not null,
     nick_nm           varchar,
-    email             varchar,
-    user_nm           varchar,
-    given_nm          varchar,
-    family_nm         varchar,
     profile_img_url   varchar,
-    thumbnail_img_url varchar,
-    auth_cd           varchar   not null,
-    email_verified    varchar,
+    user_nm           varchar,
     use_yn            char      not null,
-    exit_yn           varchar   not null,
+    login_se          varchar   not null,
     rgtr_id           varchar   not null,
     rgtr_dt           timestamp not null,
     mdfr_id           varchar   not null,
-    mdfr_dt           timestamp not null
+    mdfr_dt           timestamp not null,
+    auth_cd           varchar   not null,
+    thumbnail_img_url varchar,
+    exit_yn           varchar   not null,
+    given_nm          varchar,
+    family_nm         varchar,
+    email_verified    varchar,
+    email             varchar,
+    birth_year        varchar,
+    birth_day         varchar,
+    mobile            varchar,
+    mobile_e          varchar,
+    age               varchar,
+    gender            varchar
 );
 
 comment on table brewlogin is '로그인';
@@ -281,6 +287,18 @@ comment on column brewlogin.family_nm is '성';
 comment on column brewlogin.email_verified is '이메일인증여부';
 
 comment on column brewlogin.email is '이메일';
+
+comment on column brewlogin.birth_year is '출생연도';
+
+comment on column brewlogin.birth_day is '출생월일';
+
+comment on column brewlogin.mobile is '핸드폰번호';
+
+comment on column brewlogin.mobile_e is '국적핸드폰번호';
+
+comment on column brewlogin.age is '연령대';
+
+comment on column brewlogin.gender is '성별';
 
 alter table brewlogin
     owner to postgres;

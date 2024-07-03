@@ -26,6 +26,11 @@ public class LoginController {
         model.addAttribute("googleClientId", BrewProperties.getProperty("google.clientId.properties"));
         model.addAttribute("googleClientPassword", BrewProperties.getProperty("google.clientPassword.properties"));
 
+        model.addAttribute("naverClientId", BrewProperties.getProperty("naver.clientId.properties"));
+        model.addAttribute("naverClientPassword", BrewProperties.getProperty("naver.clientPassword.properties"));
+        model.addAttribute("naverRedirectUrl", BrewProperties.getProperty("naver.redirect.url"));
+
+
         return "/svc/mem/lgi/selectLoginVw";
     }
 

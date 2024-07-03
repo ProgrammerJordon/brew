@@ -57,7 +57,7 @@
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/commonModule.js"></script>
 <script type="text/javascript" src="/js/datePickerModule.js"></script>
-<script type="text/javascript" src="/js/loginModule.js"></script>
+<script type="text/javascript" src="/js/snsModule.js"></script>
 <script type="text/javascript" src="/js/messageModule.js"></script>
 <script type="text/javascript" src="/js/popup.js"></script>
 <script type="text/javascript" src="/js/serialize.js"></script>

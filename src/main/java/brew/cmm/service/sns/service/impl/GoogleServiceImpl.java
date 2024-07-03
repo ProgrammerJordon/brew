@@ -83,17 +83,17 @@ public class GoogleServiceImpl implements GoogleService {
             String responseBody = responseEntity.getBody();
 
             // JSON 문자열을 JSONObject로 변환
-            JSONObject jsonResponse = new JSONObject(responseBody);
+            JSONObject userInfo = new JSONObject(responseBody);
 
             // 필요한 사용자 정보를 Map에 저장
             Map<String, String> userInfoMap = new HashMap<>();
-            userInfoMap.put("userId", jsonResponse.getString("sub")); // 사용자 ID
-            userInfoMap.put("email", jsonResponse.getString("email")); // 이메일
-            userInfoMap.put("nickNm", jsonResponse.getString("name")); // 닉네임
-            userInfoMap.put("givenNm", jsonResponse.getString("given_name")); // 이름
-            userInfoMap.put("familyNm", jsonResponse.getString("family_name")); // 성
-            userInfoMap.put("profileImgUrl", jsonResponse.getString("picture")); // 프로필 사진 URL 등
-            userInfoMap.put("emailVerified", jsonResponse.getString("email_verified")); // 이메일인증 여부
+            userInfoMap.put("userId", userInfo.getString("sub")); // 사용자 ID
+            userInfoMap.put("email", userInfo.getString("email")); // 이메일
+            userInfoMap.put("nickNm", userInfo.getString("name")); // 닉네임
+            userInfoMap.put("givenNm", userInfo.getString("given_name")); // 이름
+            userInfoMap.put("familyNm", userInfo.getString("family_name")); // 성
+            userInfoMap.put("profileImgUrl", userInfo.getString("picture")); // 프로필 사진 URL 등
+            userInfoMap.put("emailVerified", userInfo.getString("email_verified")); // 이메일인증 여부
 
             return userInfoMap;
 
