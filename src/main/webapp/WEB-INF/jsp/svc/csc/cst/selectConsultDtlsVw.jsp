@@ -27,6 +27,26 @@
             callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultListVw.do"), param, "post");
         },
 
+        deleteConsult : () => {
+            let param = {
+                sn : cst.sn
+            }
+
+            MessageUtil.confirm("문의사항을 삭제 하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        sn : cst.sn
+                    }
+
+                    callModule.call(Util.getRequestUrl("/svc/csc/cst/deleteConsult.do"), param, (result) => {
+                        MessageUtil.alert(result.consultVO.resultMessage, () => {
+                            cst.selectConsultListVw();
+                        })
+                    })
+                }
+            }, "확인", "취소")
+        },
+
         updateConsultVw : () => {
             let param = {
                 sn : cst.sn,
@@ -75,7 +95,7 @@
                 </button>
             </div>
             <div class="right">
-                <button class="btn__red" onclick="">
+                <button class="btn__red" onclick="cst.deleteConsult();">
                     <span>삭제</span>
                 </button>
                 <button class="btn__bluegreen" onclick="cst.updateConsultVw();">

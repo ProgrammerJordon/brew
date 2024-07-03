@@ -54,4 +54,22 @@
         where
             sn = #{sn}
     </select>
+
+    <update id="updateConsult" parameterType="brew.svc.csc.cst.service.ConsultVO">
+        update
+            brew.brewcst
+        set
+            title = #{title},
+            contents = #{contents}
+        where
+            sn = #{sn}
+    </update>
+
+    <delete id="deleteConsult" parameterType="brew.svc.csc.cst.service.ConsultVO">
+        delete from
+            brew.brewcst
+        where
+            sn = #{sn}
+    </delete>
+
 </mapper>

@@ -27,14 +27,37 @@
             callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultListVw.do"), param, "post");
         },
 
-        updateConsult : () => {
+        backselectConsultDtlsVw : () => {
             let param = {
-                sn : cst.sn,
-                title : $("#title").val,
-                contents : $("#contents").val,
+                sn : cst.sn
             }
 
-            callModule.post(Util.getRequestUrl("/svc/csc/cst/updateConsult.do"), param, "post");
+            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultDtlsVw.do"), param, "get");
+        },
+
+        updateConsult : () => {
+            var validationGroup = [
+                {id: 'title', name: '제목', mandatory: true},
+                {id: 'contents', name: '내용', mandatory: true},
+            ];
+
+            if (!Util.validateComponent(validationGroup)) return;
+
+            MessageUtil.confirm("문의사항을 수정 하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        sn : cst.sn,
+                        title : $("#title").val(),
+                        contents : $("#contents").val()
+                    }
+
+                    callModule.call(Util.getRequestUrl("/svc/csc/cst/updateConsult.do"), param, (result) => {
+                        MessageUtil.alert(result.consultVO.resultMessage, () => {
+                            cst.selectConsultListVw();
+                        })
+                    })
+                }
+            }, "확인", "취소")
         }
 
     }
@@ -57,13 +80,13 @@
             <tr>
                 <th>제목</th>
                 <td>
-                    <input type="text" id="title" name="title" readonly/>
+                    <input type="text" id="title" name="title"/>
                 </td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="contents" name="contents" readonly></textarea>
+                    <textarea id="contents" name="contents"></textarea>
                 </td>
             </tr>
             </tbody>
@@ -72,7 +95,7 @@
     <div class="btn">
         <div class="btn__box">
             <div class="right">
-                <button class="btn__red" onclick="">
+                <button class="btn__red" onclick="cst.backselectConsultDtlsVw();">
                     <span>취소</span>
                 </button>
                 <button class="btn__bluegreen" onclick="cst.updateConsult();">
