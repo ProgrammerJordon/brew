@@ -1,5 +1,6 @@
 package brew.cmm.service.sns.web;
 
+import brew.cmm.service.ppt.BrewProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 @Controller
@@ -40,8 +44,7 @@ public class LogoutController {
         }else if (loginSe != null && loginSe.equals("GOOGLE")) {
 
             // 구글은 access_token 안에 토큰값이 String이 아닌 Map<String, Object> 상태
-            Map<String, Object> googleToken = (Map<String, Object>) session.getAttribute("accessToken");
-            String accessToken = (String) googleToken.get("access_token");
+            String accessToken = String.valueOf(session.getAttribute("accessToken"));
 
             String googleLogoutUrl = "https://oauth2.googleapis.com/revoke";
 
@@ -56,6 +59,40 @@ public class LogoutController {
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.postForObject(googleLogoutUrl, requestEntity, String.class);
+
+        }else if (loginSe != null && loginSe.equals("NAVER")) {
+
+            String NAVER_CLIENT_ID = BrewProperties.getProperty("naver.clientId.properties");
+            String NAVER_PASSWORD_KEY = BrewProperties.getProperty("naver.clientPassword.properties");
+
+
+            String accessToken = String.valueOf(session.getAttribute("accessToken"));
+
+            try {
+                String apiURL = "https://nid.naver.com/oauth2.0/token";
+                String params = "grant_type=delete&client_id=" + NAVER_CLIENT_ID + "&client_secret=" + NAVER_PASSWORD_KEY + "&access_token=" + accessToken + "&service_provider=NAVER";
+
+                URL url = new URL(apiURL);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setDoOutput(true);
+
+                OutputStream os = con.getOutputStream();
+                os.write(params.getBytes());
+                os.flush();
+                os.close();
+
+                int responseCode = con.getResponseCode();
+                System.out.println("Response Code: " + responseCode);
+
+                if (responseCode == 200) {
+                    System.out.println("Successfully logged out from Naver");
+                } else {
+                    System.out.println("Failed to log out from Naver");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
 

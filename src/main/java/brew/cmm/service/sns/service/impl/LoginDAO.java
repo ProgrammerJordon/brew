@@ -38,4 +38,13 @@ public class LoginDAO {
     int insertGoogleSignIn(LoginVO vo) {
         return sqlSession.insert("LoginDAO.insertGoogleSignIn", vo);
     }
+
+    // 네이버 가입
+    int insertNaverLogin(LoginVO vo) {
+        return sqlSession.insert("LoginDAO.insertNaverLogin", vo);
+    }
+    // 네이버 가입내역
+    int insertNaverSignIn(LoginVO vo) {
+        return sqlSession.insert("LoginDAO.insertNaverSignIn", vo);
+    }
 }

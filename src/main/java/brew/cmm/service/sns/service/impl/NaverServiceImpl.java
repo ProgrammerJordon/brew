@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -116,6 +117,7 @@ public class NaverServiceImpl implements NaverService {
         return userInfoMap;
     }
 
+    @Transactional
     @Override
     public Login insertNaverLogin(Map<String, String> userInfo) {
         // 로그인시 회원가입 또는 로그인처리할 코드
@@ -133,12 +135,38 @@ public class NaverServiceImpl implements NaverService {
         vo.setBirthDay(userInfo.get("birthDay"));
 
         if(vo.getUserId() != null && !"".equals(vo.getUserId())) {
+            int count = loginDAO.selectSignInYn(vo);
+            int result = 0;
+            if(count == 1) {
+                vo.setResultMessage("정상적으로 로그인 되었습니다.");
+                vo.setCount(count);
+            }else {
+                int sql1 = loginDAO.insertNaverLogin(vo);
+                if(sql1 == 1) {
+                    result++;
+                    int sql2 = loginDAO.insertNaverSignIn(vo);
+                    if(sql2 == 1) {
+                        result++;
+                    }
+                }
+                vo.setResult(result);
 
-
+                if(result == 2) {
+                    vo.setResultMessage("정상적으로 회원가입에 성공하였습니다.");
+                }else {
+                    vo.setResultMessage("로그인에 실패하였습니다.");
+                }
+            }
         }
-
         return Login.builder()
                 .loginVO(vo)
+                .build();
+    }
+
+    @Override
+    public Login selectUserLoginInfo(LoginVO vo) {
+        return Login.builder()
+                .loginVO(loginDAO.selectUserLoginInfo(vo))
                 .build();
     }
 }

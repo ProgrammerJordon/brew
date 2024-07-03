@@ -188,4 +188,96 @@
         )
     </insert>
 
+    <insert id="insertNaverLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
+        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
+            SELECT
+            CASE
+            WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
+            ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
+            END
+            FROM brew.brewlogin
+        </selectKey>
+        INSERT INTO brew.brewlogin (
+        user_sn
+        ,user_id
+        ,user_nm
+        ,nick_nm
+        ,profile_img_url
+        ,email
+        ,birth_year
+        ,birth_day
+        ,mobile
+        ,mobile_e
+        ,age
+        ,gender
+        ,use_yn
+        ,login_se
+        ,auth_cd
+        ,exit_yn
+        ,rgtr_id
+        ,rgtr_dt
+        ,mdfr_id
+        ,mdfr_dt
+        )
+        VALUES (
+        #{userSn}
+        ,#{userId}
+        ,#{userNm}
+        ,#{nickNm}
+        ,#{profileImgUrl}
+        ,#{email}
+        ,#{birthYear}
+        ,#{birthDay}
+        ,#{mobile}
+        ,#{mobileE}
+        ,#{age}
+        ,#{gender}
+        ,'Y'
+        ,'NAVER'
+        ,'Z'
+        ,'N'
+        ,#{userSn}
+        ,current_timestamp
+        ,#{userSn}
+        ,current_timestamp
+        )
+    </insert>
+
+    <insert id="insertNaverSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
+        INSERT INTO brew.brewsignin (
+             user_sn
+            ,user_id
+            ,user_nm
+            ,nick_nm
+            ,email
+            ,profile_img_url
+            ,thumbnail_img_url
+            ,use_yn
+            ,login_se
+            ,auth_cd
+            ,exit_yn
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{userSn}
+            ,#{userId}
+            ,#{userNm}
+            ,#{nickNm}
+            ,#{email}
+            ,#{profileImgUrl}
+            ,#{thumbnailImgUrl}
+            ,'Y'
+            ,'NAVER'
+            ,'F'
+            ,'N'
+            ,#{userSn}
+            ,current_timestamp
+            ,#{userSn}
+            ,current_timestamp
+        )
+    </insert>
+
 </mapper>

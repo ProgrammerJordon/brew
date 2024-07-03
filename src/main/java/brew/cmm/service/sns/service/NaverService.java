@@ -11,4 +11,5 @@ public interface NaverService {
     Map<String, String> getUserInfo(String accessToken) throws JSONException;
 
     Login insertNaverLogin(Map<String, String> userInfo);
+    Login selectUserLoginInfo(LoginVO vo);
 }

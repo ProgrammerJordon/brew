@@ -51,7 +51,7 @@ public class GoogleController {
                 session.setAttribute("loginSe", login.getLoginVO().getLoginSe());
                 session.setAttribute("profileImgUrl", login.getLoginVO().getProfileImgUrl());
                 session.setAttribute("thumbnailImgUrl", login.getLoginVO().getThumbnailImgUrl());
-                session.setAttribute("accessToken", accessToken);
+                session.setAttribute("accessToken", accessToken.get("access_token"));
             }
 
             return "/svc/min/idx/index";
