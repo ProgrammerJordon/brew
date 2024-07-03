@@ -27,12 +27,14 @@
             callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultListVw.do"), param, "post");
         },
 
-        updateConsultVw : () => {
+        updateConsult : () => {
             let param = {
                 sn : cst.sn,
+                title : $("#title").val,
+                contents : $("#contents").val,
             }
 
-            callModule.post(Util.getRequestUrl("/svc/csc/cst/updateConsultVw.do"), param, "get");
+            callModule.post(Util.getRequestUrl("/svc/csc/cst/updateConsult.do"), param, "post");
         }
 
     }
@@ -45,7 +47,7 @@
 <div>
     <div class="table-box">
         <table>
-            <caption class="hidden">게시판 상세조회 화면</caption>
+            <caption class="hidden">문의사항 게시글 수정 화면</caption>
             <colgroup>
                 <col class="num" width="20%">
                 <col class="num" width="80%">
@@ -69,16 +71,11 @@
     </div>
     <div class="btn">
         <div class="btn__box">
-            <div class="left">
-                <button class="btn__gray" onclick="cst.selectConsultListVw();">
-                    <span>목록</span>
-                </button>
-            </div>
             <div class="right">
                 <button class="btn__red" onclick="">
-                    <span>삭제</span>
+                    <span>취소</span>
                 </button>
-                <button class="btn__bluegreen" onclick="cst.updateConsultVw();">
+                <button class="btn__bluegreen" onclick="cst.updateConsult();">
                     <span>수정</span>
                 </button>
             </div>

@@ -44,8 +44,4 @@ public class ConsultServiceImpl implements ConsultService {
                 .build();
     }
 
-//    @Override
-//    public Consult updateConsult(ConsultVO vo) {
-//        return Consult.builder();
-//    }
 }

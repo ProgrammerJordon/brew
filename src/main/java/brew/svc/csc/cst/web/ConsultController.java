@@ -57,9 +57,11 @@ public class ConsultController {
         return consultService.selectConsultDtVw(vo);
     }
 
-//    @RequestMapping("/updateConsult.do")
-//    @ResponseBody
-//    public Consult updateConsult(@RequestBody ConsultVO vo) {
-//        return consultService.updateConsult(vo);
+//    @RequestMapping("/updateConsultVw.do")
+//    public Consult updateConsult(@RequestParam(name = "sn") int sn,
+//                                 ConsultVO vo,
+//                                 Model model) {
+//
+//        return
 //    }
 }
