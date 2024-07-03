@@ -27,19 +27,19 @@
 </script>
 
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <div>
+    <div style="width: 400px; height: 80px; text-align: center;">
         <a href="javascript:lgi.kakaoLogin()">
-            <img src="<c:url value="/images/kakao/ko/kakao_login_large_wide.png"/>">
+            <img src="<c:url value="/images/kakao/en/kakao_login_large_wide.png"/>" width="100%" height="100%">
         </a>
     </div>
     <br><br>
-    <div>
+    <div style="width: 400px; height: 80px; text-align: center;">
         <a href="javascript:lgi.googleLogin();">
-            <img src="<c:url value="/images/ico-login__google.svg"/>">
+            <img src="<c:url value="/images/google/Web/svg/light/web_light_sq_SU.svg"/>"  width="100%" height="100%">
         </a>
     </div>
     <br><br>
-    <div>
+    <div style="width: 400px; height: 80px; text-align: center;">
         <a href="javascript:">
             <img src="<c:url value=""/>">
         </a>

@@ -5,7 +5,7 @@
 
 <mapper namespace="LoginDAO">
 
-    <select id="selectSignInYn" parameterType="brew.svc.mem.lgi.service.LoginVO" resultType="int">
+    <select id="selectSignInYn" parameterType="brew.cmm.service.sns.service.LoginVO" resultType="int">
         select count(*)
         from (
             select *
@@ -15,7 +15,14 @@
              )z
     </select>
 
-    <insert id="insertKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO">
+    <select id="selectUserLoginInfo" parameterType="brew.cmm.service.sns.service.LoginVO" resultType="brew.cmm.service.sns.service.LoginVO">
+        select *
+        from brew.brewlogin
+        where 1=1
+          and user_id = #{userId}
+    </select>
+
+    <insert id="insertKakaoLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
         <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
             SELECT
                 CASE
@@ -58,7 +65,7 @@
         )
     </insert>
 
-    <insert id="insertKakaoSignIn" parameterType="brew.svc.mem.lgi.service.LoginVO">
+    <insert id="insertKakaoSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
         INSERT INTO brew.brewsignin (
             user_sn
             ,user_id
@@ -93,11 +100,92 @@
         )
     </insert>
 
-    <select id="selectKakaoLogin" parameterType="brew.svc.mem.lgi.service.LoginVO" resultType="brew.svc.mem.lgi.service.LoginVO">
-        select *
-        from brew.brewlogin
-        where 1=1
-            and user_id = #{userId}
-    </select>
+    <insert id="insertGoogleLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
+        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
+            SELECT
+            CASE
+            WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
+            ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
+            END
+            FROM brew.brewlogin
+        </selectKey>
+        INSERT INTO brew.brewlogin (
+        user_sn
+        ,user_id
+        ,user_nm
+        ,nick_nm
+        ,profile_img_url
+        ,thumbnail_img_url
+        ,given_nm
+        ,family_nm
+        ,email
+        ,email_verified
+        ,use_yn
+        ,login_se
+        ,auth_cd
+        ,exit_yn
+        ,rgtr_id
+        ,rgtr_dt
+        ,mdfr_id
+        ,mdfr_dt
+        )
+        VALUES (
+        #{userSn}
+        ,#{userId}
+        ,#{familyNm} || ' ' || #{givenNm}
+        ,#{nickNm}
+        ,#{profileImgUrl}
+        ,#{thumbnailImgUrl}
+        ,#{givenNm}
+        ,#{familyNm}
+        ,#{email}
+        ,#{emailVerified}
+        ,'Y'
+        ,'GOOGLE'
+        ,'Z'
+        ,'N'
+        ,#{userSn}
+        ,current_timestamp
+        ,#{userSn}
+        ,current_timestamp
+        )
+    </insert>
+
+    <insert id="insertGoogleSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
+        INSERT INTO brew.brewsignin (
+            user_sn
+            ,user_id
+            ,user_nm
+            ,nick_nm
+            ,email
+            ,profile_img_url
+            ,thumbnail_img_url
+            ,use_yn
+            ,login_se
+            ,auth_cd
+            ,exit_yn
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
+        )
+        VALUES (
+            #{userSn}
+            ,#{userId}
+            ,#{familyNm} || ' ' || #{givenNm}
+            ,#{nickNm}
+            ,#{email}
+            ,#{profileImgUrl}
+            ,#{thumbnailImgUrl}
+            ,'Y'
+            ,'GOOGLE'
+            ,'F'
+            ,'N'
+            ,#{userSn}
+            ,current_timestamp
+            ,#{userSn}
+            ,current_timestamp
+        )
+    </insert>
 
 </mapper>

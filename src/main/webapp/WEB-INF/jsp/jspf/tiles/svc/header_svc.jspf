@@ -14,21 +14,21 @@
                 <div class="mr-16" id="admin">
                     <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
                         <button class="btn__black__line">
-                            <span>관리자</span>
+                            <span>MOVE TO ADMIN PAGE</span>
                         </button>
                     </a>
                 </div>
                 <div class="mr-16" id="login">
                     <a href="<c:out value='/svc/mem/lgi/selectLoginVw.do'/>">
                         <button class="btn__black__line">
-                            <span>로그인</span>
+                            <span>Login</span>
                         </button>
                     </a>
                 </div>
                 <div id="logout">
                     <a href="<c:out value='/logout.do'/>">
                         <button class="btn__black__line" onclick="sns.logout();">
-                            <span>로그아웃</span>
+                            <span>Logout</span>
                         </button>
                     </a>
                 </div>

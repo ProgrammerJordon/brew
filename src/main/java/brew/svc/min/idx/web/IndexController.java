@@ -20,14 +20,13 @@ public class IndexController {
     @RequestMapping("/index.do")
     public String selectIndexVw(Model model, HttpServletRequest request) {
 
-        model.addAttribute("kakaoJsProperties", BrewProperties.getProperty("kakao.js.properties"));
-
         HttpSession session = request.getSession(false);
         if (session != null) {
             model.addAttribute("userSn", session.getAttribute("userSn"));
             model.addAttribute("userId", session.getAttribute("userId"));
             model.addAttribute("userNm", session.getAttribute("userNm"));
             model.addAttribute("nickNm", session.getAttribute("nickNm"));
+            model.addAttribute("email", session.getAttribute("email"));
             model.addAttribute("authCd", session.getAttribute("authCd"));
             model.addAttribute("profileImgUrl", session.getAttribute("profileImgUrl"));
         }

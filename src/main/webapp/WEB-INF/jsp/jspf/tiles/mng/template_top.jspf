@@ -13,12 +13,11 @@
         userId : `${userId}`,
         userNm : `${userNm}`,
         nickNm : `${nickNm}`,
+        email : `${email}`,
         authCd : `${authCd}`,
         loginSe : `${loginSe}`,
         profileImgUrl : `${profileImgUrl}`
     }
-
-    const kakaoJsProperties = '${kakaoJsProperties}';
 
     window.commonData = {
         contextPath: "/",

@@ -13,6 +13,7 @@
         userId : `${userId}`,
         userNm : `${userNm}`,
         nickNm : `${nickNm}`,
+        email : `${email}`,
         loginSe : `${loginSe}`,
         authCd : `${authCd}`,
         profileImgUrl : `${profileImgUrl}`

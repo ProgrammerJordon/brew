@@ -17,14 +17,14 @@
                 <div class="mr-16">
                     <a href="<c:out value='/index.do'/>">
                         <button class="btn__black__line">
-                            <span>클라이언트</span>
+                            <span>Client</span>
                         </button>
                     </a>
                 </div>
                 <div>
                     <a href="<c:out value='/logout.do'/>">
                         <button class="btn__black__line" onclick="sns.logout();">
-                            <span>로그아웃</span>
+                            <span>Logout</span>
                         </button>
                     </a>
                 </div>
