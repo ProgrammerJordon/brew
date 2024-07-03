@@ -5,6 +5,7 @@ import brew.cmm.service.sns.service.Login;
 import brew.cmm.service.sns.service.LoginVO;
 import brew.cmm.service.sns.service.NaverService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -120,18 +121,21 @@ public class NaverServiceImpl implements NaverService {
         // 로그인시 회원가입 또는 로그인처리할 코드
         LoginVO vo = new LoginVO();
         vo.setUserId(userInfo.get("userId"));
+        vo.setUserNm(userInfo.get("userNm"));
+        vo.setNickNm(userInfo.get("nickNm"));
+        vo.setProfileImgUrl(userInfo.get("profileImgUrl"));
+        vo.setEmail(userInfo.get("email"));
+        vo.setMobile(userInfo.get("mobile"));
+        vo.setMobileE(userInfo.get("mobileE"));
+        vo.setGender(userInfo.get("gender"));
+        vo.setAge(userInfo.get("age"));
+        vo.setBirthYear(userInfo.get("birthYear"));
+        vo.setBirthDay(userInfo.get("birthDay"));
 
-//        "userNm" -> "정범수"
-//        "birthDay" -> "09-02"
-//        "mobileE" -> "+821038066567"
-//        "gender" -> "M"
-//        "birthYear" -> "1994"
-//        "profileImgUrl" -> "https://ssl.pstatic.net/static/pwe/address/img_profile.png"
-//        "mobile" -> "010-3806-6567"
-//        "nickNm" -> "jordon"
-//        "userId" -> "WqYPF1rShQiLLU16DnWqdefPnZzbQNU5a_Qbm_71ZkA"
-//        "email" -> "jordon_programming@naver.com"
-//        "age" -> "30-39"
+        if(vo.getUserId() != null && !"".equals(vo.getUserId())) {
+
+
+        }
 
         return Login.builder()
                 .loginVO(vo)
