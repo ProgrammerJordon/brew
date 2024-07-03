@@ -24,4 +24,12 @@ public class ConsultDAO {
     public ConsultVO selectConsultDtVw(ConsultVO vo) {
         return sqlSession.selectOne("ConsultDAO.selectConsultDtVw", vo);
     }
+
+    int updateConsult(ConsultVO vo) {
+        return sqlSession.update("ConsultDAO.updateConsult", vo);
+    }
+
+    public int deleteConsult(ConsultVO vo) {
+        return sqlSession.delete("ConsultDAO.deleteConsult", vo);
+    }
 }

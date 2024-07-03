@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Controller
 @RequestMapping("/svc/csc/cst")
@@ -57,9 +58,26 @@ public class ConsultController {
         return consultService.selectConsultDtVw(vo);
     }
 
-//    @RequestMapping("/updateConsult.do")
-//    @ResponseBody
-//    public Consult updateConsult(@RequestBody ConsultVO vo) {
-//        return consultService.updateConsult(vo);
-//    }
+    @RequestMapping("/updateConsultVw.do")
+    public String updateConsultVw(@RequestParam(name = "sn") int sn,
+                                  ConsultVO vo,
+                                  Model model) {
+        vo.setSn(sn);
+        model.addAttribute("vo", vo);
+
+        return "/svc/csc/cst/updateConsultVw";
+    }
+
+    @RequestMapping("/updateConsult.do")
+    @ResponseBody
+    public Consult updateConsult(@RequestBody ConsultVO vo) {
+        return consultService.updateConsult(vo);
+    }
+
+    @RequestMapping("deleteConsult.do")
+    @ResponseBody
+    public Consult deleteConsult(@RequestBody ConsultVO vo) {
+        return consultService.deleteConsult(vo);
+    }
+
 }
