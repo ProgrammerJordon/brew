@@ -40,9 +40,9 @@
             ,#{codeNm}
             ,#{codeDc}
             ,#{useYn}
-            ,'admin'
+            ,#{rgtrId}
             ,current_timestamp
-            ,'admin'
+            ,#{mdfrId}
             ,current_timestamp
         )
     </insert>
@@ -64,7 +64,7 @@
             code_nm = #{codeNm}
             ,code_dc = #{codeDc}
             ,use_yn = #{useYn}
-            ,mdfr_id = 'admin'
+            ,mdfr_id = #{mdfrId}
             ,mdfr_dt = current_timestamp
         where 1=1
           and code_id = #{codeId}
@@ -112,9 +112,9 @@
             ,#{codeNm}
             ,#{codeDc}
             ,#{useYn}
-            ,'admin'
+            ,#{rgtrId}
             ,current_timestamp
-            ,'admin'
+            ,#{mdfrId}
             ,current_timestamp
         )
     </insert>
@@ -151,7 +151,7 @@
             code_nm = #{codeNm}
             ,code_dc = #{codeDc}
             ,use_yn = #{useYn}
-            ,mdfr_id = 'admin'
+            ,mdfr_id = #{mdfrId}
             ,mdfr_dt = current_timestamp
         where 1=1
           and code_id = #{codeId}

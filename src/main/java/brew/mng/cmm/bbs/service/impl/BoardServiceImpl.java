@@ -3,6 +3,8 @@ package brew.mng.cmm.bbs.service.impl;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board insertBoard(BoardVO vo) {
+
         int result = boardDAO.insertBoard(vo);
+
         if(result == 1) {
             vo.setResultMessage("정상적으로 공지사항을 등록하였습니다.");
         }else {

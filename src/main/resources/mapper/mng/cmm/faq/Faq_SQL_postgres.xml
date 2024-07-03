@@ -40,9 +40,9 @@
         ,#{title}
         ,#{contents}
         ,0
-        ,'admin'
+        ,#{rgtrId}
         ,current_timestamp
-        ,'admin'
+        ,#{mdfrId}
         ,current_timestamp
         )
     </insert>
@@ -62,7 +62,7 @@
         set
             title = #{title}
           ,contents = #{contents}
-          ,mdfr_id = 'admin'
+          ,mdfr_id = #{mdfrId}
           ,mdfr_dt = current_timestamp
         where 1=1
           and sn = #{sn}
