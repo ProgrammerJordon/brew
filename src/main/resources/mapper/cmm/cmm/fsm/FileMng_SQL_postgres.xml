@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="FileManageDAO">
 
-    <resultMap id="fileList" type="brew.cmm.service.fms.FileVO">
+    <resultMap id="fileList" type="brew.cmm.service.fms.service.FileVO">
         <result property="atchFileId" column="ATCH_FILE_ID"/>
         <result property="fileCn" column="FILE_CN"/>
         <result property="fileExtsn" column="FILE_EXTSN"/>
@@ -15,7 +15,7 @@
         <result property="creatDt" column="CREAT_DT"/>
     </resultMap>
 
-    <resultMap id="fileDetail" type="brew.cmm.service.fms.FileVO">
+    <resultMap id="fileDetail" type="brew.cmm.service.fms.service.FileVO">
         <result property="atchFileId" column="ATCH_FILE_ID"/>
         <result property="fileCn" column="FILE_CN"/>
         <result property="fileExtsn" column="FILE_EXTSN"/>
@@ -27,11 +27,11 @@
     </resultMap>
 
 
-    <select id="selectFileList" parameterType="brew.cmm.service.fms.FileVO" resultMap="fileList">
+    <select id="selectFileList" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileList">
 
         SELECT a.*, b.*
         FROM
-            COMTNFILE a, COMTNFILEDETAIL b
+            brew.COMTNFILE a, brew.COMTNFILEDETAIL b
         WHERE
             a.ATCH_FILE_ID = #{atchFileId}
           AND
@@ -42,18 +42,18 @@
 
     </select>
 
-    <insert id="insertFileMaster" parameterType="brew.cmm.service.fms.FileVO">
+    <insert id="insertFileMaster" parameterType="brew.cmm.service.fms.service.FileVO">
 
-        INSERT INTO COMTNFILE
+        INSERT INTO brew.COMTNFILE
             (ATCH_FILE_ID, CREAT_PNTTM, USE_AT)
         VALUES
             ( #{atchFileId}, NOW(), 'Y')
 
     </insert>
 
-    <insert id="insertFileDetail" parameterType="brew.cmm.service.fms.FileVO">
+    <insert id="insertFileDetail" parameterType="brew.cmm.service.fms.service.FileVO">
 
-        INSERT INTO COMTNFILEDETAIL
+        INSERT INTO brew.COMTNFILEDETAIL
         ( ATCH_FILE_ID, FILE_SN, FILE_STRE_PATH, STRE_FILE_NM,
           ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN )
         VALUES
@@ -62,9 +62,9 @@
 
     </insert>
 
-    <delete id="deleteFileDetail" parameterType="brew.cmm.service.fms.FileVO">
+    <delete id="deleteFileDetail" parameterType="brew.cmm.service.fms.service.FileVO">
 
-        DELETE FROM COMTNFILEDETAIL
+        DELETE FROM brew.COMTNFILEDETAIL
         WHERE
             ATCH_FILE_ID = #{atchFileId}
           AND
@@ -72,21 +72,21 @@
 
     </delete>
 
-    <select id="getMaxFileSN" parameterType="brew.cmm.service.fms.FileVO" resultType="java.lang.Integer">
+    <select id="getMaxFileSN" parameterType="brew.cmm.service.fms.service.FileVO" resultType="java.lang.Integer">
 
         SELECT COALESCE(MAX(FILE_SN),0)+1 AS FILE_SN
-        FROM COMTNFILEDETAIL
+        FROM brew.COMTNFILEDETAIL
         WHERE ATCH_FILE_ID =  #{atchFileId}
 
     </select>
 
-    <select id="selectFileInf" parameterType="brew.cmm.service.fms.FileVO" resultMap="fileDetail">
+    <select id="selectFileInf" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileDetail">
 
         SELECT
             ATCH_FILE_ID, FILE_CN, FILE_SN, FILE_STRE_PATH, STRE_FILE_NM,
             FILE_EXTSN, ORIGNL_FILE_NM, FILE_SIZE
         FROM
-            COMTNFILEDETAIL
+            brew.COMTNFILEDETAIL
         WHERE
             ATCH_FILE_ID = #{atchFileId}
           AND
@@ -94,21 +94,21 @@
 
     </select>
 
-    <update id="deleteCOMTNFILE" parameterType="brew.cmm.service.fms.FileVO">
+    <update id="deleteCOMTNFILE" parameterType="brew.cmm.service.fms.service.FileVO">
 
-        UPDATE COMTNFILE
+        UPDATE brew.COMTNFILE
         SET USE_AT = 'N'
         WHERE ATCH_FILE_ID = #{atchFileId}
 
     </update>
 
-    <select id="selectFileListByFileNm" parameterType="brew.cmm.service.fms.FileVO" resultMap="fileList">
+    <select id="selectFileListByFileNm" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileList">
 
         SELECT
         a.ATCH_FILE_ID, b.FILE_CN, b.FILE_SN, b.FILE_STRE_PATH, b.STRE_FILE_NM,
         b.FILE_EXTSN, b.ORIGNL_FILE_NM, b.FILE_SIZE, a.CREAT_PNTTM
         FROM
-        COMTNFILE a, COMTNFILEDETAIL b
+        brew.COMTNFILE a, brew.COMTNFILEDETAIL b
         WHERE
         a.ATCH_FILE_ID = b.ATCH_FILE_ID
         AND
@@ -126,12 +126,12 @@
 
     </select>
 
-    <select id="selectFileListCntByFileNm" parameterType="brew.cmm.service.fms.FileVO" resultType="java.lang.Integer">
+    <select id="selectFileListCntByFileNm" parameterType="brew.cmm.service.fms.service.FileVO" resultType="java.lang.Integer">
 
         SELECT
-        COUNT(a.ATCH_FILE_ID)
+            COUNT(a.ATCH_FILE_ID)
         FROM
-        COMTNFILE a, COMTNFILEDETAIL b
+        brew.COMTNFILE a, brew.COMTNFILEDETAIL b
         WHERE
         a.ATCH_FILE_ID = b.ATCH_FILE_ID
         AND
@@ -145,13 +145,13 @@
         </if>
     </select>
 
-    <select id="selectImageFileList" parameterType="brew.cmm.service.fms.FileVO" resultMap="fileList">
+    <select id="selectImageFileList" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileList">
 
         SELECT
             a.ATCH_FILE_ID, b.FILE_CN, b.FILE_SN, b.FILE_STRE_PATH, b.STRE_FILE_NM,
             b.FILE_EXTSN, b.ORIGNL_FILE_NM, b.FILE_SIZE, a.CREAT_PNTTM
         FROM
-            COMTNFILE a, COMTNFILEDETAIL b
+            brew.COMTNFILE a, brew.COMTNFILEDETAIL b
         WHERE
             a.ATCH_FILE_ID = #{atchFileId}
           AND

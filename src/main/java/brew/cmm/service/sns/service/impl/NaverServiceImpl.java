@@ -4,8 +4,6 @@ import brew.cmm.service.ppt.BrewProperties;
 import brew.cmm.service.sns.service.Login;
 import brew.cmm.service.sns.service.LoginVO;
 import brew.cmm.service.sns.service.NaverService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;

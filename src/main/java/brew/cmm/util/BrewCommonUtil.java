@@ -1,7 +1,7 @@
 package brew.cmm.util;
 
-import brew.cmm.service.fms.FileMngService;
-import brew.cmm.service.fms.FileVO;
+import brew.cmm.service.fms.service.FileMngService;
+import brew.cmm.service.fms.service.FileVO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

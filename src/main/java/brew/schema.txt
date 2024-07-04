@@ -471,3 +471,21 @@ create index brewcst_sn_index
     on brewcst (sn);
 
 comment on index brewcst_sn_index is '문의사항인덱스';
+
+-- 시퀀스 테이블
+create table comtecopseq
+(
+    table_name varchar(20) not null
+        constraint comtecopseq_pk
+            primary key,
+    next_id    numeric(30)
+);
+
+comment on table comtecopseq is 'COMTECOPSEQ';
+
+comment on column comtecopseq.table_name is '테이블명';
+
+comment on column comtecopseq.next_id is '다음ID';
+
+alter table comtecopseq
+    owner to postgres;

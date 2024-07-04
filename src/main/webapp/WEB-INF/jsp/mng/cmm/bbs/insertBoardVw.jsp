@@ -64,6 +64,24 @@
                         <textarea id="contents" name="contents"></textarea>
                     </td>
                 </tr>
+                <tr>
+                    <th><label for="file-upload">첨부파일</label></th>
+                    <td class="left" colspan="3">
+                        <div>
+                            <c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
+                                <c:param name="atchFileId" value="" />
+                                <c:param name="ext" value="image/gif,image/jpeg,image/png,jpg,jpeg,png,xls,xlsx,hwp,pdf,brf,docx,pptx,csv,zip,txt" />
+                                <c:param name="fileSize" value="100" />
+                                <c:param name="fileCount" value="10" />
+                                <c:param name="filePath" value="BBS/" />
+                                <c:param name="fileKey" value="BBS_" />
+                            </c:import>
+                        </div>
+                        <div>
+                            <span style="font-size: 10px; color: red;">* 대용량의 파일은 ZIP파일로 압축 후 업로드하세요.</span>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
