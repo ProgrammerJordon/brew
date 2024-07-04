@@ -300,13 +300,16 @@
 
     // 파일 업로드 - 파일 삭제
     async function deleteFiles(deleteArray) {
+
         const fileListDiv = document.getElementById('file-list').querySelectorAll('.file-list-item').length // 파일 목록을 담고 있는 div
+
         if(document.getElementById('filePath').value == 'banner/'){
             if (fileListDiv < 1) {
                 MessageUtil.alert('배너 첨부파일은 필수로 등록해야 합니다.');
                 return false;
             }
         }
+
         if (deleteArray.length === 0) {
             return true; // 삭제할 파일이 없으면 성공으로 간주
         }

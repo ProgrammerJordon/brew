@@ -12,10 +12,9 @@
     </select>
 
     <update id="updateNextFileId" parameterType="int">
-        update brew.comtecopseq
-            set next_id + 1
-        where 1=1
-          and table_name = 'FILE_ID'
+        UPDATE brew.comtecopseq
+            SET next_id = next_id + 1
+        WHERE table_name = 'FILE_ID'
     </update>
 
 

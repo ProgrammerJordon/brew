@@ -30,18 +30,25 @@
 
            if (!Util.validateComponent(validationGroup)) return;
 
-           MessageUtil.confirm("공지사항을 수정하시겠십니까?", (boolean) => {
+           MessageUtil.confirm("공지사항을 수정하시겠십니까?", async (boolean) => {
+
                if(boolean) {
-                   let param = {
-                       sn : sn,
-                       title : $("#title").val(),
-                       contents : $("#contents").val()
+
+                   var fileResult = await fileUpdate();
+
+                   if(fileResult) {
+                       let param = {
+                           sn : sn,
+                           title : $("#title").val(),
+                           contents : $("#contents").val(),
+                           atchFileId : $("#atchFileId").val() || null
+                       }
+                       callModule.call(Util.getRequestUrl("/mng/cmm/bbs/updateBoard.do"), param, (result) => {
+                           MessageUtil.alert(result.boardVO.resultMessage, () => {
+                               bbs.selectBoardListVw();
+                           })
+                       })
                    }
-                   callModule.call(Util.getRequestUrl("/mng/cmm/bbs/updateBoard.do"), param, (result) => {
-                        MessageUtil.alert(result.boardVO.resultMessage, () => {
-                            bbs.selectBoardListVw();
-                        })
-                   })
                }
            }, "수정", "취소")
        },
@@ -49,7 +56,10 @@
        deleteBoard : () => {
            MessageUtil.confirm("공지사항을 삭제하시겠습니까?", (boolean) => {
                if(boolean) {
-                   let param = {sn : sn}
+                   let param = {
+                       sn : sn,
+                       atchFileId: $("#atchFileId").val() || null
+                   }
                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/deleteBoard.do"), param, (result) => {
                        MessageUtil.alert(result.boardVO.resultMessage, () => {
                            bbs.selectBoardListVw();
@@ -86,6 +96,24 @@
                     <th>내용</th>
                     <td>
                         <textarea id="contents" name="contents"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="file-upload">첨부파일</label></th>
+                    <td class="left" colspan="3">
+                        <div>
+                            <c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
+                                <c:param name="atchFileId" value="${atchFileId}" />
+                                <c:param name="ext" value="image/gif,image/jpeg,image/png,jpg,jpeg,png,xls,xlsx,hwp,pdf,brf,docx,pptx,csv,zip,txt" />
+                                <c:param name="fileSize" value="100" />
+                                <c:param name="fileCount" value="10" />
+                                <c:param name="filePath" value="BBS/" />
+                                <c:param name="fileKey" value="BBS_" />
+                            </c:import>
+                        </div>
+                        <div>
+                            <span style="font-size: 10px; color: red;">* 대용량의 파일은 ZIP파일로 압축 후 업로드하세요.</span>
+                        </div>
                     </td>
                 </tr>
             </tbody>
