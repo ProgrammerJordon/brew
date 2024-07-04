@@ -67,19 +67,21 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board deleteBoard(BoardVO vo) throws Exception {
 
-        FileVO fvo = new FileVO();
-        fvo.setAtchFileId(vo.getAtchFileId());
+        if(vo.getAtchFileId() != null) {
 
-        // atchFileId로 조회한 fileList
-        List<FileVO> fvoList = fileManageDAO.selectFileInfs(fvo);
+            FileVO fvo = new FileVO();
+            fvo.setAtchFileId(vo.getAtchFileId());
 
-        // 파일상세 제거
-        for(int i = 0 ; i < fvoList.size() ; i++) {
-            fileManageDAO.deleteFileInf(fvoList.get(i));
+            // atchFileId로 조회한 fileList
+            List<FileVO> fvoList = fileManageDAO.selectFileInfs(fvo);
+
+            // 파일상세 제거
+            for(int i = 0 ; i < fvoList.size() ; i++) {
+                fileManageDAO.deleteFileInf(fvoList.get(i));
+            }
+            // 파일속성제거
+            fileManageDAO.deleteCOMTNFILE(fvo);
         }
-
-        // 파일속성제거
-        fileManageDAO.deleteCOMTNFILE(fvo);
 
         int result = boardDAO.deleteBoard(vo);
 
