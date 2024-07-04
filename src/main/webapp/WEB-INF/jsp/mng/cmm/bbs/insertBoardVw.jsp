@@ -23,11 +23,10 @@
             MessageUtil.confirm("공지사항을 등록하시겠습니까?", async (boolean) => {
                 if(boolean) {
 
-                    debugger;
-
                     var fileResult = await fileUpdate();
+
                     if(fileResult) {
-                        debugger;
+
                         var param = {
                             title : $("#title").val(),
                             contents : $("#contents").val(),

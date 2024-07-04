@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -148,13 +149,20 @@ public class FileMngController {
     }
 
     @RequestMapping("/cmm/fms/deleteFileInfModule.do")
-    public @ResponseBody Map<String, Object> deleteFileInfModule(@RequestBody List<FileVO> fileVO) throws Exception {
+    public @ResponseBody Map<String, Object> deleteFileInfModule(@RequestBody Map<String, String> param) throws Exception {
+
+        FileVO fvo = new FileVO();
+        fvo.setAtchFileId(param.get("atchFileId"));
+
+        List<FileVO> fvoList = fileService.selectFileInfs(fvo);
+
+        for(int i = 0 ; i < fvoList.size() ; i++) {
+            fileService.deleteFileInf(fvoList.get(i));
+        }
+
+        fileService.deleteFileInf(fvo);
 
         Map<String, Object> result = new HashMap<>();
-
-        for(int i = 0 ; i < fileVO.size() ; i++) {
-            fileService.deleteFileInf(fileVO.get(i));
-        }
 
         result.put("status", "success");
 

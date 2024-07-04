@@ -89,7 +89,7 @@ public class BoardController {
 
     @RequestMapping("/deleteBoard.do")
     @ResponseBody
-    public Board deleteBoard(@RequestBody BoardVO vo) {
+    public Board deleteBoard(@RequestBody BoardVO vo) throws Exception {
         return boardService.deleteBoard(vo);
     }
 }

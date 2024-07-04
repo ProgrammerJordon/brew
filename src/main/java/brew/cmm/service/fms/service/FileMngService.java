@@ -55,6 +55,13 @@ public interface FileMngService {
     public void deleteFileInf(FileVO fvo) throws Exception;
 
     /**
+     * 파일속성 테이블을 삭제한다.
+     * @param fvo
+     * @throws Exception
+     */
+    public void deleteCOMTNFILE(FileVO fvo) throws Exception;
+
+    /**
      * 파일에 대한 상세정보를 조회한다.
      *
      * @param fvo

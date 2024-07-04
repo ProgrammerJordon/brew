@@ -24,6 +24,15 @@ public class FileMngServiceImpl implements FileMngService {
     }
 
     /**
+     * 파일속성 테이블을 삭제한다.
+     * @param fvo
+     * @throws Exception
+     */
+    public void deleteCOMTNFILE(FileVO fvo) throws Exception {
+        fileMngDAO.deleteCOMTNFILE(fvo);
+    }
+
+    /**
      * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.
      */
     public String insertFileInf(FileVO fvo) throws Exception {

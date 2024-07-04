@@ -88,6 +88,15 @@ public class FileManageDAO {
 	}
 
 	/**
+	 * 파일속성 테이블을 삭제한다.
+	 * @param fvo
+	 * @throws Exception
+	 */
+	public void deleteCOMTNFILE(FileVO fvo) throws Exception {
+		sqlSession.delete("FileManageDAO.deleteCOMTNFILE", fvo);
+	}
+
+	/**
 	 * 파일에 대한 목록을 조회한다.
 	 */
 	public List<FileVO> selectFileInfs(FileVO vo) throws Exception {
@@ -114,6 +123,7 @@ public class FileManageDAO {
 	public void deleteAllFileInf(FileVO fvo) throws Exception {
 		sqlSession.update("FileManageDAO.deletex", fvo);
 	}
+
 
 	/**
 	 * 파일명 검색에 대한 목록을 조회한다.

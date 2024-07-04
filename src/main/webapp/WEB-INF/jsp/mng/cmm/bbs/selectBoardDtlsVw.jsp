@@ -56,9 +56,10 @@
        deleteBoard : () => {
            MessageUtil.confirm("공지사항을 삭제하시겠습니까?", (boolean) => {
                if(boolean) {
+
                    let param = {
                        sn : sn,
-                       atchFileId: $("#atchFileId").val() || null
+                       atchFileId : $("#atchFileId").val() || null
                    }
                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/deleteBoard.do"), param, (result) => {
                        MessageUtil.alert(result.boardVO.resultMessage, () => {
