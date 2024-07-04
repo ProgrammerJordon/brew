@@ -29,6 +29,7 @@
             sn
             ,title
             ,contents
+            ,atch_file_id
             ,inq_cnt
             ,rgtr_id
             ,rgtr_dt
@@ -39,6 +40,7 @@
                 #{sn}
                 ,#{title}
                 ,#{contents}
+                ,#{atchFileId}
                 ,0
                 ,#{rgtrId}
                 ,current_timestamp
@@ -52,6 +54,7 @@
             sn
             ,title
             ,contents
+            ,atch_file_id
         from brew.brewbbs
         where 1=1
             and sn = cast(#{sn} as numeric)
@@ -62,6 +65,7 @@
         set
             title = #{title}
             ,contents = #{contents}
+            ,atch_file_id = #{atchFileId}
             ,mdfr_id = #{mdfrId}
             ,mdfr_dt = current_timestamp
         where 1=1

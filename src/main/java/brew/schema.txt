@@ -64,16 +64,17 @@ alter table comtnfiledetail
 -- 게시판
 create table brewbbs
 (
-    sn       integer not null
+    sn           integer not null
         constraint brewbbs_pk
             primary key,
-    title    varchar not null,
-    contents varchar not null,
-    inq_cnt  integer,
-    rgtr_id  varchar,
-    rgtr_dt  timestamp,
-    mdfr_id  varchar,
-    mdfr_dt  timestamp
+    title        varchar not null,
+    contents     varchar not null,
+    inq_cnt      integer,
+    rgtr_id      varchar,
+    rgtr_dt      timestamp,
+    mdfr_id      varchar,
+    mdfr_dt      timestamp,
+    atch_file_id varchar
 );
 
 comment on table brewbbs is '게시판';
@@ -94,13 +95,15 @@ comment on column brewbbs.mdfr_id is '수정자아이디';
 
 comment on column brewbbs.mdfr_dt is '수정일시';
 
+comment on column brewbbs.atch_file_id is '첨부파일';
+
 alter table brewbbs
     owner to postgres;
 
 create index brewbbs_sn_index
     on brewbbs (sn);
 
-comment on index brewbbs_sn_index is '게시판인덱스'
+comment on index brewbbs_sn_index is '게시판인덱스';
 
 -- FAQ 테이블
 create table brewfaq
@@ -489,3 +492,5 @@ comment on column comtecopseq.next_id is '다음ID';
 
 alter table comtecopseq
     owner to postgres;
+
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FILE_ID', 0);

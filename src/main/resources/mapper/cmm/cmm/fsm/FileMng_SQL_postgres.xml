@@ -26,7 +26,6 @@
         <result property="streFileNm" column="STRE_FILE_NM"/>
     </resultMap>
 
-
     <select id="selectFileList" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileList">
 
         SELECT a.*, b.*

@@ -19,8 +19,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -130,20 +128,6 @@ public class FileMngController {
         List<FileVO> fileList = null;
         FileVO file =  new FileVO();
         int fileSn = 0;
-
-        if(filePath.equals("banner/")) {
-            if(files != null) {
-                for (MultipartFile multipartFile : files) {
-                    BufferedImage image = ImageIO.read(multipartFile.getInputStream());
-                    int width = image.getWidth();
-                    int height = image.getHeight();
-                    if (width != 1920 || height != 570) {
-                        result.put("status", "bannerError");
-                        return result;
-                    }
-                }
-            }
-        }
 
         if (files != null && !files.isEmpty()) {
             if(!atchFileId.isEmpty()) {

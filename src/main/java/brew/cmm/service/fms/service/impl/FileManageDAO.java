@@ -1,9 +1,11 @@
 package brew.cmm.service.fms.service.impl;
 
 import brew.cmm.service.fms.service.FileVO;
+import brew.cmm.service.ppt.BrewIdGnrProperties;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
@@ -12,16 +14,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileManageDAO {
 
+	private final BrewIdGnrProperties brewIdGnrProperties;
 	private final SqlSessionTemplate sqlSession;
+
 
 	/**
 	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.
 	 */
+	@Transactional
 	public String insertFileInfs(List<?> fileList) throws Exception {
-		FileVO vo = (FileVO) fileList.get(0);
-		String atchFileId = vo.getAtchFileId();
+		String atchFileId = brewIdGnrProperties.getNextFileId();
+		FileVO vo = new FileVO();
+		vo.setAtchFileId(atchFileId);
 
 		sqlSession.insert("FileManageDAO.insertFileMaster", vo);
+
+		for(int i = 0; i < fileList.size(); i++) {
+			FileVO param = (FileVO) fileList.get(i);
+			param.setAtchFileId(atchFileId);
+		}
 
 		Iterator<?> iter = fileList.iterator();
 		while (iter.hasNext()) {
@@ -36,7 +47,10 @@ public class FileManageDAO {
 	/**
 	 * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.
 	 */
+	@Transactional
 	public void insertFileInf(FileVO vo) throws Exception {
+		String atchFileId = brewIdGnrProperties.getNextFileId();
+		vo.setAtchFileId(atchFileId);
 		sqlSession.insert("FileManageDAO.insertFileMaster", vo);
 		sqlSession.insert("FileManageDAO.insertFileDetail", vo);
 	}

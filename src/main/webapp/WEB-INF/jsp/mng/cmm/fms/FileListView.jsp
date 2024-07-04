@@ -58,7 +58,7 @@
 <!-- </form>  -->
 
 <div id="file-container">
-    <div id="file-list" class="file-list btn__box"></div>
+    <div id="file-list" class="file-list"></div>
     <c:if test="${updateFlag == 'Y'}"> <!-- 등록/수정에서만 info 보이게 -->
         <button id="file-upload-btn" type="button" class="btn__black__line">파일 찾기</button><span class="file-span" id="fileUploadInfo"></span>
         <input type="file" id="file-upload" class="hidden" multiple onchange="addFilesToList(event)" />

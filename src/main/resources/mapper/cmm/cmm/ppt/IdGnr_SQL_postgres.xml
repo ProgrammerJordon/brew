@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed May 11 15:49:38 KST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BrewIdGnrDAO">
+
+
+    <select id="getNextFileId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+            where 1=1
+                and table_name = 'FILE_ID'
+    </select>
+
+    <update id="updateNextFileId" parameterType="int">
+        update brew.comtecopseq
+            set next_id + 1
+        where 1=1
+          and table_name = 'FILE_ID'
+    </update>
+
+
+</mapper>

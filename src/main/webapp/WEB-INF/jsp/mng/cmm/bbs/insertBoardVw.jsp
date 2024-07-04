@@ -20,17 +20,27 @@
 
             if (!Util.validateComponent(validationGroup)) return;
 
-            MessageUtil.confirm("공지사항을 등록하시겠습니까?", (boolean) => {
+            MessageUtil.confirm("공지사항을 등록하시겠습니까?", async (boolean) => {
                 if(boolean) {
-                    var param = {
-                        title : $("#title").val(),
-                        contents : $("#contents").val(),
+
+                    debugger;
+
+                    var fileResult = await fileUpdate();
+                    if(fileResult) {
+                        debugger;
+                        var param = {
+                            title : $("#title").val(),
+                            contents : $("#contents").val(),
+                            atchFileId : $("#atchFileId").val() || null
+                        }
+                        callModule.call(Util.getRequestUrl("/mng/cmm/bbs/insertBoard.do"), param, (result) => {
+
+                            MessageUtil.alert(result.boardVO.resultMessage, () => {
+                                bbs.selectBoardListVw();
+                            });
+                        })
+
                     }
-                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/insertBoard.do"), param, (result) => {
-                        MessageUtil.alert(result.boardVO.resultMessage, () => {
-                            bbs.selectBoardListVw();
-                        });
-                    })
                 }
             }, "등록", "취소")
         }
