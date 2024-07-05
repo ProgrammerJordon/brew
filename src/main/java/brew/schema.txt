@@ -494,3 +494,70 @@ alter table comtecopseq
     owner to postgres;
 
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FILE_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('LOG_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('LGI_ID', 0);
+
+-- 방문자 이력로그
+create table comtnvisitorlog
+(
+    log_id     char(20) not null
+        constraint comtnvisitorlog_pk
+            primary key,
+    session_id varchar,
+    client_ip  varchar,
+    rgtr_dt    timestamp
+);
+
+comment on table comtnvisitorlog is '방문자이력';
+
+comment on column comtnvisitorlog.log_id is '로그ID';
+
+comment on column comtnvisitorlog.session_id is '세션ID';
+
+comment on column comtnvisitorlog.client_ip is '클라이언트IP';
+
+comment on column comtnvisitorlog.rgtr_dt is '등록일시';
+
+alter table comtnvisitorlog
+    owner to postgres;
+
+
+-- 로그인이력
+
+create table comtnloginlog
+(
+    log_id   varchar not null
+        constraint comtnloginlog_pk
+            primary key,
+    user_sn  varchar not null,
+    user_id  varchar,
+    user_nm  varchar,
+    nick_nm  varchar,
+    email    varchar,
+    auth_cd  varchar,
+    login_se varchar,
+    rgtr_dt  timestamp
+);
+
+comment on table comtnloginlog is '로그인이력';
+
+comment on column comtnloginlog.user_sn is '사용자일련번호';
+
+comment on column comtnloginlog.user_id is '유저아이디';
+
+comment on column comtnloginlog.user_nm is '유저명';
+
+comment on column comtnloginlog.nick_nm is '닉네임';
+
+comment on column comtnloginlog.email is '이메일';
+
+comment on column comtnloginlog.auth_cd is '권한코드';
+
+comment on column comtnloginlog.login_se is '연계SNS';
+
+comment on column comtnloginlog.rgtr_dt is '등록일시';
+
+comment on column comtnloginlog.log_id is '로그아이디';
+
+alter table comtnloginlog
+    owner to postgres;

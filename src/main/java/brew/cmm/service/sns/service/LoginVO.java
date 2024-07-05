@@ -10,6 +10,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper=false)
 public class LoginVO extends CommonVO implements Serializable {
 
+    // 구글, 네이버, 카카오 사용자정보 파라미터
     private String userSn;
     private String userId;
     private String loginSe;
@@ -31,14 +32,18 @@ public class LoginVO extends CommonVO implements Serializable {
     private String age;
     private String gender;
 
-
+    // 권한
     private String accessToken;
     private String useYn;
     private String authCd;
     private String exitYn;
 
+    // 로그인결과값
     private int count;
     private int result;
+
+    // 로그
+    private String logId;
 
 
 }

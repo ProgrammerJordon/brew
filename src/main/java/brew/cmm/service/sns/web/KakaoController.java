@@ -1,5 +1,6 @@
 package brew.cmm.service.sns.web;
 
+import brew.cmm.service.log.lgi.service.BrewLoginLogService;
 import brew.cmm.service.ppt.BrewProperties;
 import brew.cmm.service.sns.service.Login;
 import brew.cmm.service.sns.service.KakaoService;
@@ -23,6 +24,7 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class KakaoController {
 
+    private final BrewLoginLogService brewLoginLogService;
     private final KakaoService kakaoService;
 
     private final String KAKAO_REST_API_KEY = BrewProperties.getProperty("kakao.api.properties"); // 여기에 실제 REST API 키를 입력하세요.
@@ -116,6 +118,9 @@ public class KakaoController {
                     session.setAttribute("profileImgUrl", login.getLoginVO().getProfileImgUrl());
                     session.setAttribute("thumbnailImgUrl", login.getLoginVO().getThumbnailImgUrl());
                     session.setAttribute("accessToken", accessToken);
+                    session.setAttribute("visitor", true);
+
+                    brewLoginLogService.insertLoginLog(login.getLoginVO());
                 }
 
             } else {

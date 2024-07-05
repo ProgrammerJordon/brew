@@ -1,5 +1,6 @@
 package brew.cmm.service.sns.web;
 
+import brew.cmm.service.log.lgi.service.BrewLoginLogService;
 import brew.cmm.service.sns.service.GoogleService;
 import brew.cmm.service.sns.service.Login;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class GoogleController {
 
+    private final BrewLoginLogService brewLoginLogService;
     private final GoogleService googleService;
 
     @RequestMapping("/googleOauth.do")
@@ -52,6 +54,9 @@ public class GoogleController {
                 session.setAttribute("profileImgUrl", login.getLoginVO().getProfileImgUrl());
                 session.setAttribute("thumbnailImgUrl", login.getLoginVO().getThumbnailImgUrl());
                 session.setAttribute("accessToken", accessToken.get("access_token"));
+                session.setAttribute("visitor", true);
+
+                brewLoginLogService.insertLoginLog(login.getLoginVO());
             }
 
             return "/svc/min/idx/index";

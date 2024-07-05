@@ -18,8 +18,28 @@ public class BrewIdGnrProperties {
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextFileId");
         // FILE_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextFileId");
-        // 현재 FILE_ID값에서 +1 값 반환
+        // 현재 FILE_ID 값에서 +1 값 반환
         return String.format("FILE_%015d", nextValue + 1);
+    }
+
+    @Transactional
+    public String getNextLogId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextLogId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextLogId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("LOG_%016d", nextValue + 1);
+    }
+
+    @Transactional
+    public String getNextLoginLogId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextLoginLogId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextLoginLogId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("LGI_%016d", nextValue + 1);
     }
 
 }

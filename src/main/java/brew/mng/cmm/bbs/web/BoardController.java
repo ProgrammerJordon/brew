@@ -2,17 +2,16 @@ package brew.mng.cmm.bbs.web;
 
 import brew.cmm.service.fms.service.FileMngService;
 import brew.cmm.service.fms.service.FileVO;
-import brew.cmm.service.ppt.BrewProperties;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,11 +50,11 @@ public class BoardController {
                                     BoardVO vo,
                                     FileVO fvo,
                                     Model model) throws Exception {
-
+        // 문자열 특수기호 꺠짐방지
+        //StringEscapeUtils.unescapeHtml4(sn)
         // atchFileId 에 접근하기 위한 조회
         vo.setSn(Integer.parseInt(sn));
         Board rs = boardService.selectBoardDtls(vo);
-
         fvo.setAtchFileId(rs.getBoardVO().getAtchFileId());
         List<FileVO> fvoList = fileMngService.selectFileInfs(fvo);
 

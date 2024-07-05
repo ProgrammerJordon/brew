@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BrewIdGnrDAO">
 
-
+    <!-- FILE_ID -->
     <select id="getNextFileId" resultType="int">
         SELECT next_id
         from brew.comtecopseq
@@ -17,5 +17,32 @@
         WHERE table_name = 'FILE_ID'
     </update>
 
+    <!-- LOG_ID -->
+    <select id="getNextLogId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'LOG_ID'
+    </select>
+
+    <update id="updateNextLogId" parameterType="int">
+        UPDATE brew.comtecopseq
+            SET next_id = next_id + 1
+        WHERE table_name = 'LOG_ID'
+    </update>
+
+    <!-- LOGIN_ID -->
+    <select id="getNextLoginLogId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'LGI_ID'
+    </select>
+
+    <update id="updateNextLoginLogId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'LGI_ID'
+    </update>
 
 </mapper>

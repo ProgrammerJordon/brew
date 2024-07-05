@@ -1,5 +1,6 @@
 package brew.cmm.service.sns.web;
 
+import brew.cmm.service.log.lgi.service.BrewLoginLogService;
 import brew.cmm.service.sns.service.Login;
 import brew.cmm.service.sns.service.NaverService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NaverController {
 
+    private final BrewLoginLogService brewLoginLogService;
     private final NaverService naverService;
 
     @RequestMapping("/naverOauth.do")
@@ -56,6 +58,9 @@ public class NaverController {
                 session.setAttribute("profileImgUrl", login.getLoginVO().getProfileImgUrl());
                 session.setAttribute("thumbnailImgUrl", login.getLoginVO().getThumbnailImgUrl());
                 session.setAttribute("accessToken", token.get("access_token"));
+                session.setAttribute("visitor", true);
+
+                brewLoginLogService.insertLoginLog(login.getLoginVO());
             }
 
             return "/svc/min/idx/index";

@@ -2,9 +2,11 @@
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template_top.jspf" %>
 
 <script>
-    let sn = '${sn}';
 
    const bbs = {
+
+       sn : '${sn}',
+
        init: () => {
            bbs.selectBoardDtls();
        },
@@ -14,7 +16,7 @@
        },
 
        selectBoardDtls : () => {
-            let param = {sn : sn}
+            let param = {sn : bbs.sn}
            callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtls.do"), param, (result) => {
                $("#title").val(result.boardVO.title);
                $("#contents").val(result.boardVO.contents);
@@ -38,7 +40,7 @@
 
                    if(fileResult) {
                        let param = {
-                           sn : sn,
+                           sn : bbs.sn,
                            title : $("#title").val(),
                            contents : $("#contents").val(),
                            atchFileId : $("#atchFileId").val() || null
@@ -58,7 +60,7 @@
                if(boolean) {
 
                    let param = {
-                       sn : sn,
+                       sn : bbs.sn,
                        atchFileId : $("#atchFileId").val() || null
                    }
                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/deleteBoard.do"), param, (result) => {

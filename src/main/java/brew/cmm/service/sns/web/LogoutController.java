@@ -105,7 +105,19 @@ public class LogoutController {
         HttpSession session = request.getSession(false); // 세션이 존재하지 않으면 null 반환
 
         if (session != null) {
-            session.invalidate(); // 세션 무효화
+
+            session.removeAttribute("userSn");
+            session.removeAttribute("userId");
+            session.removeAttribute("userNm");
+            session.removeAttribute("nickNm");
+            session.removeAttribute("email");
+            session.removeAttribute("authCd");
+            session.removeAttribute("loginSe");
+            session.removeAttribute("profileImgUrl");
+            session.removeAttribute("thumbnailImgUrl");
+            session.removeAttribute("accessToken");
+            session.setAttribute("visitor", false);
+
         }
     }
 

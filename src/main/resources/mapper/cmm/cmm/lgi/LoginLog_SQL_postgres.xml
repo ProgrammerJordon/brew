@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed May 11 15:49:38 KST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BrewLoginLogDAO">
+
+    <insert id="insertLoginLog" parameterType="brew.cmm.service.sns.service.LoginVO">
+        INSERT INTO brew.comtnloginlog (
+            log_id
+            ,user_sn
+            ,user_id
+            ,user_nm
+            ,nick_nm
+            ,email
+            ,auth_cd
+            ,login_se
+            ,rgtr_dt
+        )
+        VALUES (
+            #{logId}
+            ,#{userSn}
+            ,#{userId}
+            ,#{userNm}
+            ,#{nickNm}
+            ,#{email}
+            ,#{authCd}
+            ,#{loginSe}
+            ,current_timestamp
+        )
+    </insert>
+
+</mapper>
