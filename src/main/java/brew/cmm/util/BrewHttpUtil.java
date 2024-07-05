@@ -15,6 +15,20 @@ import java.util.Map;
 
 public class BrewHttpUtil {
 
+    /**
+     *     String url = "http://www.example.com";
+     *
+     *     Map<String, String> headers = Map.of(
+     *             "Authorization", "Bearer your_access_token",
+     *             "Content-Type", "application/json"
+     *     );
+     *
+     *     Map<String, String> param = Map.of(
+     *             "param1", "value1",
+     *             "param2", "value2"
+     *     );
+     */
+
     public JSONObject getHttpRequest(String url, Map<String, String> headers, Map<String, String> param) throws IOException, JSONException {
 
         // URL 설정 및 파라미터 추가
@@ -78,6 +92,7 @@ public class BrewHttpUtil {
 
             // 요청 본문 데이터 설정
             conn.setDoOutput(true);
+
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = param.toString().getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
