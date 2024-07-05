@@ -2,6 +2,7 @@ package brew.cmm.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,20 +14,21 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+@Component
 public class BrewHttpUtil {
 
     /**
-     *     String url = "http://www.example.com";
-     *
-     *     Map<String, String> headers = Map.of(
-     *             "Authorization", "Bearer your_access_token",
-     *             "Content-Type", "application/json"
-     *     );
-     *
-     *     Map<String, String> param = Map.of(
-     *             "param1", "value1",
-     *             "param2", "value2"
-     *     );
+     * String url = "http://www.example.com";
+     * <p>
+     * Map<String, String> headers = Map.of(
+     * "Authorization", "Bearer your_access_token",
+     * "Content-Type", "application/json"
+     * );
+     * <p>
+     * Map<String, String> param = Map.of(
+     * "param1", "value1",
+     * "param2", "value2"
+     * );
      */
 
     public JSONObject getHttpRequest(String url, Map<String, String> headers, Map<String, String> param) throws IOException, JSONException {
@@ -73,7 +75,7 @@ public class BrewHttpUtil {
         // 연결 종료
         conn.disconnect();
 
-        return new JSONObject(response.toString());
+        return new JSONObject(String.valueOf(response));
     }
 
     public JSONObject postHttpRequest(String url, Map<String, String> headers, JSONObject param) throws IOException, JSONException {

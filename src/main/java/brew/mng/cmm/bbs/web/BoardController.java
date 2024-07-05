@@ -2,12 +2,12 @@ package brew.mng.cmm.bbs.web;
 
 import brew.cmm.service.fms.service.FileMngService;
 import brew.cmm.service.fms.service.FileVO;
+import brew.cmm.util.BrewHttpUtil;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardService;
 import brew.mng.cmm.bbs.service.BoardVO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
+    private final BrewHttpUtil brewHttpUtil;
     private final FileMngService fileMngService;
     private final BoardService boardService;
 
