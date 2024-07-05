@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final BrewHttpUtil brewHttpUtil;
     private final FileMngService fileMngService;
     private final BoardService boardService;
 

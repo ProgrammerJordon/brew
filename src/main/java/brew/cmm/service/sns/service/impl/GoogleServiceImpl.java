@@ -19,6 +19,7 @@ import java.util.Map;
 
 @Service("GoogleService")
 @RequiredArgsConstructor
+@SuppressWarnings("deprecation")
 public class GoogleServiceImpl implements GoogleService {
 
     private final LoginDAO loginDAO;

@@ -24,6 +24,7 @@ import java.util.Map;
 
 @Service("NaverService")
 @RequiredArgsConstructor
+@SuppressWarnings("deprecation")
 public class NaverServiceImpl implements NaverService {
 
     private final LoginDAO loginDAO;

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("KakaoService")
 @RequiredArgsConstructor
+@SuppressWarnings("deprecation")
 public class KakaoServiceImpl implements KakaoService {
 
     private final LoginDAO loginDAO;

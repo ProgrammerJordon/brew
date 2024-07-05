@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
+@SuppressWarnings("unchecked")
 public class BrewCollectionUtils {
     public static <T> Predicate<T> distinctByKey(final Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();

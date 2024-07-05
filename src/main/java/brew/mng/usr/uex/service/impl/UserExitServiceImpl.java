@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Service("UserExitService")
 @RequiredArgsConstructor
+@SuppressWarnings("unchecked")
 public class UserExitServiceImpl implements UserExitService {
 
     private final UserExitDAO userExitDAO;

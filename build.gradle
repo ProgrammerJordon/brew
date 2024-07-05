@@ -13,6 +13,10 @@ java {
 	}
 }
 
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:unchecked"
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -32,9 +36,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// Anotation
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
+	implementation 'com.google.code.findbugs:jsr305:3.0.2' // @Nullable
 	// AOP
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
@@ -76,8 +82,8 @@ dependencies {
 	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 
 	// Test
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
