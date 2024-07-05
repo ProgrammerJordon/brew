@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/template_top.jspf" %>
 
 <script>
-    debugger;
+    // debugger;
     const cst = {
 
         sn : '${vo.sn}',
