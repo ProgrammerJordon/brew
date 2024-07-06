@@ -17,4 +17,37 @@
             </if>
     </select>
 
+    <select id="selectVisitorCnt" parameterType="brew.mng.uss.uvc.service.VisitorCntVO" resultType="brew.mng.uss.uvc.service.VisitorCntVO">
+
+        <choose>
+            <when test="se eq 'D'.toString()">
+                SELECT
+                    TO_CHAR(rgtr_dt, 'YYYY-MM-DD') AS rgtr_dt,
+                    COUNT(log_id)
+                FROM brew.comtnvisitorlog
+                GROUP BY TO_CHAR(rgtr_dt, 'YYYY-MM-DD')
+                ORDER BY rgtr_dt desc
+                limit 7
+            </when>
+            <when test="se eq 'W'.toString()">
+                SELECT
+                    TO_CHAR(date_trunc('week', rgtr_dt), 'YYYY-MM-DD') AS rgtr_dt,
+                    COUNT(log_id)
+                FROM brew.comtnvisitorlog
+                GROUP BY date_trunc('week', rgtr_dt)
+                ORDER BY rgtr_dt DESC
+                LIMIT 12
+            </when>
+            <when test="se eq 'M'.toString()">
+                SELECT
+                    TO_CHAR(rgtr_dt, 'YYYY-MM') AS rgtr_dt,
+                    COUNT(log_id)
+                FROM brew.comtnvisitorlog
+                GROUP BY TO_CHAR(rgtr_dt, 'YYYY-MM')
+                ORDER BY rgtr_dt desc
+                limit 12
+            </when>
+        </choose>
+    </select>
+
 </mapper>

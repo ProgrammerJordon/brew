@@ -7,9 +7,55 @@
         searchParams : {},
         uvcList : [],
 
+        visitorLineChart : null,
+        vstLabel : [],
+        vstData : [],
+
         init : () => {
             uvc.selectVisitorCntList();
+            uvc.selectVisitorCnt();
         },
+        selectVisitorCnt : (se) => {
+            // 일간, 주간, 월간
+            let param = {se : se || 'D'}
+
+            if (uvc.visitorLineChart != null) {
+                uvc.vstLabel = [];
+                uvc.vstData = [];
+                uvc.visitorLineChart.destroy();
+            }
+
+            callModule.call(Util.getRequestUrl("/mng/uss/uvc/selectVisitorCnt.do"), param, (result) => {
+
+                result.visitorCntVOList.forEach(item => {
+                    uvc.vstLabel.unshift(item.rgtrDt);
+                    uvc.vstData.unshift(item.count);
+                });
+
+                let visitorGraph = document.getElementById('visitorLineChart');
+
+                uvc.visitorLineChart = new Chart(visitorGraph, {
+                    type: 'line',
+                    data: {
+                        labels: uvc.vstLabel,
+                        datasets: [{
+                            label: "Vistor Count",
+                            data: uvc.vstData,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            })
+        },
+
         selectVisitorCntList : (pageIndex) => {
             let param = {
                 searchKeyword : $("#searchKeyword").val(),
@@ -69,9 +115,35 @@
         uvc.init();
         mmm.selectMenu('uss', '방문자수');
     })
+
 </script>
 
 <div>
+    <div class="mb-24">
+        <div>
+            <div class="btn__box" style="display: flex; justify-content: right;">
+                <div class="mr-16">
+                    <button class="btn__black__line" onclick="uvc.selectVisitorCnt('D')">
+                        <span>DAY</span>
+                    </button>
+                </div>
+                <div class="mr-16">
+                    <button class="btn__black__line" onclick="uvc.selectVisitorCnt('W')">
+                        <span>WEEK</span>
+                    </button>
+                </div>
+                <div>
+                    <button class="btn__black__line" onclick="uvc.selectVisitorCnt('M')">
+                        <span>MONTH</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div>
+            <canvas id="visitorLineChart" width="800" height="200"></canvas>
+        </div>
+    </div>
     <div class="search-box">
         <ul style="margin-right: 2%;">
             <li>
@@ -81,7 +153,7 @@
                 </div>
             </li>
         </ul>
-        <button class="btn__search icon" onclick="">
+        <button class="btn__search icon" onclick="uvc.selectVisitorCntList();">
             <span>조회</span>
         </button>
     </div>
@@ -105,7 +177,7 @@
             <tr>
                 <th>로그ID</th>
                 <th>클라이언트IP</th>
-                <th>일자</th>
+                <th>일시</th>
             </tr>
             </thead>
             <tbody id="tbody"></tbody>

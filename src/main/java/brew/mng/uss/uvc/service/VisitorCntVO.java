@@ -12,4 +12,6 @@ public class VisitorCntVO extends CommonVO implements Serializable {
     private String clientIp;
 
     private int rnum;
+    private int count;
+    private String se;
 }

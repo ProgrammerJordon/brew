@@ -143,7 +143,7 @@
                             <a>방문자수</a>
                         </li>
                         <br>
-                        <li onclick="mmm.movePage('');">
+                        <li onclick="mmm.movePage('/mng/uss/ull/selectLoginLogListVw.do');">
                             <a>로그인이력</a>
                         </li>
                         <br>
