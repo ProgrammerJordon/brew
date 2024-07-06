@@ -55,7 +55,7 @@
 
                 // 서비스
                 csc : '#csc',
-
+                faq : '#faq',
             };
 
             for (let key in sections) {
