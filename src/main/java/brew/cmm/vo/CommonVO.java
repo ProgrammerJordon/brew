@@ -26,6 +26,10 @@ public class CommonVO {
 
     private String mdfrDt;
 
+    private String bgDate;
+
+    private String endDate;
+
     private String usrId;
 
     private String searchCondition = "";

@@ -139,7 +139,7 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('');">
+                        <li onclick="mmm.movePage('/mng/uss/uvc/selectVisitorCntVw.do');">
                             <a>방문자수</a>
                         </li>
                         <br>
@@ -165,10 +165,6 @@
                     <ul style="display: block;">
                         <li>
                             <a onclick="mmm.movePage('/mng/sys/mml/selectMenuListVw.do');">메뉴관리</a>
-                        </li>
-                        <br>
-                        <li>
-                            <a href="">로그관리</a>
                         </li>
                     </ul>
                 </div>

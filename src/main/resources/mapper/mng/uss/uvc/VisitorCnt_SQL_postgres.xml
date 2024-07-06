@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VisitorCntDAO">
+    <select id="selectVisitorCntList" parameterType="brew.mng.uss.uvc.service.VisitorCntVO" resultType="brew.mng.uss.uvc.service.VisitorCntVO">
+        select
+            log_id
+            ,client_ip
+            ,TO_CHAR(rgtr_dt, 'YYYY-MM-DD HH24:MI:SS') AS rgtr_dt
+            ,ROW_NUMBER() OVER(ORDER BY CAST(SUBSTRING(log_id FROM LENGTH(log_id) - 15 FOR 16) AS BIGINT) DESC) AS RNUM
+        from brew.comtnvisitorlog
+        where 1=1
+            <if test="searchKeyword != null and searchKeyword != ''">
+                and client_ip like '%' || #{searchKeyword} || '%'
+            </if>
+    </select>
+
+</mapper>
