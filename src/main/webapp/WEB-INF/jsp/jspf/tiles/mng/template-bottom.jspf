@@ -5,6 +5,7 @@
                         <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/side_right_mng.jspf" %>
                     </div>
                 </div>
+                <br>
                 <div style="width: 100vw;">
                     <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/footer_mng.jspf" %>
                 </div>

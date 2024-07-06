@@ -17,4 +17,16 @@
                 AND (user_sn ILIKE '%' || #{searchKeyword} || '%' OR nick_nm ILIKE '%' || #{searchKeyword} || '%')
             </if>
     </select>
+
+    <select id="selectLoginLog" parameterType="brew.mng.uss.ull.service.LogInLogVO" resultType="brew.mng.uss.ull.service.LogInLogVO">
+        SELECT
+            TO_CHAR(rgtr_dt, 'YYYY-MM-DD') AS rgtr_dt,
+            COUNT(CASE WHEN login_se = 'KAKAO' THEN 1 END) AS kakao_count,
+            COUNT(CASE WHEN login_se = 'NAVER' THEN 1 END) AS naver_count,
+            COUNT(CASE WHEN login_se = 'GOOGLE' THEN 1 END) AS google_count
+        FROM brew.comtnloginlog
+        GROUP BY TO_CHAR(rgtr_dt, 'YYYY-MM-DD')
+        ORDER BY rgtr_dt DESC
+            limit 7
+    </select>
 </mapper>

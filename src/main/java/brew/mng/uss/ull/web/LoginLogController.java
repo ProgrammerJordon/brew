@@ -26,4 +26,10 @@ public class LoginLogController {
     public LoginLog selectLoginLogList(@RequestBody LogInLogVO vo) {
         return loginLogService.selectLoginLogList(vo);
     }
+
+    @RequestMapping("/selectLoginLog.do")
+    @ResponseBody
+    public LoginLog selectLoginLog(@RequestBody LogInLogVO vo) {
+        return loginLogService.selectLoginLog(vo);
+    }
 }

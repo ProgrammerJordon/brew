@@ -7,9 +7,77 @@
         searchParams : {},
         ullList : [],
 
+        ullBarChart : null,
+        ullLabel : [],
+        kakaoData : [],
+        naverData : [],
+        googleData : [],
+
         init : () => {
             ull.selectLoginLogList();
+            ull.selectLoginLog();
         },
+
+        selectLoginLog : () => {
+          let param = {};
+
+          if (ull.ullBarChart != null) {
+              ull.ullLabel = [];
+              ull.kakaoData = [];
+              ull.naverData = [];
+              ull.googleData = [];
+              ull.ullBarChart.destroy();
+          }
+
+          callModule.call(Util.getRequestUrl("/mng/uss/ull/selectLoginLog.do"), param, (result) => {
+                debugger;
+              result.logInLogVOList.forEach(item => {
+                  ull.ullLabel.unshift(item.rgtrDt);
+                  ull.kakaoData.unshift(item.kakaoCount);
+                  ull.naverData.unshift(item.naverCount);
+                  ull.googleData.unshift(item.googleCount);
+              });
+
+              let ullBarGraph = document.getElementById('ullBarChart');
+              ull.ullBarChart = new Chart(ullBarGraph, {
+                  type: 'bar',
+                  data: {
+                      labels: ull.ullLabel,
+                      datasets: [
+                          {
+                              label: 'KAKAO',
+                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                              borderColor: 'rgba(255, 99, 132, 1)',
+                              borderWidth: 1,
+                              data: ull.kakaoData
+                          },
+                          {
+                              label: 'NAVER',
+                              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                              borderColor: 'rgba(54, 162, 235, 1)',
+                              borderWidth: 1,
+                              data: ull.naverData
+                          },
+                          {
+                              label: 'GOOGLE',
+                              backgroundColor: 'rgba(255, 205, 86, 0.2)',
+                              borderColor: 'rgba(255, 205, 86, 1)',
+                              borderWidth: 1,
+                              data: ull.googleData
+                          }
+                      ]
+                  },
+                  options: {
+                      scales: {
+                          y: {
+                              beginAtZero: true
+                          }
+                      }
+                  }
+              });
+          })
+        },
+
         selectLoginLogList : (pageIndex) => {
             let param = {
                 searchKeyword : $("#searchKeyword").val(),
@@ -76,6 +144,10 @@
 </script>
 
 <div>
+    <div>
+        <canvas id="ullBarChart" width="800" height="300"></canvas>
+    </div>
+    <br>
     <div class="search-box">
         <ul style="margin-right: 2%;">
             <li>

@@ -18,7 +18,7 @@
             <div class="wrap">
                 <div>
                     <a href="<c:out value='/mng/min/idx/selectMainVw.do'/>">
-                        <img src="/images/ico-logo-brew.png" alt="BREW" width="300px;" height="100px;">
+                        <img src="/images/logo/ico_logo3.png" alt="BREW" width="300px;" height="100px;">
                     </a>
                 </div>
                 <div>

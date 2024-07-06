@@ -4,4 +4,5 @@ public interface LoginLogService {
 
     public LoginLog selectLoginLogList(LogInLogVO vo);
 
+    public LoginLog selectLoginLog(LogInLogVO vo);
 }

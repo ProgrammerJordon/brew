@@ -18,4 +18,11 @@ public class LoginLogServiceImpl implements LoginLogService {
                 .logInLogVOList(loginLogDAO.selectLoginLogList(vo))
                 .build();
     }
+
+    @Override
+    public LoginLog selectLoginLog(LogInLogVO vo) {
+        return LoginLog.builder()
+                .logInLogVOList(loginLogDAO.selectLoginLog(vo))
+                .build();
+    }
 }

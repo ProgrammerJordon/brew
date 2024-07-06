@@ -16,4 +16,8 @@ public class LoginLogDAO {
     public List<LogInLogVO> selectLoginLogList(LogInLogVO vo) {
         return sqlSession.selectList("LoginLogDAO.selectLoginLogList", vo);
     }
+
+    public List<LogInLogVO> selectLoginLog(LogInLogVO vo) {
+        return sqlSession.selectList("LoginLogDAO.selectLoginLog", vo);
+    }
 }
