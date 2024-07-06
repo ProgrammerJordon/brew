@@ -13,4 +13,6 @@ public class LogInLogVO extends CommonVO implements Serializable {
     private String userSn;
     private String nickNm;
 
+    private int rnum;
+
 }

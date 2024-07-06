@@ -33,6 +33,8 @@
 
                 $("#totCnt").text(ccd.codeList.length.toLocaleString());
 
+                gridModule.clear_grid("tbody");
+
                 if(ccd.codeList.length == 0) {
                     let html = `<tr>
                                     <td colspan="4">등록된 공통코드가 존재하지 않습니다.</td>
@@ -40,8 +42,6 @@
                     $("tbody").append(html);
                     return false;
                 }
-
-                gridModule.clear_grid("tbody");
 
                 for(let i = 0; i < ccd.codeList.length; i++) {
                     if (ccd.codeList[i].rnum > 10) break;

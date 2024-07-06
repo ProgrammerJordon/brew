@@ -33,6 +33,8 @@
 
                 $("#totCnt").text(bbs.boardList.length.toLocaleString());
 
+                gridModule.clear_grid("tbody");
+
                 if(bbs.boardList.length == 0) {
                     let html = `<tr>
                                     <td colspan="4">등록된 공지사항이 존재하지 않습니다.</td>
@@ -40,8 +42,6 @@
                     $("tbody").append(html);
                     return false;
                 }
-
-                gridModule.clear_grid("tbody");
 
                 for(let i = 0; i < bbs.boardList.length; i++) {
                     if (bbs.boardList[i].rnum > 10) break;

@@ -26,6 +26,7 @@
             usm.searchParams = param;
 
             callModule.call(Util.getRequestUrl("/mng/usr/usm/selectUserMngList.do"), param, (result) => {
+
                 usm.usmList = result.userVOList || [];
 
                 $("#totCnt").text(usm.usmList.length.toLocaleString());

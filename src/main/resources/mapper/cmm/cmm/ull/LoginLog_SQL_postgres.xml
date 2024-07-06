@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LoginLogDAO">
+
+    <select id="selectLoginLogList" parameterType="brew.mng.uss.ull.service.LogInLogVO" resultType="brew.mng.uss.ull.service.LogInLogVO">
+        select
+            log_id
+            ,login_se
+            ,user_sn
+            ,nick_nm
+            ,TO_CHAR(rgtr_dt, 'YYYY-MM-DD HH24:MI:SS') AS rgtr_dt
+            ,ROW_NUMBER() OVER(ORDER BY log_id DESC) AS RNUM
+        from brew.comtnloginlog
+        where 1=1
+            <if test="searchKeyword != null and searchKeyword != ''">
+                AND (user_sn ILIKE '%' || #{searchKeyword} || '%' OR nick_nm ILIKE '%' || #{searchKeyword} || '%')
+            </if>
+    </select>
+</mapper>

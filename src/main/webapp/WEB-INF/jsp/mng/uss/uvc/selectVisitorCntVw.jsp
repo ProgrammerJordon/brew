@@ -59,7 +59,7 @@
         selectVisitorCntList : (pageIndex) => {
             let param = {
                 searchKeyword : $("#searchKeyword").val(),
-                pageIndex : pageIndex
+                pageIndex : pageIndex || '1'
             }
 
             uvc.searchParams = param;
@@ -70,6 +70,8 @@
 
                 $("#totCnt").text(uvc.uvcList.length.toLocaleString());
 
+                gridModule.clear_grid("tbody");
+
                 if(uvc.uvcList.length == 0) {
                     let html = `<tr>
                                     <td colspan="3">등록된 방문자 로그가 존재하지 않습니다.</td>
@@ -77,8 +79,6 @@
                     $("tbody").append(html);
                     return false;
                 }
-
-                gridModule.clear_grid("tbody");
 
                 for(let i = 0; i < uvc.uvcList.length; i++) {
                     if (uvc.uvcList[i].rnum > 10) break;

@@ -33,6 +33,8 @@
 
                 $("#totCnt").text(faq.faqList.length.toLocaleString());
 
+                gridModule.clear_grid("tbody");
+
                 if(faq.faqList.length == 0) {
                     let html = `<tr>
                                     <td colspan="4">등록된 FAQ가 존재하지 않습니다.</td>
@@ -40,8 +42,6 @@
                     $("tbody").append(html);
                     return false;
                 }
-
-                gridModule.clear_grid("tbody");
 
                 for(let i = 0; i < faq.faqList.length; i++) {
                     if (faq.faqList[i].rnum > 10) break;
