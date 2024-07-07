@@ -5,7 +5,7 @@
 
         <div id="csc" style="display: none;">
             <div style="text-align: center;">
-                <span style="font-size: 2em;">문의사항</span>
+                <span style="font-size: 2em;">고객센터</span>
             </div>
             <br>
             <div class="tab__body type01">
@@ -13,6 +13,15 @@
                     <ul style="display: block;">
                         <li onclick="mmm.movePage('/svc/csc/cst/selectConsultListVw.do');">
                             <a>문의사항</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('/svc/csc/cst/selectFaqListVw.do');">
+                            <a>FAQ</a>
                         </li>
                     </ul>
                 </div>
