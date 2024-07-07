@@ -57,7 +57,7 @@ public class BrewIdGnrProperties {
         // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextFaqId");
         // 현재 LOG_ID 값에서 +1 값 반환
-        return String.format("BBS_%016d", nextValue + 1);
+        return String.format("FAQ_%016d", nextValue + 1);
     }
 
     public String getNextCodeId() {
@@ -67,6 +67,24 @@ public class BrewIdGnrProperties {
         sqlSession.update("BrewIdGnrDAO.updateNextCodeId");
         // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("CODE_%03d", nextValue + 1);
+    }
+
+    public String getNextUserId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextUserId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextUserId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("USER_%015d", nextValue + 1);
+    }
+
+    public String getNextExitId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextExitId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextExitId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("EXIT_%015d", nextValue + 1);
     }
 
 }

@@ -16,7 +16,7 @@
             auth_cd,
             profile_img_url,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
-        from brew.brewlogin
+        from brew.comtnuser
         where 1=1
             and exit_yn = 'N'
         <if test="authCd != null and authCd != ''">
@@ -42,12 +42,12 @@
             login_se,
             use_yn,
             to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
-        from brew.brewlogin
+        from brew.comtnuser
         where 1=1
           and user_sn = #{userSn}
     </select>
     <update id="updateUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
-        update brew.brewlogin
+        update brew.comtnuser
         set
             nick_nm = #{nickNm},
             use_yn = #{useYn},
@@ -58,7 +58,7 @@
     </update>
 
     <update id="updateExitUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
-        update brew.brewlogin
+        update brew.comtnuser
         set
             exit_yn = 'Y',
             use_yn = 'N',
@@ -70,16 +70,7 @@
 
     <insert id="insertExitUserMng" parameterType="brew.mng.usr.usm.service.UserVO">
 
-        <selectKey keyProperty="exitSn" resultType="string" order="BEFORE">
-            SELECT
-                CASE
-                    WHEN MAX(exit_sn) IS NULL THEN 'EXIT_0000000001'
-                    ELSE 'EXIT_' || LPAD((SUBSTRING(MAX(exit_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
-                END
-            FROM brew.brewexit
-        </selectKey>
-
-        INSERT INTO brew.brewexit(
+        INSERT INTO brew.comtnuserexit(
             exit_sn,
             user_sn,
             user_id,

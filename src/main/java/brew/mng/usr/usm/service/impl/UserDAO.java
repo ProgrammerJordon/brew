@@ -1,5 +1,6 @@
 package brew.mng.usr.usm.service.impl;
 
+import brew.cmm.service.ppt.BrewIdGnrProperties;
 import brew.mng.usr.usm.service.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDAO {
 
+    private final BrewIdGnrProperties brewIdGnrProperties;
     private final SqlSessionTemplate sqlSession;
 
     List<UserVO> selectUserMngList(UserVO vo) {
@@ -30,6 +32,7 @@ public class UserDAO {
     }
 
     int insertExitUserMng(UserVO vo) {
+        vo.setExitSn(brewIdGnrProperties.getNextExitId());
         return sqlSession.insert("UserDAO.insertExitUserMng", vo);
     }
 

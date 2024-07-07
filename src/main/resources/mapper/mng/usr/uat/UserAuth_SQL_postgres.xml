@@ -16,7 +16,7 @@
             auth_cd,
             profile_img_url,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
-        from brew.brewlogin
+        from brew.comtnuser
         where 1=1
             and exit_yn = 'N'
             <if test="loginSe != null and loginSe != ''">
@@ -43,13 +43,13 @@
             user_nm,
             nick_nm,
             auth_cd
-        from brew.brewlogin
+        from brew.comtnuser
         where 1=1
             and user_sn = #{userSn}
     </select>
 
     <update id="updateUserAuth" parameterType="brew.mng.usr.uat.service.UserAuthVO">
-        update brew.brewlogin
+        update brew.comtnuser
         set
             auth_cd = #{authCd},
             mdfr_id = #{userSn},

@@ -14,7 +14,7 @@
             login_se,
             to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
             ROW_NUMBER() OVER(ORDER BY user_sn DESC) AS RNUM
-        from brew.brewsignin
+        from brew.comtnsignindtls
         where 1=1
         <if test="authCd != null and authCd != ''">
             and auth_cd = #{authCd}

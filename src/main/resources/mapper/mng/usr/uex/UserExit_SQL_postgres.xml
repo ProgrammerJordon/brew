@@ -18,7 +18,7 @@
             to_char(mdfr_dt, 'YYYY-MM-DD') as mdfr_dt,
             revival_yn,
             ROW_NUMBER() OVER(ORDER BY exit_sn DESC) AS RNUM
-        from brew.brewexit
+        from brew.comtnuserexit
         where 1=1
         <if test="authCd != null and authCd != ''">
             and auth_cd = #{authCd}
@@ -32,7 +32,7 @@
     </select>
 
     <update id="updateUserExit" parameterType="brew.mng.usr.uex.service.UserExitVO">
-        update brew.brewlogin
+        update brew.comtnuser
                set
                    use_yn = 'Y',
                    exit_yn = 'N',
@@ -43,7 +43,7 @@
     </update>
 
     <update id="updateUserLoginExit" parameterType="brew.mng.usr.uex.service.UserExitVO">
-        update brew.brewexit
+        update brew.comtnuserexit
             set
                 revival_yn = 'Y',
                 mdfr_id = #{userSn},

@@ -9,7 +9,7 @@
         select count(*)
         from (
             select *
-            from brew.brewlogin
+            from brew.comtnuser
             where 1=1
                 and user_id = #{userId}
              )z
@@ -17,21 +17,14 @@
 
     <select id="selectUserLoginInfo" parameterType="brew.cmm.service.sns.service.LoginVO" resultType="brew.cmm.service.sns.service.LoginVO">
         select *
-        from brew.brewlogin
+        from brew.comtnuser
         where 1=1
           and user_id = #{userId}
     </select>
 
     <insert id="insertKakaoLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
-        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
-            SELECT
-                CASE
-                    WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
-                    ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
-                END
-            FROM brew.brewlogin
-        </selectKey>
-        INSERT INTO brew.brewlogin (
+
+        INSERT INTO brew.comtnuser (
             user_sn
             ,user_id
             ,user_nm
@@ -66,7 +59,7 @@
     </insert>
 
     <insert id="insertKakaoSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
-        INSERT INTO brew.brewsignin (
+        INSERT INTO brew.comtnsignindtls (
             user_sn
             ,user_id
             ,user_nm
@@ -101,15 +94,8 @@
     </insert>
 
     <insert id="insertGoogleLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
-        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
-            SELECT
-            CASE
-            WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
-            ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
-            END
-            FROM brew.brewlogin
-        </selectKey>
-        INSERT INTO brew.brewlogin (
+
+        INSERT INTO brew.comtnuser (
         user_sn
         ,user_id
         ,user_nm
@@ -152,7 +138,7 @@
     </insert>
 
     <insert id="insertGoogleSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
-        INSERT INTO brew.brewsignin (
+        INSERT INTO brew.comtnsignindtls (
             user_sn
             ,user_id
             ,user_nm
@@ -189,15 +175,8 @@
     </insert>
 
     <insert id="insertNaverLogin" parameterType="brew.cmm.service.sns.service.LoginVO">
-        <selectKey keyProperty="userSn" resultType="string" order="BEFORE">
-            SELECT
-            CASE
-            WHEN MAX(user_sn) IS NULL THEN 'USER_0000000001'
-            ELSE 'USER_' || LPAD((SUBSTRING(MAX(user_sn), 6)::INTEGER + 1)::TEXT, 10, '0')
-            END
-            FROM brew.brewlogin
-        </selectKey>
-        INSERT INTO brew.brewlogin (
+
+        INSERT INTO brew.comtnuser (
         user_sn
         ,user_id
         ,user_nm
@@ -244,7 +223,7 @@
     </insert>
 
     <insert id="insertNaverSignIn" parameterType="brew.cmm.service.sns.service.LoginVO">
-        INSERT INTO brew.brewsignin (
+        INSERT INTO brew.comtnsignindtls (
              user_sn
             ,user_id
             ,user_nm

@@ -84,4 +84,29 @@
         WHERE table_name = 'CODE_ID'
     </update>
 
+    <select id="getNextUserId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'USER_ID'
+    </select>
+
+    <update id="updateNextUserId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'USER_ID'
+    </update>
+
+    <select id="getNextExitId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'EXIT_ID'
+    </select>
+
+    <update id="updateNextExitId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'EXIT_ID'
+    </update>
 </mapper>

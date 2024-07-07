@@ -222,11 +222,10 @@ create index comtncmmcddtls_code_id_code_index
     on comtncmmcddtls (code_id, code);
 
 -- 로그인
-
-create table brewlogin
+create table comtnuser
 (
     user_sn           varchar   not null
-        constraint brewlogin_pk
+        constraint comtnuser_pk
             primary key,
     user_id           varchar   not null,
     nick_nm           varchar,
@@ -253,71 +252,71 @@ create table brewlogin
     gender            varchar
 );
 
-comment on table brewlogin is '로그인';
+comment on table comtnuser is '로그인';
 
-comment on column brewlogin.user_sn is '일련번호';
+comment on column comtnuser.user_sn is '일련번호';
 
-comment on column brewlogin.user_id is '사용자ID';
+comment on column comtnuser.user_id is '사용자ID';
 
-comment on column brewlogin.nick_nm is '닉네임';
+comment on column comtnuser.nick_nm is '닉네임';
 
-comment on column brewlogin.profile_img_url is '프로필이미지경로';
+comment on column comtnuser.profile_img_url is '프로필이미지경로';
 
-comment on column brewlogin.user_nm is '사용자명';
+comment on column comtnuser.user_nm is '사용자명';
 
-comment on column brewlogin.use_yn is '사용여부';
+comment on column comtnuser.use_yn is '사용여부';
 
-comment on column brewlogin.login_se is '로그인구분';
+comment on column comtnuser.login_se is '로그인구분';
 
-comment on column brewlogin.rgtr_id is '등록자ID';
+comment on column comtnuser.rgtr_id is '등록자ID';
 
-comment on column brewlogin.rgtr_dt is '등록일시';
+comment on column comtnuser.rgtr_dt is '등록일시';
 
-comment on column brewlogin.mdfr_id is '수정자ID';
+comment on column comtnuser.mdfr_id is '수정자ID';
 
-comment on column brewlogin.mdfr_dt is '수정일시';
+comment on column comtnuser.mdfr_dt is '수정일시';
 
-comment on column brewlogin.auth_cd is '권한코드';
+comment on column comtnuser.auth_cd is '권한코드';
 
-comment on column brewlogin.thumbnail_img_url is '썸네일이미지경로';
+comment on column comtnuser.thumbnail_img_url is '썸네일이미지경로';
 
-comment on column brewlogin.exit_yn is '탈퇴여부';
+comment on column comtnuser.exit_yn is '탈퇴여부';
 
-comment on column brewlogin.given_nm is '이름';
+comment on column comtnuser.given_nm is '이름';
 
-comment on column brewlogin.family_nm is '성';
+comment on column comtnuser.family_nm is '성';
 
-comment on column brewlogin.email_verified is '이메일인증여부';
+comment on column comtnuser.email_verified is '이메일인증여부';
 
-comment on column brewlogin.email is '이메일';
+comment on column comtnuser.email is '이메일';
 
-comment on column brewlogin.birth_year is '출생연도';
+comment on column comtnuser.birth_year is '출생연도';
 
-comment on column brewlogin.birth_day is '출생월일';
+comment on column comtnuser.birth_day is '출생월일';
 
-comment on column brewlogin.mobile is '핸드폰번호';
+comment on column comtnuser.mobile is '핸드폰번호';
 
-comment on column brewlogin.mobile_e is '국적핸드폰번호';
+comment on column comtnuser.mobile_e is '국적핸드폰번호';
 
-comment on column brewlogin.age is '연령대';
+comment on column comtnuser.age is '연령대';
 
-comment on column brewlogin.gender is '성별';
+comment on column comtnuser.gender is '성별';
 
-alter table brewlogin
+alter table comtnuser
     owner to postgres;
 
 create index brewlogin_sn_idx
-    on brewlogin (user_sn);
+    on comtnuser (user_sn);
 
 create index brewsignin_sn_idx
-    on brewlogin (user_sn);
+    on comtnuser (user_sn);
 
 -- 회원탈퇴 내역 테이블
 
-create table brewexit
+create table comtnuserexit
 (
     exit_sn           varchar                                      not null
-        constraint brewexit_pk
+        constraint comtnuserexit_pk
             primary key,
     user_sn           varchar                                      not null,
     user_id           varchar                                      not null,
@@ -335,47 +334,47 @@ create table brewexit
     mdfr_dt           timestamp default CURRENT_TIMESTAMP          not null
 );
 
-comment on table brewexit is '회원탈퇴';
+comment on table comtnuserexit is '회원탈퇴';
 
-comment on column brewexit.exit_sn is '회원탈퇴일련번호';
+comment on column comtnuserexit.exit_sn is '회원탈퇴일련번호';
 
-comment on column brewexit.user_sn is '일련번호';
+comment on column comtnuserexit.user_sn is '일련번호';
 
-comment on column brewexit.user_id is '사용자ID';
+comment on column comtnuserexit.user_id is '사용자ID';
 
-comment on column brewexit.nick_nm is '닉네임';
+comment on column comtnuserexit.nick_nm is '닉네임';
 
-comment on column brewexit.profile_img_url is '프로필이미지경로';
+comment on column comtnuserexit.profile_img_url is '프로필이미지경로';
 
-comment on column brewexit.user_nm is '사용자명';
+comment on column comtnuserexit.user_nm is '사용자명';
 
-comment on column brewexit.use_yn is '사용여부';
+comment on column comtnuserexit.use_yn is '사용여부';
 
-comment on column brewexit.login_se is '로그인구분';
+comment on column comtnuserexit.login_se is '로그인구분';
 
-comment on column brewexit.auth_cd is '권한코드';
+comment on column comtnuserexit.auth_cd is '권한코드';
 
-comment on column brewexit.thumbnail_img_url is '썸네일이미지경로';
+comment on column comtnuserexit.thumbnail_img_url is '썸네일이미지경로';
 
-comment on column brewexit.revival_yn is '복구여부';
+comment on column comtnuserexit.revival_yn is '복구여부';
 
-comment on column brewexit.rgtr_id is '등록자ID';
+comment on column comtnuserexit.rgtr_id is '등록자ID';
 
-comment on column brewexit.rgtr_dt is '등록일시';
+comment on column comtnuserexit.rgtr_dt is '등록일시';
 
-comment on column brewexit.mdfr_id is '수정자ID';
+comment on column comtnuserexit.mdfr_id is '수정자ID';
 
-comment on column brewexit.mdfr_dt is '수정일시';
+comment on column comtnuserexit.mdfr_dt is '수정일시';
 
-alter table brewexit
+alter table comtnuserexit
     owner to postgres;
 
-create index brewexit_exit_sn_index
-    on brewexit (exit_sn);
+create index comtnuserexit_exit_sn_index
+    on comtnuserexit (exit_sn);
 
 -- 회원가입내역
 
-create table brewsignin
+create table comtnsignindtls
 (
     user_sn           varchar,
     user_id           varchar,
@@ -394,41 +393,40 @@ create table brewsignin
     email             varchar
 );
 
-comment on table brewsignin is '회원가입내역';
+comment on table comtnsignindtls is '회원가입내역';
 
-comment on column brewsignin.user_sn is '일련번호';
+comment on column comtnsignindtls.user_sn is '일련번호';
 
-comment on column brewsignin.user_id is '사용자ID';
+comment on column comtnsignindtls.user_id is '사용자ID';
 
-comment on column brewsignin.nick_nm is '닉네임';
+comment on column comtnsignindtls.nick_nm is '닉네임';
 
-comment on column brewsignin.profile_img_url is '프로필이미지경로';
+comment on column comtnsignindtls.profile_img_url is '프로필이미지경로';
 
-comment on column brewsignin.user_nm is '사용자명';
+comment on column comtnsignindtls.user_nm is '사용자명';
 
-comment on column brewsignin.use_yn is '사용여부';
+comment on column comtnsignindtls.use_yn is '사용여부';
 
-comment on column brewsignin.login_se is '로그인구분';
+comment on column comtnsignindtls.login_se is '로그인구분';
 
-comment on column brewsignin.auth_cd is '권한코드';
+comment on column comtnsignindtls.auth_cd is '권한코드';
 
-comment on column brewsignin.thumbnail_img_url is '썸네일이미지경로';
+comment on column comtnsignindtls.thumbnail_img_url is '썸네일이미지경로';
 
-comment on column brewsignin.exit_yn is '탈퇴여부';
+comment on column comtnsignindtls.exit_yn is '탈퇴여부';
 
-comment on column brewsignin.rgtr_id is '등록자ID';
+comment on column comtnsignindtls.rgtr_id is '등록자ID';
 
-comment on column brewsignin.rgtr_dt is '등록일시';
+comment on column comtnsignindtls.rgtr_dt is '등록일시';
 
-comment on column brewsignin.mdfr_id is '수정자ID';
+comment on column comtnsignindtls.mdfr_id is '수정자ID';
 
-comment on column brewsignin.mdfr_dt is '수정일시';
+comment on column comtnsignindtls.mdfr_dt is '수정일시';
 
-comment on column brewsignin.email is '이메일';
+comment on column comtnsignindtls.email is '이메일';
 
-alter table brewsignin
+alter table comtnsignindtls
     owner to postgres;
-
 
 -- 문의사항
 
@@ -499,6 +497,8 @@ INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('LGI_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('BBS_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FAQ_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('CODE_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('USER_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('EXIT_ID', 0);
 
 -- 방문자 이력로그
 create table comtnvisitorlog
