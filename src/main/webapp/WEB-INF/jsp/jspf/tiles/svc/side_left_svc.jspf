@@ -20,7 +20,7 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('/svc/csc/cst/selectFaqListVw.do');">
+                        <li onclick="mmm.movePage('/svc/csc/faq/selectFaqListVw.do');">
                             <a>FAQ</a>
                         </li>
                     </ul>

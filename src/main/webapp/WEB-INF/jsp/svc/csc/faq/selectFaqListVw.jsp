@@ -8,7 +8,7 @@
         cstList : [],
 
         init : () => {
-             cst.selectConsultList();
+            cst.selectConsultList();
         },
 
         selectConsultInsertVw : () => {
@@ -22,39 +22,39 @@
         },
 
         selectConsultList : function() {
-          let param = {}
+            let param = {}
 
-              cst.searchParams = param;
-              callModule.call(Util.getRequestUrl("/svc/csc/cst/selectConsultList.do"), param, (result) => {
+            cst.searchParams = param;
+            callModule.call(Util.getRequestUrl("/svc/csc/cst/selectConsultList.do"), param, (result) => {
 
-              cst.cstList = result.consultVOList || [];
+                cst.cstList = result.consultVOList || [];
 
-              $("#totCnt").text(cst.cstList.length.toLocaleString());
+                $("#totCnt").text(cst.cstList.length.toLocaleString());
 
-              gridModule.clear_grid("tbody");
+                gridModule.clear_grid("tbody");
 
-              if(cst.cstList.length == 0) {
-                  let html = `<tr>
-                                <td colspan="4">문의사항이 존재하지 않습니다.</td>
+                if(cst.cstList.length == 0) {
+                    let html = `<tr>
+                                <td colspan="4">등록된 문의사항이 존재하지 않습니다.</td>
                               </tr>`
-                  $("tbody").append(html);
-                  return false;
-              }
+                    $("tbody").append(html);
+                    return false;
+                }
 
-              for(let i = 0; i < cst.cstList.length; i++) {
-                  if(cst.cstList[i].rnum > 10) break;
+                for(let i = 0; i < cst.cstList.length; i++) {
+                    if(cst.cstList[i].rnum > 10) break;
 
-                  let html = `<tr onclick="cst.selectConsultDtlsVw('\${cst.cstList[i].sn}')">
+                    let html = `<tr onclick="cst.selectConsultDtlsVw('\${cst.cstList[i].sn}')">
                                 <td>\${cst.cstList[i].title}</td>
                                 <td>\${cst.cstList[i].inqCnt}</td>
                                 <td>\${cst.cstList[i].rgtrId}</td>
                                 <td>\${cst.cstList[i].rgtrDt}</td>
                               </tr>`
 
-                  $("#tbody").append(html);
-              }
-              $('#pagination').page(1, gridModule.getPageSize(cst.cstList), 'cst.pageMove');
-          })
+                    $("#tbody").append(html);
+                }
+                $('#pagination').page(1, gridModule.getPageSize(cst.cstList), 'cst.pageMove');
+            })
         },
         pageMove: function(pageIndex) {
             if (!pageIndex) return;
