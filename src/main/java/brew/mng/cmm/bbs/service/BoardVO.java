@@ -10,7 +10,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper=false)
 public class BoardVO extends CommonVO implements Serializable {
 
-    private int sn;
+    private String bbsId;
     private String title;
     private String contents;
     private int inqCnt;

@@ -12,20 +12,13 @@
             code_dc,
             use_yn,
             ROW_NUMBER() OVER(ORDER BY code_id DESC) AS RNUM
-        from brew.brewcmmcd
+        from brew.comtncmmcd
         order by code_id
     </select>
 
     <insert id="insertCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
-        <selectKey keyProperty="codeId" resultType="string" order="BEFORE">
-            SELECT
-                CASE
-                    WHEN MAX(code_id) IS NULL THEN 'CODE_001'
-                    ELSE 'CODE_' || LPAD((SUBSTRING(MAX(code_id), 6)::INTEGER + 1)::TEXT, 3, '0')
-                END
-            FROM brew.brewcmmcd
-        </selectKey>
-        INSERT INTO brew.brewcmmcd (
+
+        INSERT INTO brew.comtncmmcd (
             code_id
             ,code_nm
             ,code_dc
@@ -53,13 +46,13 @@
             code_nm,
             code_dc,
             use_yn
-        from brew.brewcmmcd
+        from brew.comtncmmcd
         where 1=1
             and code_id = #{codeId}
     </select>
 
     <update id="updateCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
-        update brew.brewcmmcd
+        update brew.comtncmmcd
         set
             code_nm = #{codeNm}
             ,code_dc = #{codeDc}
@@ -74,14 +67,14 @@
         select count(*)
         from (
             select *
-            from brew.brewcmmcddtls
+            from brew.comtncmmcddtls
             where 1=1
                 and code_id = #{codeId}
              )z
     </select>
 
     <delete id="deleteCode" parameterType="brew.mng.cmm.ccd.service.CodeVO">
-        delete from brew.brewcmmcd
+        delete from brew.comtncmmcd
         where 1=1
           and code_id = #{codeId}
     </delete>
@@ -93,9 +86,10 @@
                 WHEN MAX(code) IS NULL THEN 'CODE001'
                 ELSE 'CODE' || LPAD((SUBSTRING(MAX(code), 5)::INTEGER + 1)::TEXT, 3, '0')
             END
-            FROM brew.brewcmmcddtls
+            FROM brew.comtncmmcddtls
+            WHERE code_id = #{codeId}
         </selectKey>
-        INSERT INTO brew.brewcmmcddtls (
+        INSERT INTO brew.comtncmmcddtls (
             code_id
             ,code
             ,code_nm
@@ -127,7 +121,7 @@
             code_dc,
             use_yn,
             ROW_NUMBER() OVER(ORDER BY code DESC) AS RNUM
-        from brew.brewcmmcddtls
+        from brew.comtncmmcddtls
         where 1=1
             and code_id = #{codeId}
     </select>
@@ -139,14 +133,14 @@
             code_nm,
             code_dc,
             use_yn
-        from brew.brewcmmcddtls
+        from brew.comtncmmcddtls
         where 1=1
             and code_id = #{codeId}
             and code = #{code}
     </select>
 
     <update id="updateCodedtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
-        update brew.brewcmmcddtls
+        update brew.comtncmmcddtls
         set
             code_nm = #{codeNm}
             ,code_dc = #{codeDc}
@@ -159,7 +153,7 @@
     </update>
 
     <delete id="deleteCodedtls" parameterType="brew.mng.cmm.ccd.service.CodeVO">
-        delete from brew.brewcmmcddtls
+        delete from brew.comtncmmcddtls
         where 1=1
           and code_id = #{codeId}
           and code = #{code}

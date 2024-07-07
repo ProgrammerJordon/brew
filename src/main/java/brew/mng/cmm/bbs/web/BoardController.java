@@ -46,19 +46,19 @@ public class BoardController {
     }
 
     @RequestMapping("/selectBoardDtlsVw.do")
-    public String selectBoardDtlsVw(@RequestParam(name = "sn", required = false) String sn,
+    public String selectBoardDtlsVw(@RequestParam(name = "bbsId", required = false) String bbsId,
                                     BoardVO vo,
                                     FileVO fvo,
                                     Model model) throws Exception {
         // 문자열 특수기호 꺠짐방지
         //StringEscapeUtils.unescapeHtml4(sn)
         // atchFileId 에 접근하기 위한 조회
-        vo.setSn(Integer.parseInt(sn));
+        vo.setBbsId(bbsId);
         Board rs = boardService.selectBoardDtls(vo);
         fvo.setAtchFileId(rs.getBoardVO().getAtchFileId());
         List<FileVO> fvoList = fileMngService.selectFileInfs(fvo);
 
-        model.addAttribute("sn", sn);
+        model.addAttribute("bbsId", bbsId);
         model.addAttribute("atchFileId", rs.getBoardVO().getAtchFileId());
         model.addAttribute("fileList", fvoList);
 

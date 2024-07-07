@@ -15,8 +15,8 @@
             callModule.post(Util.getRequestUrl("/mng/cmm/bbs/insertBoardVw.do"), {}, 'get')
         },
 
-        selectBoardDtlsVw : (sn) => {
-            let param = {sn : sn}
+        selectBoardDtlsVw : (bbsId) => {
+            let param = {bbsId : bbsId}
             callModule.post(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtlsVw.do"), param, 'get')
         },
 
@@ -46,12 +46,12 @@
                 for(let i = 0; i < bbs.boardList.length; i++) {
                     if (bbs.boardList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="bbs.selectBoardDtlsVw(\${bbs.boardList[i].sn});">
-                                <td>\${bbs.boardList[i].title}</td>
-                                <td>\${bbs.boardList[i].inqCnt}</td>
-                                <td>\${bbs.boardList[i].rgtrId}</td>
-                                <td>\${bbs.boardList[i].rgtrDt}</td>
-                              </tr>`
+                    let html = `<tr onclick="bbs.selectBoardDtlsVw(\${bbs.boardList[i].bbsId});">
+                                    <td>\${bbs.boardList[i].title}</td>
+                                    <td>\${bbs.boardList[i].inqCnt}</td>
+                                    <td>\${bbs.boardList[i].rgtrId}</td>
+                                    <td>\${bbs.boardList[i].rgtrDt}</td>
+                               </tr>`
 
                     $("tbody").append(html);
                 }
@@ -65,7 +65,7 @@
             gridModule.clear_grid("tbody");
 
             bbs.boardList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
-                let html = `<tr onclick="bbs.selectBoardDtlsVw(\${vo.sn});">
+                let html = `<tr onclick="bbs.selectBoardDtlsVw(\${vo.bbsId});">
                                 <td>\${vo.title}</td>
                                 <td>\${vo.inqCnt}</td>
                                 <td>\${vo.rgtrId}</td>

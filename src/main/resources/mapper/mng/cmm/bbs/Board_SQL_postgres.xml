@@ -7,26 +7,24 @@
 
     <select id="selectBoardList" parameterType="brew.mng.cmm.bbs.service.BoardVO" resultType="brew.mng.cmm.bbs.service.BoardVO">
         select
-            sn,
+            bbs_id,
             title,
             contents,
             inq_cnt,
             rgtr_id,
             to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
-            ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
-        from brew.brewbbs
-        order by sn desc
+            ROW_NUMBER() OVER(ORDER BY bbs_id DESC) AS RNUM
+        from brew.comtnbbs
+        order by bbs_id desc
         <if test="mainYn eq 'Y'.toString()">
             limit 5
         </if>
     </select>
 
     <insert id="insertBoard" parameterType="brew.mng.cmm.bbs.service.BoardVO">
-        <selectKey keyProperty="sn" resultType="int" order="BEFORE">
-            SELECT COALESCE(MAX(sn) + 1, 1) FROM brew.brewbbs
-        </selectKey>
-        INSERT INTO brew.brewbbs (
-            sn
+
+        INSERT INTO brew.comtnbbs (
+            bbs_id
             ,title
             ,contents
             ,atch_file_id
@@ -37,31 +35,31 @@
             ,mdfr_dt
         )
         VALUES (
-                #{sn}
-                ,#{title}
-                ,#{contents}
-                ,#{atchFileId}
-                ,0
-                ,#{rgtrId}
-                ,current_timestamp
-                ,#{mdfrId}
-                ,current_timestamp
+            #{bbsId}
+            ,#{title}
+            ,#{contents}
+            ,#{atchFileId}
+            ,0
+            ,#{rgtrId}
+            ,current_timestamp
+            ,#{mdfrId}
+            ,current_timestamp
         )
     </insert>
 
     <select id="selectBoardDtls" parameterType="brew.mng.cmm.bbs.service.BoardVO" resultType="brew.mng.cmm.bbs.service.BoardVO">
         select
-            sn
+            bbs_id
             ,title
             ,contents
             ,atch_file_id
-        from brew.brewbbs
+        from brew.comtnbbs
         where 1=1
-            and sn = cast(#{sn} as numeric)
+            and bbs_id = #{bbsId}
     </select>
 
     <update id="updateBoard" parameterType="brew.mng.cmm.bbs.service.BoardVO">
-        update brew.brewbbs
+        update brew.comtnbbs
         set
             title = #{title}
             ,contents = #{contents}
@@ -69,12 +67,12 @@
             ,mdfr_id = #{mdfrId}
             ,mdfr_dt = current_timestamp
         where 1=1
-            and sn = #{sn}
+            and bbs_id = #{bbsId}
     </update>
 
     <delete id="deleteBoard" parameterType="brew.mng.cmm.bbs.service.BoardVO">
-        delete from brew.brewbbs
+        delete from brew.comtnbbs
         where 1=1
-            and sn = #{sn}
+            and bbs_id = #{bbsId}
     </delete>
 </mapper>

@@ -15,8 +15,8 @@
             callModule.post(Util.getRequestUrl("/mng/cmm/faq/insertFaqInsertVw.do"), {}, 'get')
         },
 
-        selectFaqDtlsVw : (sn) => {
-            let param = {sn : sn}
+        selectFaqDtlsVw : (faqId) => {
+            let param = {faqId : faqId}
             callModule.post(Util.getRequestUrl("/mng/cmm/faq/selectFaqDtlsVw.do"), param, 'get')
         },
 
@@ -46,7 +46,7 @@
                 for(let i = 0; i < faq.faqList.length; i++) {
                     if (faq.faqList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="faq.selectFaqDtlsVw(\${faq.faqList[i].sn});">
+                    let html = `<tr onclick="faq.selectFaqDtlsVw(\${faq.faqList[i].faqId});">
                                 <td>\${faq.faqList[i].title}</td>
                                 <td>\${faq.faqList[i].inqCnt}</td>
                                 <td>\${faq.faqList[i].rgtrId}</td>
@@ -66,7 +66,7 @@
 
             faq.faqList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
 
-                let html = `<tr onclick="faq.selectFaqDtlsVw(\${vo.sn})">
+                let html = `<tr onclick="faq.selectFaqDtlsVw(\${vo.faqId})">
                                 <td>\${vo.title}</td>
                                 <td>\${vo.inqCnt}</td>
                                 <td>\${vo.rgtrId}</td>

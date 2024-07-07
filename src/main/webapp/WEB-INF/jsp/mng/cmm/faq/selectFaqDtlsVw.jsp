@@ -2,9 +2,10 @@
 <%@ include file="/WEB-INF/jsp/jspf/tiles/mng/template_top.jspf" %>
 
 <script>
-    let sn = '${sn}';
-
     const faq = {
+
+        faqId : '${faqId}',
+
         init : () => {
             faq.selectFaqDtls();
         },
@@ -14,7 +15,7 @@
         },
 
         selectFaqDtls : () => {
-            let param = {sn : sn}
+            let param = {faqId : faq.faqId}
             callModule.call(Util.getRequestUrl("/mng/cmm/faq/selectFaqDtls.do"), param, (result) => {
                 $("#title").val(result.faqVO.title);
                 $("#contents").val(result.faqVO.contents);
@@ -33,7 +34,7 @@
             MessageUtil.confirm("FAQ를 수정하시겠습니까?", (boolean) => {
                 if(boolean) {
                     let param = {
-                        sn : sn,
+                        faqId : faq.faqId,
                         title : $("#title").val(),
                         contents : $("#contents").val()
                     }
@@ -49,7 +50,7 @@
         deleteFaq : () => {
             MessageUtil.confirm("FAQ를 삭제하시겠습니까?", (boolean) => {
                 if(boolean) {
-                    let param = {sn : sn}
+                    let param = {faqId : faq.faqId}
                     callModule.call(Util.getRequestUrl("/mng/cmm/faq/deleteFaq.do"), param, (result) => {
                         MessageUtil.alert(result.faqVO.resultMessage, () => {
                             faq.selectFaqListVw();

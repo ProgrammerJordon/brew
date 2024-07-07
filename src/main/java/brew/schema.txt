@@ -62,54 +62,54 @@ alter table comtnfiledetail
     owner to postgres;
 
 -- 게시판
-create table brewbbs
+create table comtnbbs
 (
-    sn           integer not null
-        constraint brewbbs_pk
+    bbs_id       varchar    not null
+        constraint comtnbbs_pk
             primary key,
     title        varchar not null,
     contents     varchar not null,
     inq_cnt      integer,
+    atch_file_id varchar,
     rgtr_id      varchar,
     rgtr_dt      timestamp,
     mdfr_id      varchar,
-    mdfr_dt      timestamp,
-    atch_file_id varchar
+    mdfr_dt      timestamp
 );
 
-comment on table brewbbs is '게시판';
+comment on table comtnbbs is '게시판';
 
-comment on column brewbbs.sn is '일련번호';
+comment on column comtnbbs.bbs_id is '일련번호';
 
-comment on column brewbbs.title is '게시판제목';
+comment on column comtnbbs.title is '게시판제목';
 
-comment on column brewbbs.contents is '게시판내용';
+comment on column comtnbbs.contents is '게시판내용';
 
-comment on column brewbbs.inq_cnt is '조회수';
+comment on column comtnbbs.inq_cnt is '조회수';
 
-comment on column brewbbs.rgtr_id is '등록자아이디';
+comment on column comtnbbs.atch_file_id is '첨부파일아이디';
 
-comment on column brewbbs.rgtr_dt is '등록일시';
+comment on column comtnbbs.rgtr_id is '등록자아이디';
 
-comment on column brewbbs.mdfr_id is '수정자아이디';
+comment on column comtnbbs.rgtr_dt is '등록일시';
 
-comment on column brewbbs.mdfr_dt is '수정일시';
+comment on column comtnbbs.mdfr_id is '수정자아이디';
 
-comment on column brewbbs.atch_file_id is '첨부파일';
+comment on column comtnbbs.mdfr_dt is '수정일시';
 
-alter table brewbbs
+alter table comtnbbs
     owner to postgres;
 
-create index brewbbs_sn_index
-    on brewbbs (sn);
+create index comtnbbs_bbs_id_index
+    on comtnbbs (bbs_id);
 
-comment on index brewbbs_sn_index is '게시판인덱스';
+comment on index comtnbbs_bbs_id_index is '게시판인덱스';
 
 -- FAQ 테이블
-create table brewfaq
+create table comtnfaq
 (
-    sn       integer   not null
-        constraint brewfaq_pk
+    faq_id   varchar      not null
+        constraint comtnfaq_pk
             primary key,
     title    varchar   not null,
     contents varchar   not null,
@@ -120,32 +120,32 @@ create table brewfaq
     mdfr_dt  timestamp not null
 );
 
-comment on table brewfaq is '자주물어보는질문';
+comment on table comtnfaq is '자주물어보는질문';
 
-comment on column brewfaq.sn is '일련번호';
+comment on column comtnfaq.faq_id is '일련번호';
 
-comment on column brewfaq.title is '제목';
+comment on column comtnfaq.title is '제목';
 
-comment on column brewfaq.contents is '내용';
+comment on column comtnfaq.contents is '내용';
 
-comment on column brewfaq.inq_cnt is '조회수';
+comment on column comtnfaq.inq_cnt is '조회수';
 
-comment on column brewfaq.rgtr_id is '등록자';
+comment on column comtnfaq.rgtr_id is '등록자';
 
-comment on column brewfaq.rgtr_dt is '등록일시';
+comment on column comtnfaq.rgtr_dt is '등록일시';
 
-comment on column brewfaq.mdfr_id is '수정자';
+comment on column comtnfaq.mdfr_id is '수정자';
 
-comment on column brewfaq.mdfr_dt is '수정일시';
+comment on column comtnfaq.mdfr_dt is '수정일시';
 
-alter table brewfaq
+alter table comtnfaq
     owner to postgres;
 
 -- 공통코드
-create table brewcmmcd
+create table comtncmmcd
 (
     code_id varchar   not null
-        constraint brewcmmcd_pk
+        constraint comtncmmcd_pk
             primary key,
     code_nm varchar   not null,
     code_dc varchar,
@@ -156,31 +156,31 @@ create table brewcmmcd
     mdfr_dt timestamp not null
 );
 
-comment on table brewcmmcd is '공통코드';
+comment on table comtncmmcd is '공통코드';
 
-comment on column brewcmmcd.code_id is '코드ID';
+comment on column comtncmmcd.code_id is '코드ID';
 
-comment on constraint brewcmmcd_pk on brewcmmcd is '코드ID';
+comment on constraint comtncmmcd_pk on comtncmmcd is '코드ID';
 
-comment on column brewcmmcd.code_nm is '코드명';
+comment on column comtncmmcd.code_nm is '코드명';
 
-comment on column brewcmmcd.code_dc is '코드설명';
+comment on column comtncmmcd.code_dc is '코드설명';
 
-comment on column brewcmmcd.use_yn is '사용여부';
+comment on column comtncmmcd.use_yn is '사용여부';
 
-comment on column brewcmmcd.rgtr_id is '등록자ID';
+comment on column comtncmmcd.rgtr_id is '등록자ID';
 
-comment on column brewcmmcd.rgtr_dt is '등록일시';
+comment on column comtncmmcd.rgtr_dt is '등록일시';
 
-comment on column brewcmmcd.mdfr_id is '수정자ID';
+comment on column comtncmmcd.mdfr_id is '수정자ID';
 
-comment on column brewcmmcd.mdfr_dt is '수정일시';
+comment on column comtncmmcd.mdfr_dt is '수정일시';
 
-alter table brewcmmcd
+alter table comtncmmcd
     owner to postgres;
 
 -- 공통코드 상세
-create table brewcmmcddtls
+create table comtncmmcddtls
 (
     code_id varchar   not null,
     code    varchar   not null,
@@ -191,35 +191,35 @@ create table brewcmmcddtls
     rgtr_dt timestamp not null,
     mdfr_id varchar   not null,
     mdfr_dt timestamp not null,
-    constraint brewcmmcddtls_pk
+    constraint comtncmmcddtls_pk
         primary key (code_id, code, code_nm)
 );
 
-comment on table brewcmmcddtls is '공통코드상세';
+comment on table comtncmmcddtls is '공통코드상세';
 
-comment on column brewcmmcddtls.code_id is '코드ID';
+comment on column comtncmmcddtls.code_id is '코드ID';
 
-comment on column brewcmmcddtls.code is '코드';
+comment on column comtncmmcddtls.code is '코드';
 
-comment on column brewcmmcddtls.code_nm is '코드명';
+comment on column comtncmmcddtls.code_nm is '코드명';
 
-comment on column brewcmmcddtls.code_dc is '코드설명';
+comment on column comtncmmcddtls.code_dc is '코드설명';
 
-comment on column brewcmmcddtls.use_yn is '사용여부';
+comment on column comtncmmcddtls.use_yn is '사용여부';
 
-comment on column brewcmmcddtls.rgtr_id is '등록자ID';
+comment on column comtncmmcddtls.rgtr_id is '등록자ID';
 
-comment on column brewcmmcddtls.rgtr_dt is '등록일시';
+comment on column comtncmmcddtls.rgtr_dt is '등록일시';
 
-comment on column brewcmmcddtls.mdfr_id is '수정자ID';
+comment on column comtncmmcddtls.mdfr_id is '수정자ID';
 
-comment on column brewcmmcddtls.mdfr_dt is '수정일시';
+comment on column comtncmmcddtls.mdfr_dt is '수정일시';
 
-alter table brewcmmcddtls
+alter table comtncmmcddtls
     owner to postgres;
 
-create index brewcmmcddtls_code_id_code_index
-    on brewcmmcddtls (code_id, code);
+create index comtncmmcddtls_code_id_code_index
+    on comtncmmcddtls (code_id, code);
 
 -- 로그인
 
@@ -496,6 +496,9 @@ alter table comtecopseq
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FILE_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('LOG_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('LGI_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('BBS_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FAQ_ID', 0);
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('CODE_ID', 0);
 
 -- 방문자 이력로그
 create table comtnvisitorlog

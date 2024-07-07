@@ -42,4 +42,31 @@ public class BrewIdGnrProperties {
         return String.format("LGI_%016d", nextValue + 1);
     }
 
+    public String getNextBbsId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextBbsId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextBbsId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("BBS_%016d", nextValue + 1);
+    }
+
+    public String getNextFaqId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextFaqId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextFaqId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("BBS_%016d", nextValue + 1);
+    }
+
+    public String getNextCodeId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextCodeId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextCodeId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("CODE_%03d", nextValue + 1);
+    }
+
 }

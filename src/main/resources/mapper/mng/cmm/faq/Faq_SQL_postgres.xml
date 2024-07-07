@@ -7,71 +7,69 @@
 
     <select id="selectFaqList" parameterType="brew.mng.cmm.faq.service.FaqVO" resultType="brew.mng.cmm.faq.service.FaqVO">
         select
-            sn,
+            faq_id,
             title,
             contents,
             inq_cnt,
             rgtr_id,
             to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
-            ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
-        from brew.brewfaq
-        order by sn desc
+            ROW_NUMBER() OVER(ORDER BY faq_id DESC) AS RNUM
+        from brew.comtnfaq
+        order by faq_id desc
         <if test="mainYn eq 'Y'.toString()">
             limit 5
         </if>
     </select>
 
     <insert id="insertFaq" parameterType="brew.mng.cmm.faq.service.FaqVO">
-        <selectKey keyProperty="sn" resultType="int" order="BEFORE">
-            SELECT COALESCE(MAX(sn) + 1, 1) FROM brew.brewfaq
-        </selectKey>
-        INSERT INTO brew.brewfaq (
-        sn
-        ,title
-        ,contents
-        ,inq_cnt
-        ,rgtr_id
-        ,rgtr_dt
-        ,mdfr_id
-        ,mdfr_dt
+
+        INSERT INTO brew.comtnfaq (
+            faq_id
+            ,title
+            ,contents
+            ,inq_cnt
+            ,rgtr_id
+            ,rgtr_dt
+            ,mdfr_id
+            ,mdfr_dt
         )
         VALUES (
-        #{sn}
-        ,#{title}
-        ,#{contents}
-        ,0
-        ,#{rgtrId}
-        ,current_timestamp
-        ,#{mdfrId}
-        ,current_timestamp
+            #{faqId}
+            ,#{title}
+            ,#{contents}
+            ,0
+            ,#{rgtrId}
+            ,current_timestamp
+            ,#{mdfrId}
+            ,current_timestamp
         )
     </insert>
 
     <select id="selectFaqDtls" parameterType="brew.mng.cmm.faq.service.FaqVO" resultType="brew.mng.cmm.faq.service.FaqVO">
         select
-            sn
+            faq_id
              ,title
              ,contents
-        from brew.brewfaq
+        from brew.comtnfaq
         where 1=1
-          and sn = cast(#{sn} as numeric)
+          and faq_id = #{faqId}
     </select>
 
     <update id="updateFaq" parameterType="brew.mng.cmm.faq.service.FaqVO">
-        update brew.brewfaq
+        update brew.comtnfaq
         set
             title = #{title}
           ,contents = #{contents}
           ,mdfr_id = #{mdfrId}
           ,mdfr_dt = current_timestamp
         where 1=1
-          and sn = #{sn}
+          and faq_id = #{faqId}
     </update>
 
     <delete id="deleteFaq" parameterType="brew.mng.cmm.faq.service.FaqVO">
-        delete from brew.brewfaq
+        delete from brew.comtnfaq
         where 1=1
-          and sn = #{sn}
+          and faq_id = #{faqId}
     </delete>
 
 </mapper>

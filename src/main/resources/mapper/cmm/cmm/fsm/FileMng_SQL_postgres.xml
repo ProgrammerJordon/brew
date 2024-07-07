@@ -93,13 +93,13 @@
 
     </select>
 
-    <update id="deleteCOMTNFILE" parameterType="brew.cmm.service.fms.service.FileVO">
+    <delete id="deleteCOMTNFILE" parameterType="brew.cmm.service.fms.service.FileVO">
 
-        UPDATE brew.COMTNFILE
-        SET USE_AT = 'N'
-        WHERE ATCH_FILE_ID = #{atchFileId}
+        DELETE FROM brew.COMTNFILE
+        WHERE 1=1
+            AND ATCH_FILE_ID = #{atchFileId}
 
-    </update>
+    </delete>
 
     <select id="selectFileListByFileNm" parameterType="brew.cmm.service.fms.service.FileVO" resultMap="fileList">
 

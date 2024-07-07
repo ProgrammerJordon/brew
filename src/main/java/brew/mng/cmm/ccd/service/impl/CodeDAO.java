@@ -1,5 +1,6 @@
 package brew.mng.cmm.ccd.service.impl;
 
+import brew.cmm.service.ppt.BrewIdGnrProperties;
 import brew.mng.cmm.ccd.service.Code;
 import brew.mng.cmm.ccd.service.CodeVO;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodeDAO {
 
+    private final BrewIdGnrProperties brewIdGnrProperties;
     private final SqlSessionTemplate sqlSession;
 
     List<CodeVO> selectCodeList(CodeVO vo) {
         return sqlSession.selectList("CodeDAO.selectCodeList", vo);
     }
     int insertCode(CodeVO vo) {
+        vo.setCodeId(brewIdGnrProperties.getNextCodeId());
         return sqlSession.insert("CodeDAO.insertCode", vo);
     }
 

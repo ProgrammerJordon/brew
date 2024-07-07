@@ -45,4 +45,43 @@
         WHERE table_name = 'LGI_ID'
     </update>
 
+    <select id="getNextBbsId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'BBS_ID'
+    </select>
+
+    <update id="updateNextBbsId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'BBS_ID'
+    </update>
+
+    <select id="getNextFaqId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'FAQ_ID'
+    </select>
+
+    <update id="updateNextFaqId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'FAQ_ID'
+    </update>
+
+    <select id="getNextCodeId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'CODE_ID'
+    </select>
+
+    <update id="updateNextCodeId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'CODE_ID'
+    </update>
+
 </mapper>

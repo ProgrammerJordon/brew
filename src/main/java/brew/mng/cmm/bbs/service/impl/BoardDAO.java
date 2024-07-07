@@ -1,5 +1,6 @@
 package brew.mng.cmm.bbs.service.impl;
 
+import brew.cmm.service.ppt.BrewIdGnrProperties;
 import brew.mng.cmm.bbs.service.Board;
 import brew.mng.cmm.bbs.service.BoardVO;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardDAO {
 
+    private final BrewIdGnrProperties brewIdGnrProperties;
     private final SqlSessionTemplate sqlSession;
 
     public List<BoardVO> selectBoardList(BoardVO vo) {
         return sqlSession.selectList("BoardDAO.selectBoardList", vo);
     }
     public int insertBoard(BoardVO vo) {
+        vo.setBbsId(brewIdGnrProperties.getNextBbsId());
         return sqlSession.insert("BoardDAO.insertBoard", vo);
     }
     public BoardVO selectBoardDtls(BoardVO vo) {

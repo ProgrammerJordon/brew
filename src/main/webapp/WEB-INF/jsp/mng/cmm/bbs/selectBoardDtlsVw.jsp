@@ -5,7 +5,7 @@
 
    const bbs = {
 
-       sn : '${sn}',
+       bbsId : '${bbsId}',
 
        init: () => {
            bbs.selectBoardDtls();
@@ -16,7 +16,7 @@
        },
 
        selectBoardDtls : () => {
-            let param = {sn : bbs.sn}
+            let param = {bbsId : bbs.bbsId}
            callModule.call(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtls.do"), param, (result) => {
                $("#title").val(result.boardVO.title);
                $("#contents").val(result.boardVO.contents);
@@ -40,7 +40,7 @@
 
                    if(fileResult) {
                        let param = {
-                           sn : bbs.sn,
+                           bbsId : bbs.bbsId,
                            title : $("#title").val(),
                            contents : $("#contents").val(),
                            atchFileId : $("#atchFileId").val() || null
@@ -60,7 +60,7 @@
                if(boolean) {
 
                    let param = {
-                       sn : bbs.sn,
+                       bbsId : bbs.bbsId,
                        atchFileId : $("#atchFileId").val() || null
                    }
                    callModule.call(Util.getRequestUrl("/mng/cmm/bbs/deleteBoard.do"), param, (result) => {

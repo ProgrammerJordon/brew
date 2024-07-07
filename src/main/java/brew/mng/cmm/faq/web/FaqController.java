@@ -42,9 +42,9 @@ public class FaqController {
     }
 
     @RequestMapping("/selectFaqDtlsVw.do")
-    public String selectFaqDtlsVw(@RequestParam(name = "sn", required = false) String sn,
+    public String selectFaqDtlsVw(@RequestParam(name = "faqId", required = false) String faqId,
                                   Model model) {
-        model.addAttribute("sn", sn);
+        model.addAttribute("faqId", faqId);
         return "/mng/cmm/faq/selectFaqDtlsVw";
     }
 

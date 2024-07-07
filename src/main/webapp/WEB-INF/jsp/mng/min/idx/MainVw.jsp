@@ -16,13 +16,13 @@
             callModule.post(Util.getRequestUrl("/mng/cmm/faq/selectFaqListVw.do"), {}, 'get');
         },
 
-        selectBoardDtlsVw : (sn) => {
-            let param = {sn : sn}
+        selectBoardDtlsVw : (bbsId) => {
+            let param = {bbsId : bbsId}
             callModule.post(Util.getRequestUrl("/mng/cmm/bbs/selectBoardDtlsVw.do"), param, 'get');
         },
 
-        selectFaqDtlsVw : (sn) => {
-            let param = {sn : sn}
+        selectFaqDtlsVw : (faqId) => {
+            let param = {faqId : faqId}
             callModule.post(Util.getRequestUrl("/mng/cmm/faq/selectFaqDtlsVw.do"), param, 'get');
         },
 
@@ -31,7 +31,7 @@
             callModule.call(Util.getRequestUrl("/mng/min/idx/selectBoardList.do"), param, (result) => {
 
                 for(var i = 0; i < result.boardVOList.length; i++) {
-                    let html = `<tr style="cursor: pointer;" onclick="min.selectBoardDtlsVw('\${result.boardVOList[i].sn}');">
+                    let html = `<tr style="cursor: pointer;" onclick="min.selectBoardDtlsVw('\${result.boardVOList[i].bbsId}');">
                                     <td colspan="2">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <div style="width: 70%; text-align: left;">
@@ -58,7 +58,7 @@
             callModule.call(Util.getRequestUrl("/mng/min/idx/selectFaqList.do"), param, (result) => {
 
                 for(var i = 0; i < result.faqVOList.length; i++) {
-                    let html = `<tr style="cursor: pointer;" onclick="min.selectFaqDtlsVw('\${result.faqVOList[i].sn}');">
+                    let html = `<tr style="cursor: pointer;" onclick="min.selectFaqDtlsVw('\${result.faqVOList[i].faqId}');">
                                     <td colspan="2">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <div style="width: 70%; text-align: left;">
