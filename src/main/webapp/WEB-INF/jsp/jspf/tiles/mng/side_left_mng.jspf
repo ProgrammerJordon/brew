@@ -64,11 +64,11 @@
                         </li>
                         <br>
                         <li onclick="mmm.movePage('');">
-                            <a>수집정보관리</a>
+                            <a>수집API관리</a>
                         </li>
                         <br>
-                        <li onclick="mmm.movePage('');">
-                            <a>파일관리</a>
+                        <li onclick="mmm.movePage('/mng/dtm/fdm/selectFileDataMngListVw.do');">
+                            <a>파일데이터관리</a>
                         </li>
                     </ul>
                 </div>

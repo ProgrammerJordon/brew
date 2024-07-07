@@ -5,8 +5,11 @@ import brew.cmm.service.fms.service.FileVO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,11 +33,13 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@Component
+@RequiredArgsConstructor
 public class BrewCommonUtil {
 
     protected static Logger logger = LoggerFactory.getLogger(BrewCommonUtil.class);
 
-    private static FileMngService fileMngService;
+    private final FileMngService fileMngService;
 
     public static boolean isEmpty(Object str) {
         return str == null || (str instanceof String) == false || str.toString().length() == 0;
@@ -195,7 +200,7 @@ public class BrewCommonUtil {
         return hostName;
     }
 
-    public static void downloadCSV(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
+    public void downloadCSV(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
         try {
             response.setContentType("text/csv");
             response.setCharacterEncoding("UTF-8");
@@ -243,7 +248,7 @@ public class BrewCommonUtil {
         }
     }
 
-    public static void downloadExcel(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
+    public void downloadExcel(HttpServletResponse response, List<?> dataList, String fileName, String[] header) throws Exception {
 
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + URLEncoder.encode(fileName + ".xlsx", StandardCharsets.UTF_8.toString()) + "\"");
@@ -294,7 +299,7 @@ public class BrewCommonUtil {
         }
     }
 
-    public static void downloadAtchFile(String atchFileId, String fileSn, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void downloadAtchFile(String atchFileId, String fileSn, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         FileVO fileVO = new FileVO();
         fileVO.setAtchFileId(atchFileId);
@@ -331,7 +336,7 @@ public class BrewCommonUtil {
                 out.flush();
 
             } catch (IOException ex) {
-                 System.out.println("IO Exception" + ex);
+                System.out.println("IO Exception" + ex);
             } finally {
                 try {
                     out.close();
@@ -362,7 +367,7 @@ public class BrewCommonUtil {
         }
     }
 
-    public static void downloadZip(List<String> atchFileId, String zipName, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void downloadZip(List<String> atchFileId, String zipName, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         List<FileVO> files = new ArrayList<>();
 

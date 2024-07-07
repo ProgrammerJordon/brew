@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FileDataMngDAO">
+
+    <select id="selectFileDataMngList" parameterType="brew.mng.dtm.fdm.service.FileDataMngVO" resultType="brew.mng.dtm.fdm.service.FileDataMngVO">
+        select
+            a.atch_file_id
+            ,a.file_sn
+            ,a.orignl_file_nm
+            ,a.file_extsn
+            ,ROUND((a.file_size / 1024) / 1024, 2) || ' ' || 'MB' as file_size
+            ,to_char(b.creat_pnttm, 'YYYY-MM-DD') as rgtr_dt
+            ,ROW_NUMBER() OVER(ORDER BY a.atch_file_id DESC) AS RNUM
+        from brew.comtnfiledetail a
+            left join brew.comtnfile b on a.atch_file_id = b.atch_file_id
+    </select>
+
+
+</mapper>
