@@ -31,7 +31,7 @@ public class BrewHttpUtil {
      * );
      */
 
-    public JSONObject getHttpRequest(String url, Map<String, String> headers, Map<String, String> param) throws IOException, JSONException {
+    public StringBuilder getHttpRequest(String url, Map<String, String> headers, Map<String, String> param) throws IOException, JSONException {
 
         // URL 설정 및 파라미터 추가
         StringBuilder requestURL = new StringBuilder(url + "?");
@@ -60,10 +60,10 @@ public class BrewHttpUtil {
 
         // 응답 코드 확인
         int responseCode = conn.getResponseCode();
-        System.out.println("Response Code: " + responseCode);
 
         // 응답 데이터 읽기
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
         StringBuilder response = new StringBuilder();
 
         String responseLine;
@@ -75,10 +75,10 @@ public class BrewHttpUtil {
         // 연결 종료
         conn.disconnect();
 
-        return new JSONObject(String.valueOf(response));
+        return response;
     }
 
-    public JSONObject postHttpRequest(String url, Map<String, String> headers, JSONObject param) throws IOException, JSONException {
+    public StringBuilder postHttpRequest(String url, Map<String, String> headers, Map<String, String> params) throws IOException, JSONException {
         // URL 설정
         URL reqURL = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) reqURL.openConnection();
@@ -95,8 +95,11 @@ public class BrewHttpUtil {
             // 요청 본문 데이터 설정
             conn.setDoOutput(true);
 
+            // 파라미터를 JSON 형식으로 변환
+            JSONObject jsonParams = new JSONObject(params);
+
             try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = param.toString().getBytes(StandardCharsets.UTF_8);
+                byte[] input = jsonParams.toString().getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -106,7 +109,9 @@ public class BrewHttpUtil {
 
             // 응답 데이터 읽기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
             StringBuilder response = new StringBuilder();
+
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
@@ -114,7 +119,7 @@ public class BrewHttpUtil {
             br.close();
 
             // JSON 형식으로 응답 데이터를 파싱하여 반환
-            return new JSONObject(response.toString());
+            return response;
 
         } finally {
             // 연결 종료

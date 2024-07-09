@@ -1,7 +1,9 @@
 package brew.cmm.service.sns.web;
 
 import brew.cmm.service.ppt.BrewProperties;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -23,7 +25,7 @@ import java.util.Map;
 public class LogoutController {
 
     @RequestMapping("/logout.do")
-    public String snsLogout(HttpServletRequest request) {
+    public String snsLogout(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session =  request.getSession();
 
@@ -36,10 +38,7 @@ public class LogoutController {
 
             // Spring 프레임워크에서 제공하는 HTTP 통신
             RestTemplate restTemplate = new RestTemplate();
-            String response = restTemplate.postForObject(kakaoLogoutUrl + "?access_token=" + accessToken, null, String.class);
-
-            // 카카오ID 반환
-            System.out.println(response);
+            restTemplate.postForObject(kakaoLogoutUrl + "?access_token=" + accessToken, null, String.class);
 
         }else if (loginSe != null && loginSe.equals("GOOGLE")) {
 
@@ -96,16 +95,15 @@ public class LogoutController {
 
         }
 
-        logout(request);
+        logout(request, response);
 
         return "redirect:/index.do"; // 로그아웃 후 홈 페이지로 리다이렉트
     }
 
-    private void logout(HttpServletRequest request) {
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false); // 세션이 존재하지 않으면 null 반환
 
         if (session != null) {
-
             session.removeAttribute("userSn");
             session.removeAttribute("userId");
             session.removeAttribute("userNm");
@@ -117,7 +115,18 @@ public class LogoutController {
             session.removeAttribute("thumbnailImgUrl");
             session.removeAttribute("accessToken");
             session.setAttribute("visitor", false);
+        }
 
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JSESSIONID")) {
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
         }
     }
 

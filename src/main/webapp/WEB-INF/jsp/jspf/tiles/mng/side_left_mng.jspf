@@ -63,12 +63,16 @@
                             <a>메타데이터관리</a>
                         </li>
                         <br>
-                        <li onclick="mmm.movePage('');">
-                            <a>수집API관리</a>
-                        </li>
-                        <br>
                         <li onclick="mmm.movePage('/mng/dtm/fdm/selectFileDataMngListVw.do');">
                             <a>파일데이터관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('');">
+                            <a>연계API관리</a>
+                        </li>
+                        <br>
+                        <li onclick="mmm.movePage('/mng/dtm/cam/selectCollectApiListVw.do');">
+                            <a>수집API관리</a>
                         </li>
                     </ul>
                 </div>

@@ -10,39 +10,31 @@ import java.sql.*;
 
 public class BrewResourceCloseHelper {
 
-    /**
-     * Resource close 처리.
-     * @param resources
-     */
     public static void close(Closeable... resources) {
         for (Closeable resource : resources) {
             if (resource != null) {
                 try {
                     resource.close();
-                } catch (IOException ignore) {//KISA 보안약점 조치 (2018-10-29, 윤창원)
+                } catch (IOException ignore) {
                     BrewBasicLogger.ignore("Occurred IOException to close resource is ingored!!");
                 }
             }
         }
     }
 
-    /**
-     * JDBC 관련 resource 객체 close 처리
-     * @param objects
-     */
     public static void closeDBObjects(Wrapper... objects) {
         for (Object object : objects) {
             if (object != null) {
                 if (object instanceof ResultSet) {
                     try {
                         ((ResultSet)object).close();
-                    } catch (SQLException ignore) {//KISA 보안약점 조치 (2018-10-29, 윤창원)
+                    } catch (SQLException ignore) {
                         BrewBasicLogger.ignore("Occurred SQLException to close resource is ingored!!");
                     }
                 } else if (object instanceof Statement) {
                     try {
                         ((Statement)object).close();
-                    } catch (SQLException ignore) {//KISA 보안약점 조치 (2018-10-29, 윤창원)
+                    } catch (SQLException ignore) {
                         BrewBasicLogger.ignore("Occurred SQLException to close resource is ingored!!");
                     }
                 } else if (object instanceof Connection) {
@@ -57,7 +49,6 @@ public class BrewResourceCloseHelper {
             }
         }
     }
-
 
     public static void closeSocketObjects(Socket socket, ServerSocket server) {
         if (socket != null) {
@@ -83,11 +74,6 @@ public class BrewResourceCloseHelper {
         }
     }
 
-    /**
-     *  Socket 관련 resource 객체 close 처리
-     *
-     * @param sockets
-     */
     public static void closeSockets(Socket ... sockets) {
         for (Socket socket : sockets) {
             if (socket != null) {
