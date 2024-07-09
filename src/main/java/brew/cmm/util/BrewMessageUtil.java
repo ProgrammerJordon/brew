@@ -19,4 +19,5 @@ public class BrewMessageUtil {
     public String getMessage(String code, Object[] args) {
         return brewMessageSource.getMessageArgs(code, args);
     }
+
 }

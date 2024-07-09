@@ -30,7 +30,7 @@
           }
 
           callModule.call(Util.getRequestUrl("/mng/uss/ull/selectLoginLog.do"), param, (result) => {
-                debugger;
+
               result.logInLogVOList.forEach(item => {
                   ull.ullLabel.unshift(item.rgtrDt);
                   ull.kakaoData.unshift(item.kakaoCount);
