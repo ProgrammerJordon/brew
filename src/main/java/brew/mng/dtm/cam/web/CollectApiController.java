@@ -28,8 +28,6 @@ public class CollectApiController {
     @RequestMapping("/selectCollectApiResponse.do")
     @ResponseBody
     public CollectApi selectCollectApiResponse(@RequestBody CollectApiVO vo) throws JSONException, IOException {
-        // 테스트 URL
-        // https://jsonplaceholder.typicode.com/posts
         return collectApiService.selectCollectApiResponse(vo);
     }
 }
