@@ -31,12 +31,12 @@ public class BrewHttpUtil {
      * );
      */
 
-    public StringBuilder getHttpRequest(String url, Map<String, String> headers, Map<String, String> param) throws IOException, JSONException {
+    public StringBuilder getHttpRequest(String url, Map<String, String> headers, Map<String, String> params) throws IOException, JSONException {
 
         // URL 설정 및 파라미터 추가
         StringBuilder requestURL = new StringBuilder(url + "?");
 
-        for (Map.Entry<String, String> entry : param.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             if (requestURL.length() > url.length() + 1) {
                 requestURL.append("&");
             }
