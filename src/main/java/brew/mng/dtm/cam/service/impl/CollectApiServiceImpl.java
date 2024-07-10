@@ -1,6 +1,7 @@
 package brew.mng.dtm.cam.service.impl;
 
 import brew.cmm.util.BrewHttpUtil;
+import brew.cmm.util.BrewSocketUtil;
 import brew.mng.dtm.cam.service.CollectApi;
 import brew.mng.dtm.cam.service.CollectApiService;
 import brew.mng.dtm.cam.service.CollectApiVO;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CollectApiServiceImpl implements CollectApiService {
 
+    private final BrewSocketUtil brewSocketUtil;
     private final BrewHttpUtil brewHttpUtil;
     private final CollectApiDAO collectApiDAO;
 
@@ -34,12 +36,17 @@ public class CollectApiServiceImpl implements CollectApiService {
 
         StringBuilder response = new StringBuilder();
 
-        if (method.equals("GET")) {
-            response = brewHttpUtil.getHttpRequest(url, headers, params);
-            vo.setRes(String.valueOf(response));
-        } else if(method.equals("POST")) {
-            response = brewHttpUtil.postHttpRequest(url, headers, params);
-            vo.setRes(String.valueOf(response));
+        if("HTTP".equals(vo.getProtocol())) {
+            if (method.equals("GET")) {
+                response = brewHttpUtil.getHttpRequest(url, headers, params);
+                vo.setRes(String.valueOf(response));
+            } else if(method.equals("POST")) {
+                response = brewHttpUtil.postHttpRequest(url, headers, params);
+                vo.setRes(String.valueOf(response));
+            }
+        }else if("SOCKET".equals(vo.getProtocol())) {
+                response = brewSocketUtil.getSocket(url, headers, params);
+                vo.setRes(String.valueOf(response));
         }
         return CollectApi.builder()
                 .collectApiVO(vo)

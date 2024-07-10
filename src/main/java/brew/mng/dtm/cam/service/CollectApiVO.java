@@ -10,6 +10,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper=false)
 public class CollectApiVO  extends CommonVO implements Serializable {
 
+    private String protocol;
     private String method;
     private String url;
     private Object headers;

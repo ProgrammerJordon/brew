@@ -86,5 +86,13 @@ public class StringUtil extends BrewStringUtil {
     public static String emptyConvert(Object src, String alt) {
         return isEmpty(src) ? alt : src.toString();
     }
+
+    public static String splicePort(String url) {
+        String str1 = url.substring(url.indexOf("//") + 2);
+        String str2 = str1.substring(0, str1.indexOf('/'));
+        String[] parts = str2.split(":");
+        String port = parts[1];
+        return port;
+    }
     
 }

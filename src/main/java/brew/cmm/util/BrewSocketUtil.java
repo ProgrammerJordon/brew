@@ -1,40 +1,66 @@
 package brew.cmm.util;
 
 import com.nimbusds.jose.shaded.gson.Gson;
+import jakarta.websocket.*;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
+
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+@ClientEndpoint
+@Component
 public class BrewSocketUtil {
 
-    public StringBuilder getSocket(String url, String port, Map<String, String> headers, Map<String, String> params) {
+    private static CountDownLatch latch;
+    private static StringBuilder responseBuilder = new StringBuilder();
 
-        String response = null;
+    @OnOpen
+    public void onOpen(Session session) {
+        System.out.println("Connected to server");
+    }
+
+    @OnMessage
+    public void onMessage(String message) {
+        System.out.println("Received message: " + message);
+        responseBuilder.append(message);
+        latch.countDown(); // 서버로부터 메시지를 받으면 latch 감소
+    }
+
+    @OnClose
+    public void onClose(Session session) {
+        System.out.println("Disconnected from server");
+    }
+
+    @OnError
+    public void onError(Session session, Throwable throwable) {
+        throwable.printStackTrace();
+    }
+
+    public StringBuilder getSocket(String url, Map<String, String> headers, Map<String, String> params) {
+
+        latch = new CountDownLatch(1); // 메시지를 받을 때까지 대기
 
         try {
-            // 소켓 생성
-            Socket socket = new Socket(url, Integer.parseInt(port));
+            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+            URI uri = new URI(url);
 
-            // 소켓으로부터 입력 스트림과 출력 스트림 얻기
-            OutputStream outputStream = socket.getOutputStream();
-            InputStream inputStream = socket.getInputStream();
+            Session session = container.connectToServer(BrewSocketUtil.class, uri);
 
-            // JSON 데이터 생성
             Map<String, Object> headerMap = new HashMap<>();
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 headerMap.put(entry.getKey(), entry.getValue());
             }
 
             Map<String, Object> requestBody = new HashMap<>();
-
             requestBody.put("header", headerMap);
 
             // 파라미터 구성
             Map<String, Object> bodyMap = new HashMap<>();
+
             Map<String, Object> inputMap = new HashMap<>();
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 inputMap.put(entry.getKey(), entry.getValue());
@@ -42,30 +68,20 @@ public class BrewSocketUtil {
             bodyMap.put("input", inputMap);
             requestBody.put("body", bodyMap);
 
-            // Gson을 이용하여 JSON 문자열로 변환
             Gson gson = new Gson();
             String jsonRequest = gson.toJson(requestBody);
 
-            // 데이터 전송
-            byte[] requestBytes = jsonRequest.getBytes();
-            outputStream.write(requestBytes);
-            outputStream.flush();
+            session.getAsyncRemote().sendText(jsonRequest);
             System.out.println("데이터 전송 완료");
 
-            // 데이터 수신
-            byte[] buffer = new byte[1024];
-            int bytesRead = inputStream.read(buffer); // 데이터 읽기
+            // latch를 사용하여 메시지를 받을 때까지 대기
+            latch.await(5, TimeUnit.SECONDS);
+            // 세션 종료
+            session.close();
 
-            if (bytesRead != -1) {
-                response = new String(buffer, 0, bytesRead);
-                System.out.println("서버로부터 받은 JSON 데이터: " + response);
-            }
-            // 소켓 종료
-            socket.close();
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return new StringBuilder(response);
+        return responseBuilder;
     }
 }

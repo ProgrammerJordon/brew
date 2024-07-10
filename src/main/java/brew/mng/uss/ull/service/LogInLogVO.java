@@ -2,10 +2,12 @@ package brew.mng.uss.ull.service;
 
 import brew.cmm.vo.CommonVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class LogInLogVO extends CommonVO implements Serializable {
 
     private String logId;

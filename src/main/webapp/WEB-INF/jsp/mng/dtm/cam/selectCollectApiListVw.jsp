@@ -10,6 +10,7 @@
         selectCollectApiResponse : () => {
 
             let param = {
+                protocol : $("#protocol").val(),
                 method : $("#method").val(),
                 url : $("#url").val(),
                 headers : cam.getHeadersJson(),
@@ -144,7 +145,8 @@
         resetTextArea : () => {
             let el = document.getElementById('res');
             el.value = "";
-        }
+        },
+
     }
 
     $(() => {
@@ -158,7 +160,14 @@
         <ul style="margin-right: 2%;">
             <li>
                 <div class="search__type__select">
-                    <label for="method" class="search__title">요청</label>
+                    <label for="protocol" class="search__title">Request</label>
+                    <select id="protocol">
+                        <option value="HTTP">HTTP</option>
+                        <option value="SOCKET">SOCKET</option>
+                    </select>
+                </div>
+                <div class="search__type__select">
+                    <label for="method" class="search__title">Method</label>
                     <select id="method">
                         <option value="GET">GET</option>
                         <option value="POST">POST</option>
@@ -169,9 +178,11 @@
                         <option value="OPTIONS">OPTIONS</option>
                     </select>
                 </div>
+            </li>
+            <li>
                 <div class="search__type__input">
                     <label for="url" class="search__title">URL</label>
-                    <input id="url" name="url" value="https://jsonplaceholder.typicode.com/posts" placeholder="http://www.brew.com" />
+                    <input id="url" name="url" placeholder="http://www.brew.com" />
                 </div>
             </li>
         </ul>
