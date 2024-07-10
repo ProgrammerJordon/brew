@@ -140,6 +140,10 @@
             var isChecked = document.getElementById(`\${type}Check\${rowNum}`).checked;
             document.getElementById(`\${type}Key\${rowNum}`).disabled = !isChecked;
             document.getElementById(`\${type}Value\${rowNum}`).disabled = !isChecked;
+        },
+        resetTextArea : () => {
+            let el = document.getElementById('res');
+            el.value = "";
         }
     }
 
@@ -237,6 +241,9 @@
     <div class="search__results">
         <div>
             <span>Response</span>
+        </div>
+        <div class="btn__box">
+            <button class="btn__black__line" onclick="cam.resetTextArea();">Reset</button>
         </div>
     </div>
     <div>

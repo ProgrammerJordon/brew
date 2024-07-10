@@ -45,8 +45,9 @@ public class BrewHttpUtil {
             requestURL.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8.name()));
         }
 
+        String getUrl = requestURL.toString();
         // URL 설정
-        URL reqURL = new URL(url);
+        URL reqURL = new URL(getUrl);
 
         HttpURLConnection conn = (HttpURLConnection) reqURL.openConnection();
 
