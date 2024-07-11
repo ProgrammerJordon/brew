@@ -79,6 +79,22 @@
             </div>
         </div>
 
+        <div id="trd" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">트레이드</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('');">
+                            <a>트레이드</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div id="usr" style="display: none;">
             <div style="text-align: center;">
                 <span style="font-size: 2em;">회원관리</span>

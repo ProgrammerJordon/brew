@@ -35,6 +35,7 @@
                 bpm: '#bpm',
                 cts: '#cts',
                 dtm: '#dtm',
+                trd: '#trd',
                 usr: '#usr',
                 cmm: '#cmm',
                 uss: '#uss',
