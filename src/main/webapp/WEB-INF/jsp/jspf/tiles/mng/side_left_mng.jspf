@@ -87,8 +87,8 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('');">
-                            <a>트레이드</a>
+                        <li onclick="mmm.movePage('/mng/trd/ord/selectStockOrderListVw.do');">
+                            <a>주문</a>
                         </li>
                     </ul>
                 </div>
