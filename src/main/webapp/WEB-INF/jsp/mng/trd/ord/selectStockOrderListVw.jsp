@@ -5,18 +5,47 @@
     const ord = {
 
         account : `${account}`,
+        ordDvsn : "00",
 
         init : () => {
-            ord.selectAccount();
+            ord.selectDomesticAccount();
         },
-        selectAccount : () => {
+        chageOrdDvsn : (param) => {
+            ord.ordDvsn = param;
+
+            if(param == '00') {
+                $("#limit").addClass('btn__blue').removeClass('btn__black__line');
+                $("#market").removeClass('btn__blue').addClass('btn__black__line');
+            }
+
+            if(param == '01') {
+                $("#limit").removeClass('btn__blue').addClass('btn__black__line');
+                $("#market").addClass('btn__blue').removeClass('btn__black__line');
+            }
+        },
+
+        calAvailable : (cash, price) => {
+
+            let quntity = 0;
+
+            if(cash != "" && price != "") {
+                quntity = Math.floor(parseInt(cash) / price);
+                $("#searchAmount").text(quntity);
+            }else {
+                quntity = Math.floor(parseInt($("#dncaTotAmt").text()) / price);
+                $("#searchAmount").text(quntity);
+            }
+        },
+
+        selectDomesticAccount : () => {
             let param = {
                 account : ord.account
             }
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectAccount.do"), param, (result) => {
+            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectDomesticAccount.do"), param, (result) => {
 
                 // holoding shares
                 if(result.stockOrderVO.res.output1.length != 0) {
+
                     for(var i = 0; i < result.stockOrderVO.res.output1.length; i++) {
                         var html = `<tr>
                                     <td><span>\${result.stockOrderVO.res.output1[i].prdt_name}</span> <span>(</span> <span>\${result.stockOrderVO.res.output1[i].pdno}</span> <span>)</span></td>
@@ -40,6 +69,7 @@
                 $("#evluAmtSmtlAmt").text(result.stockOrderVO.res.output2[0].evlu_amt_smtl_amt.toLocaleString());
                 $("#evluPflsSmtlAmt").text(result.stockOrderVO.res.output2[0].evlu_pfls_smtl_amt.toLocaleString());
                 $("#dncaTotAmt").text(result.stockOrderVO.res.output2[0].dnca_tot_amt.toLocaleString());
+
             })
         }
 
@@ -129,7 +159,7 @@
                                 <td>
                                     <div class="search__type__input">
                                         <label for="price" class="search__title">Price</label>
-                                        <input id="price" name="price" />
+                                        <input id="price" name="price" style="text-align: right;" />
                                     </div>
                                 </td>
                             </tr>
@@ -137,14 +167,14 @@
                                 <td>
                                     <div class="search__type__input">
                                         <label for="amount" class="search__title">Amount</label>
-                                        <input id="amount" name="amount" />
+                                        <input id="amount" name="amount" style="text-align: right;" />
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="search__type__input btn__box">
-                                        <button class="btn__black__line">Available</button>
+                                        <button class="btn__black__line" onclick="ord.calAvailable();">Available</button>
                                         <input id="searchAmount" name="searchAmount" readonly />
                                     </div>
                                 </td>
@@ -152,8 +182,8 @@
                             <tr>
                                 <td>
                                     <div class="search__type__input btn__box">
-                                        <button class="btn__black__line">Only Cash</button>
-                                        <input id="maxinum" name="maxinum" readonly />
+                                        <button class="btn__blue" id="limit" onclick="ord.chageOrdDvsn('00')">Limit</button>
+                                        <button class="btn__black__line" id="market" onclick="ord.chageOrdDvsn('01')">Market</button>
                                     </div>
                                 </td>
                             </tr>
@@ -161,7 +191,7 @@
                                 <td>
                                     <div class="search__type__input">
                                         <label for="totalPrice" class="search__title">Total Price</label>
-                                        <input id="totalPrice" name="totalPrice" />
+                                        <input id="totalPrice" name="totalPrice" style="text-align: right;" readonly />
                                     </div>
                                 </td>
                             </tr>
@@ -211,7 +241,7 @@
                             <th>Purchase Amount</th>
                             <th>Profit Amount</th>
                             <th>Profit Ratio</th>
-                            <th></th>
+                            <th>Sell</th>
                         </tr>
                     </thead>
                     <tbody id="tbody1"></tbody>

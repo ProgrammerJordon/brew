@@ -32,7 +32,7 @@ public class StockOrderController {
         return "/mng/trd/ord/selectStockOrderListVw";
     }
 
-    @RequestMapping("/selectAccount.do")
+    @RequestMapping("/selectDomesticAccount.do")
     @ResponseBody
     public StockOrder selectAccount(@RequestBody StockOrderVO vo) throws JSONException, IOException {
         String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/trading/inquire-balance";
@@ -66,6 +66,65 @@ public class StockOrderController {
         JsonNode result = mapper.readTree(String.valueOf(res));
 
         vo.setRes(result);
+
+        return StockOrder.builder()
+                .stockOrderVO(vo)
+                .build();
+    }
+
+    @RequestMapping("/buyDomesticStock.do")
+    @ResponseBody
+    public StockOrder buyDomesticStock(@RequestBody StockOrderVO vo) {
+
+        String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/trading/order-cash";
+
+        java.util.Map<String, String> headers = new HashMap<>();
+
+        headers.put("authorization", BrewProperties.getProperty("kis.dev.accessToken"));
+        headers.put("appkey", BrewProperties.getProperty("kis.dev.appkey"));
+        headers.put("appsecret", BrewProperties.getProperty("kis.dev.appsecret"));
+        headers.put("content-type", "application/json; charset=utf-8");
+        headers.put("custtype", "P"); // B : 법인 / P : 개인
+        headers.put("tr_id", "TTTC0802U");
+
+        Map<String, String> params = new HashMap<>();
+
+        params.put("CANO", vo.getAccount());
+        params.put("ACNT_PRDT_CD", "01");
+        params.put("PDNO", vo.getPdno());
+        params.put("ORD_DVSN", vo.getOrdDvsn()); // 00 : 지정가 / 01 : 시장가
+        params.put("ORD_QTY", vo.getOrdQty());
+        params.put("ORD_UNPR", vo.getOrdUnpr()); // 1주당 가격을 공란으로 비우지 않음 "0"으로 입력 권고
+
+        return StockOrder.builder()
+                .stockOrderVO(vo)
+                .build();
+    }
+
+    @RequestMapping("/sellDomesticStock.do")
+    @ResponseBody
+    public StockOrder sellDomesticStock(@RequestBody StockOrderVO vo) {
+
+        String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/trading/order-cash";
+
+        java.util.Map<String, String> headers = new HashMap<>();
+
+        headers.put("authorization", BrewProperties.getProperty("kis.dev.accessToken"));
+        headers.put("appkey", BrewProperties.getProperty("kis.dev.appkey"));
+        headers.put("appsecret", BrewProperties.getProperty("kis.dev.appsecret"));
+        headers.put("content-type", "application/json; charset=utf-8");
+        headers.put("custtype", "P"); // B : 법인 / P : 개인
+        headers.put("tr_id", "TTTC0801U");
+
+        Map<String, String> params = new HashMap<>();
+
+        params.put("CANO", vo.getAccount());
+        params.put("ACNT_PRDT_CD", "01");
+        params.put("PDNO", vo.getPdno());
+        params.put("ORD_DVSN", vo.getOrdDvsn()); // 00 : 지정가 / 01 : 시장가
+        params.put("ORD_DVSN", vo.getOrdDvsn());
+        params.put("ORD_QTY", vo.getOrdQty());
+        params.put("ORD_UNPR", vo.getOrdUnpr()); // 1주당 가격을 공란으로 비우지 않음 "0"으로 입력 권고
 
         return StockOrder.builder()
                 .stockOrderVO(vo)
