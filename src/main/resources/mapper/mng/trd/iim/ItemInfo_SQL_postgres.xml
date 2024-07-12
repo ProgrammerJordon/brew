@@ -5,6 +5,25 @@
 
 <mapper namespace="ItemInfoDAO">
 
+    <select id="selectItemInfoList" parameterType="brew.mng.trd.iim.service.ItemInfoVO" resultType="brew.mng.trd.iim.service.ItemInfoVO">
+        SELECT
+            mrkt_ctg
+            ,srtn_cd
+            ,itms_nm
+            ,ROW_NUMBER() OVER(ORDER BY itms_nm) AS RNUM
+        FROM brew.comtniteminfo
+        WHERE 1=1
+        <if test="mrktCtg != null and mrktCtg != ''">
+            AND mrkt_ctg = #{mrktCtg}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND (
+                srtn_cd ILIKE '%' || #{searchKeyword} || '%'
+                OR itms_nm ILIKE '%' || #{searchKeyword} || '%'
+                )
+        </if>
+    </select>
+
     <insert id="insertItemInfoBatch" parameterType="brew.mng.trd.iim.service.ItemInfoVO">
         INSERT INTO brew.comtniteminfo(
              bas_dt

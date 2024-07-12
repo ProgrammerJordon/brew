@@ -60,10 +60,10 @@ public class StockOrderController {
         params.put("CTX_AREA_FK100", "");
         params.put("CTX_AREA_NK100", "");
 
-        StringBuilder res = brewHttpUtil.getHttpRequest(url, headers, params);
+        StringBuilder response = brewHttpUtil.getHttpRequest(url, headers, params);
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode result = mapper.readTree(String.valueOf(res));
+        JsonNode result = mapper.readTree(String.valueOf(response));
 
         vo.setRes(result);
 

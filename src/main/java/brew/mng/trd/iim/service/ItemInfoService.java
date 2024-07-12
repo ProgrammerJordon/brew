@@ -9,4 +9,5 @@ public interface ItemInfoService {
 
     public ItemInfo selectItemInfoList(ItemInfoVO vo);
     public ItemInfo insertItemInfoBatch(ItemInfoVO vo) throws JSONException, IOException;
+    public ItemInfo selectItemInfoDtls(ItemInfoVO vo) throws JSONException, IOException;
 }

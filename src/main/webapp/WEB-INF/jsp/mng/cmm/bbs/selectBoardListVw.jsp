@@ -53,7 +53,7 @@
                                     <td>\${bbs.boardList[i].rgtrDt}</td>
                                </tr>`
 
-                    $("tbody").append(html);
+                    $("#tbody").append(html);
                 }
                 $('#pagination').page(1, gridModule.getPageSize(bbs.boardList), 'bbs.pageMove');
             })
@@ -71,7 +71,7 @@
                                 <td>\${vo.rgtrId}</td>
                                 <td>\${vo.rgtrDt}</td>
                            </tr>`
-                $("tbody").append(html);
+                $("#tbody").append(html);
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(bbs.boardList), 'bbs.pageMove');
         },

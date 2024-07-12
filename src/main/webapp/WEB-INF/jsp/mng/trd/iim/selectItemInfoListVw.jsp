@@ -9,7 +9,7 @@
         iimList : [],
 
         init : () => {
-
+            iim.selectItemInfoList();
         },
         insertItemInfoBatch : () => {
             MessageUtil.confirm("종목정보 배치를 실행하시겠습니까?", (boolean) => {
@@ -26,6 +26,8 @@
         },
         selectItemInfoList : (pageIndex) => {
             let param = {
+                mrktCtg : $("#mrktCtg").val(),
+                searchKeyword : $("#searchKeyword").val(),
                 pageIndex : pageIndex || '1'
             }
 
@@ -33,7 +35,7 @@
 
             callModule.call(Util.getRequestUrl("/mng/trd/iim/selectItemInfoList.do"), param, (result) => {
 
-                iim.iimList = result.itemInfoVO || [];
+                iim.iimList = result.itemInfoVOList || [];
 
                 $("#totCnt").text(iim.iimList.length.toLocaleString());
 
@@ -50,14 +52,13 @@
                 for(let i = 0; i < iim.iimList.length; i++) {
                     if (iim.iimList[i].rnum > 10) break;
 
-                    let html = `<tr>
-                                    <td>\${vo.mrktCtg}</td>
-                                    <td>\${vo.srtnCd}</td>
-                                    <td>\${vo.itmsNm}</td>
-                                    <td>\${vo.corpNm}</td>
+                    let html = `<tr onclick="iim.selectItemInfoDtlsVw('\${iim.iimList[i].srtnCd}')">
+                                    <td>\${iim.iimList[i].mrktCtg}</td>
+                                    <td>\${iim.iimList[i].itmsNm}</td>
+                                    <td>\${iim.iimList[i].srtnCd}</td>
                                </tr>`
 
-                    $("tbody").append(html);
+                    $("#tbody").append(html);
                 }
                 $('#pagination').page(1, gridModule.getPageSize(iim.iimList), 'iim.pageMove');
             })
@@ -69,16 +70,21 @@
             gridModule.clear_grid("tbody");
 
             iim.iimList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
-                let html = `<tr>
+                let html = `<tr onclick="iim.selectItemInfoDtlsVw('\${vo.srtnCd}')">
                                 <td>\${vo.mrktCtg}</td>
-                                <td>\${vo.srtnCd}</td>
                                 <td>\${vo.itmsNm}</td>
-                                <td>\${vo.corpNm}</td>
+                                <td>\${vo.srtnCd}</td>
                            </tr>`
-                $("tbody").append(html);
+                $("#tbody").append(html);
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(iim.iimList), 'iim.pageMove');
         },
+        selectItemInfoDtlsVw : (srtnCd) => {
+            let param = {
+                srtnCd : srtnCd
+            }
+            callModule.post(Util.getRequestUrl("/mng/trd/iim/selectItemInfoDtlsVw.do"), param, 'get');
+        }
     }
 
     $(() => {
@@ -94,7 +100,7 @@
                 <div class="search__type__select">
                     <label for="mrktCtg" class="search__title">Market</label>
                     <select id="mrktCtg" name="mrktCtg">
-                        <option value="">TOTAL</option>
+                        <option value="">ALL</option>
                         <option value="KOSPI">KOSPI</option>
                         <option value="KOSDAQ">KOSDAQ</option>
                         <option value="KONEX">KONEX</option>
@@ -106,8 +112,8 @@
                 </div>
             </li>
         </ul>
-        <button class="btn__search icon" onclick="">
-            <span>조회</span>
+        <button class="btn__search icon" onclick="iim.selectItemInfoList();">
+            <span>Search</span>
         </button>
     </div>
     <br>
@@ -127,9 +133,17 @@
         <table>
             <caption class="hidden">종목 리스트</caption>
             <colgroup>
-                <col class="num" width="" >
+                <col class="num" width="33%">
+                <col class="num" width="33%">
+                <col class="num" width="33%">
             </colgroup>
-            <thead></thead>
+            <thead>
+                <tr>
+                    <th>Market</th>
+                    <th>Item</th>
+                    <th>Ticker</th>
+                </tr>
+            </thead>
             <tbody id="tbody"></tbody>
         </table>
     </div>
