@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ItemInfoDAO">
+
+    <insert id="insertItemInfoBatch" parameterType="brew.mng.trd.iim.service.ItemInfoVO">
+        INSERT INTO brew.comtniteminfo(
+             bas_dt
+            ,srtn_cd
+            ,isin_cd
+            ,mrkt_ctg
+            ,itms_nm
+            ,crno
+            ,corp_nm
+        )
+        VALUES(
+             #{basDt}
+            ,#{srtnCd}
+            ,#{isinCd}
+            ,#{mrktCtg}
+            ,#{itmsNm}
+            ,#{crno}
+            ,#{corpNm}
+        );
+    </insert>
+
+    <update id="updateTruncateItemInfo" parameterType="brew.mng.trd.iim.service.ItemInfoVO">
+        TRUNCATE TABLE brew.comtniteminfo RESTART IDENTITY CASCADE;
+    </update>
+
+</mapper>

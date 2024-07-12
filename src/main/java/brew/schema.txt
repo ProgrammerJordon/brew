@@ -564,3 +564,38 @@ comment on column comtnloginlog.log_id is '로그아이디';
 
 alter table comtnloginlog
     owner to postgres;
+
+
+-- 종목정보
+create table comtniteminfo
+(
+    bas_dt   varchar,
+    srtn_cd  varchar,
+    isin_cd  varchar,
+    mrkt_ctg varchar,
+    itms_nm  varchar,
+    crno     varchar,
+    corp_nm  varchar
+);
+
+comment on table comtniteminfo is '종목정보';
+
+comment on column comtniteminfo.bas_dt is '기준일자';
+
+comment on column comtniteminfo.srtn_cd is '기준코드';
+
+comment on column comtniteminfo.isin_cd is '국제인증고유번호';
+
+comment on column comtniteminfo.mrkt_ctg is '시장구분';
+
+comment on column comtniteminfo.itms_nm is '종목명';
+
+comment on column comtniteminfo.crno is '법인등록번호';
+
+comment on column comtniteminfo.corp_nm is '법인명';
+
+alter table comtniteminfo
+    owner to postgres;
+
+create index comtniteminfo_srtn_cd_index
+    on comtniteminfo (srtn_cd);

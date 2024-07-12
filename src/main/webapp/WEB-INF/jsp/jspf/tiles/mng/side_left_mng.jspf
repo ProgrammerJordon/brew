@@ -90,6 +90,10 @@
                         <li onclick="mmm.movePage('/mng/trd/ord/selectStockOrderListVw.do');">
                             <a>주문</a>
                         </li>
+                        <br>
+                        <li onclick="mmm.movePage('/mng/trd/iim/selectItemInfoListVw.do');">
+                            <a>종목</a>
+                        </li>
                     </ul>
                 </div>
             </div>
