@@ -4,6 +4,10 @@
 
 <script>
     const iim = {
+
+        searchParams : {},
+        iimList : [],
+
         init : () => {
 
         },
@@ -19,7 +23,62 @@
                     })
                 }
             }, "실행", "취소")
-        }
+        },
+        selectItemInfoList : (pageIndex) => {
+            let param = {
+                pageIndex : pageIndex || '1'
+            }
+
+            iim.searchParams = param;
+
+            callModule.call(Util.getRequestUrl("/mng/trd/iim/selectItemInfoList.do"), param, (result) => {
+
+                iim.iimList = result.itemInfoVO || [];
+
+                $("#totCnt").text(iim.iimList.length.toLocaleString());
+
+                gridModule.clear_grid("tbody");
+
+                if(iim.iimList.length == 0) {
+                    let html = `<tr>
+                                    <td colspan="4">등록된 종목정보가 존재하지 않습니다.</td>
+                                </tr>`
+                    $("tbody").append(html);
+                    return false;
+                }
+
+                for(let i = 0; i < iim.iimList.length; i++) {
+                    if (iim.iimList[i].rnum > 10) break;
+
+                    let html = `<tr>
+                                    <td>\${vo.mrktCtg}</td>
+                                    <td>\${vo.srtnCd}</td>
+                                    <td>\${vo.itmsNm}</td>
+                                    <td>\${vo.corpNm}</td>
+                               </tr>`
+
+                    $("tbody").append(html);
+                }
+                $('#pagination').page(1, gridModule.getPageSize(iim.iimList), 'iim.pageMove');
+            })
+        },
+
+        pageMove: function(pageIndex) {
+            if (!pageIndex) return;
+
+            gridModule.clear_grid("tbody");
+
+            iim.iimList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
+                let html = `<tr>
+                                <td>\${vo.mrktCtg}</td>
+                                <td>\${vo.srtnCd}</td>
+                                <td>\${vo.itmsNm}</td>
+                                <td>\${vo.corpNm}</td>
+                           </tr>`
+                $("tbody").append(html);
+            });
+            $('#pagination').page(pageIndex, gridModule.getPageSize(iim.iimList), 'iim.pageMove');
+        },
     }
 
     $(() => {
@@ -71,8 +130,11 @@
                 <col class="num" width="" >
             </colgroup>
             <thead></thead>
-            <tbody></tbody>
+            <tbody id="tbody"></tbody>
         </table>
+    </div>
+    <div class="paging-area">
+        <div id="pagination" class="paging"></div>
     </div>
 </div>
 

@@ -24,6 +24,12 @@ public class ItemInfoController {
         return "/mng/trd/iim/selectItemInfoListVw";
     }
 
+    @RequestMapping("/selectItemInfoList.do")
+    @ResponseBody
+    public ItemInfo selectItemInfoList(@RequestBody ItemInfoVO vo) {
+        return itemInfoService.selectItemInfoList(vo);
+    }
+
     @RequestMapping("/insertItemInfoBatch.do")
     @ResponseBody
     public ItemInfo insertItemInfoBatch(@RequestBody ItemInfoVO vo) throws JSONException, IOException {

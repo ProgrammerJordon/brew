@@ -25,6 +25,13 @@ public class ItemInfoServiceImpl implements ItemInfoService {
     private final BrewDateUtil brewDateUtil;
     private final ItemInfoDAO itemInfoDAO;
 
+    @Override
+    public ItemInfo selectItemInfoList(ItemInfoVO vo) {
+        return ItemInfo.builder()
+                .itemInfoVOList(itemInfoDAO.selectItemInfoList(vo))
+                .build();
+    }
+
     @Transactional
     @Override
     public ItemInfo insertItemInfoBatch(ItemInfoVO vo) throws JSONException, IOException {
