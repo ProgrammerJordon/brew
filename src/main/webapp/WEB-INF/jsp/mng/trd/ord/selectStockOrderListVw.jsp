@@ -6,6 +6,7 @@
 
         searchParams : {},
         ordList : [],
+        srtnCd : "",
 
         account : `${account}`,
         ordDvsn : "00",
@@ -93,14 +94,15 @@
         selectItemInfo : (itmsNm, srtnCd) => {
             // 팝업닫기
             ord.closeItemSearchPop();
-
+            // 글로벌 종목코드 변경
+            ord.srtnCd = srtnCd;
             // 종목명 부여
             $("#itmsNm").text(itmsNm);
-            $("#srtnCd").text(srtnCd);
+            $("#srtnCd").text("(" + srtnCd + ")");
 
             // 종목코드로 종목관련 정보 조회
             let param = {
-                srtnCd : srtnCd
+                srtnCd : ord.srtnCd
             }
             //callModule.call(Util.getRequestUrl("/mng/trd/ord/selectItemInfo.do"), param, (result) => {})
         },
@@ -205,9 +207,7 @@
             <div>
                 <div style="font-size: 1.5em;">
                     <span id="itmsNm"></span>
-                    <span>(</span>
                     <span id="srtnCd"></span>
-                    <span>)</span>
                 </div>
             </div>
             <div>
