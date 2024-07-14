@@ -11,8 +11,8 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('/svc/csc/cst/selectConsultListVw.do');">
-                            <a>문의사항</a>
+                        <li onclick="mmm.movePage('/svc/csc/not/selectNoticeListVw.do');">
+                            <a>공지사항</a>
                         </li>
                     </ul>
                 </div>
@@ -20,8 +20,8 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('/svc/csc/faq/selectFaqListVw.do');">
-                            <a>FAQ</a>
+                        <li onclick="mmm.movePage('/svc/csc/cst/selectConsultListVw.do');">
+                            <a>문의사항</a>
                         </li>
                     </ul>
                 </div>
