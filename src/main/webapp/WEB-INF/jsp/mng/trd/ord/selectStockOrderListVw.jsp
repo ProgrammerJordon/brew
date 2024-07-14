@@ -13,6 +13,8 @@
 
         init : () => {
             ord.selectDomesticAccount();
+            ord.selectItemInfo("삼성전자", "005930");
+            ord.closeItemSearchPop();
         },
         closeItemSearchPop : () => {
             var pop = document.getElementById("ItemSearchPop");
@@ -70,7 +72,6 @@
                 $('#pagination').page(1, gridModule.getPageSize(ord.ordList), 'ord.pageMove');
             })
         },
-
         pageMove: function(pageIndex) {
             if (!pageIndex) return;
 
@@ -101,12 +102,88 @@
             $("#srtnCd").text("(" + srtnCd + ")");
 
             // 종목코드로 종목관련 정보 조회
-            let param = {
-                srtnCd : ord.srtnCd
-            }
-            //callModule.call(Util.getRequestUrl("/mng/trd/ord/selectItemInfo.do"), param, (result) => {})
-        },
+            let param = {srtnCd : ord.srtnCd}
 
+            callModule.call(Util.getRequestUrl("/mng/trd/iim/selectItemInfoDtls.do"), param, (result) => {
+
+                $("#itemInfoDtls").show();
+                //시장구분
+                var marketCode = result.itemInfoVO.res.output.mket_id_cd;
+
+                if (marketCode === "KNX") {
+                    market = "코넥스";
+                } else if (marketCode === "KSQ") {
+                    market = "코스닥";
+                } else if (marketCode === "STK") {
+                    market = "코스피";
+                }
+
+                $("#mketIdCd").text(market);
+
+                $("#prdtAbrvName").text(result.itemInfoVO.res.output.prdt_abrv_name);
+                $("#prdtEngName").text(result.itemInfoVO.res.output.prdt_eng_name);
+                $("#lstgStqt").text(parseInt(result.itemInfoVO.res.output.lstg_stqt).toLocaleString());
+                $("#cpta").text(parseInt(result.itemInfoVO.res.output.cpta).toLocaleString());
+                $("#papr").text(parseInt(result.itemInfoVO.res.output.papr).toLocaleString());
+
+                // 상장일
+                var sctsMketLstgDt = result.itemInfoVO.res.output.scts_mket_lstg_dt;
+                var kosdaqMketLstgDt = result.itemInfoVO.res.output.kosdaq_mket_lstg_dt;
+
+                function formatDate(dateStr) {
+                    if (dateStr.length === 8) {
+                        return dateStr.substring(0, 4) + '/' + dateStr.substring(4, 6) + '/' + dateStr.substring(6);
+                    }
+                    return dateStr;
+                }
+
+                var formattedSctsMketLstgDt = formatDate(sctsMketLstgDt);
+                var formattedKosdaqMketLstgDt = formatDate(kosdaqMketLstgDt);
+
+                $("#sctsMketLstgDt").text(formattedSctsMketLstgDt);
+                $("#kosdaqMketLstgDt").text(formattedKosdaqMketLstgDt);
+
+                // 보통주 / 우선주
+                var val = result.itemInfoVO.res.output.stck_kind_cd;
+
+                var rs = "";
+                if (val == "101") {
+                    rs = "보통주";
+                } else if (val == "201") {
+                    rs = "우선주";
+                }
+
+                $("#stckKindCd").text(rs);
+
+                // 거래정지 관리종목
+                var trStopYn = result.itemInfoVO.res.output.tr_stop_yn;
+                var admnItemYn = result.itemInfoVO.res.output.admn_item_yn;
+
+                if (trStopYn == "N") {
+                    $("#trStopYn").text("-");
+                } else if (trStopYn == "Y") {
+                    $("#trStopYn").text("거래정지");
+                }
+
+                if (admnItemYn == "Y") {
+                    $("#admnItemYn").text("-");
+                } else if (admnItemYn == "Y") {
+                    $("#admnItemYn").text("관리종목");
+                }
+
+                // 업종
+                $("#stdIdstClsfCdName").text(result.itemInfoVO.res.output.std_idst_clsf_cd_name);
+
+                // 결산일
+                var setlMmdd = result.itemInfoVO.res.output.setl_mmdd;
+
+                if (setlMmdd.length === 4) {
+                    setlMmdd = setlMmdd.substring(0, 2) + '/' + setlMmdd.substring(2);
+                }
+                $("#setlMmdd").text(setlMmdd);
+            })
+        },
+        // market, limit
         chageOrdDvsn : (param) => {
             ord.ordDvsn = param;
 
@@ -121,19 +198,49 @@
             }
         },
 
-        calAvailable : (cash, price) => {
+        // orderable shares
+        calAvailable : () => {
 
-            let quntity = 0;
+            let price = $("#price").val() || null;
+            let cash = $("#dncaTotAmt").text() || null;
 
-            if(cash != "" && price != "") {
-                quntity = Math.floor(parseInt(cash) / price);
-                $("#searchAmount").text(quntity);
+            let priceFlag = false;
+            let cashFlag = false;
+
+            if(price == null || price ==  "") {
+                MessageUtil.alert("주문가격을 입력하세요.")
             }else {
-                quntity = Math.floor(parseInt($("#dncaTotAmt").text()) / price);
-                $("#searchAmount").text(quntity);
+                priceFlag = true;
+            }
+
+            if(cash == null || cash == "") {
+                MessageUtil.alert("주문가능한 현금이 없습니다.")
+            }else if($("#dncaTotAmt").text() == '0') {
+                MessageUtil.alert("주문가능한 현금이 없습니다.")
+            }else {
+                cashFlag = true;
+            }
+
+            if(priceFlag == true && cashFlag == true) {
+                let quntity = Math.floor(parseInt(cash) / parseInt(price));
+                $("#searchAmount").val(quntity);
+                $("#amount").val(quntity);
+
+                ord.setTotalPrice();
+            }
+
+        },
+        setTotalPrice : () => {
+            let price = $("#price").val() || null;
+            let amount = $("#amount").val() || null;
+
+            if(price != null && amount != null) {
+                let totalPrice = parseInt(price) * parseInt(amount);
+                if(totalPrice != null && totalPrice != "") {
+                    $("#totalPrice").val(totalPrice);
+                }
             }
         },
-
         selectDomesticAccount : () => {
             let param = {
                 account : ord.account
@@ -202,6 +309,53 @@
         </button>
     </div>
     <br>
+    <div id="itemInfoDtls" class="table-box" style="display: none;">
+        <table>
+            <caption class="hidden">종목정보 상세조회 화면</caption>
+            <colgroup>
+                <col class="num" width="10%">
+                <col class="num" width="40%">
+                <col class="num" width="10%">
+                <col class="num" width="40%">
+            </colgroup>
+            <thead></thead>
+            <tbody>
+            <tr>
+                <th>마켓</th>
+                <td><span id="mketIdCd"></span></td>
+                <th>종목명</th>
+                <td>
+                    <span id="prdtAbrvName"></span><span>(</span> <span id="prdtEngName"></span> <span>)</span>
+                </td>
+            </tr>
+            <tr>
+                <th>상장주식수</th>
+                <td><span id="lstgStqt"></span></td>
+                <th>자본금</th>
+                <td><span id="cpta"></span></td>
+            </tr>
+            <tr>
+                <th>액면가</th>
+                <td><span id="papr"></span></td>
+                <th>상장일자</th>
+                <td><span id="sctsMketLstgDt"></span><span id="kosdaqMketLstgDt"></span></td>
+            </tr>
+            <tr>
+                <th>구분</th>
+                <td><span id="stckKindCd"></span></td>
+                <th>특이사항</th>
+                <td><span id="trStopYn"></span> <span id="admnItemYn"></span></td>
+            </tr>
+            <tr>
+                <th>업종</th>
+                <td><span id="stdIdstClsfCdName"></span></td>
+                <th>결산일</th>
+                <td><span id="setlMmdd"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
     <div style="display: flex; justify-content: space-between;">
         <div style="width: 65%">
             <div>
@@ -210,8 +364,27 @@
                     <span id="srtnCd"></span>
                 </div>
             </div>
+            <br>
             <div>
-                <canvas id="chart" height="400px;"></canvas>
+                <div>
+                    <select id="scale-type">
+                        <option value="linear" selected>Linear</option>
+                        <option value="logarithmic">Logarithmic</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;
+                    <select id="mixed">
+                        <option value="true">Yes</option>
+                        <option value="false" selected>No</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;
+                    <button id="update">Update</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button id="randomizeData">Randomize Data</button>
+                </div>
+                <br>
+                <div>
+                    <canvas id="candleChart" style="width: 1100px; height: 450px;"></canvas>
+                </div>
             </div>
             <br>
             <div>
@@ -258,8 +431,7 @@
                     <table>
                         <caption class="hidden">Order</caption>
                         <colgroup>
-                            <col class="num" style="width: ">
-                            <col class="num" style="width: ">
+                            <col class="num" style="width: 100%">
                         </colgroup>
                         <thead></thead>
                         <tbody>
@@ -275,25 +447,28 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="search__type__input">
+                                    <div class="search__type__input" style="align-items: center;">
                                         <label for="price" class="search__title">Price</label>
-                                        <input id="price" name="price" style="text-align: right;" />
+                                        <input type="number" id="price" name="price" onchange="ord.setTotalPrice();" min="0" step="1" style="text-align: right;" />
+                                        &nbsp;&nbsp;&nbsp;<span>(won)</span>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="search__type__input">
+                                    <div class="search__type__input" style="align-items: center;">
                                         <label for="amount" class="search__title">Amount</label>
-                                        <input id="amount" name="amount" style="text-align: right;" />
+                                        <input type="number" id="amount" name="amount" onchange="ord.setTotalPrice();" min="0" step="1" style="text-align: right;" />
+                                        &nbsp;&nbsp;&nbsp;<span>(shares)</span>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="search__type__input btn__box">
+                                    <div class="search__type__input" style="align-items: center;">
                                         <button class="btn__black__line" onclick="ord.calAvailable();">Available</button>
-                                        <input id="searchAmount" name="searchAmount" readonly />
+                                        <input id="searchAmount" name="searchAmount" style="text-align: right;" readonly />
+                                        &nbsp;&nbsp;&nbsp;<span>(shares)</span>
                                     </div>
                                 </td>
                             </tr>
@@ -309,7 +484,8 @@
                                 <td>
                                     <div class="search__type__input">
                                         <label for="totalPrice" class="search__title">Total Price</label>
-                                        <input id="totalPrice" name="totalPrice" style="text-align: right;" readonly />
+                                        <input id="totalPrice" style="text-align: right;" readonly />
+                                        &nbsp;&nbsp;&nbsp;<span>(won)</span>
                                     </div>
                                 </td>
                             </tr>
@@ -376,7 +552,9 @@
                 <table>
                     <colgroup class="hidden"></colgroup>
                     <colgroup>
-                        <col class="num" style="width: ">
+                        <col class="col-num" style="width: 40%">
+                        <col class="col-num" style="width: 40%">
+                        <col class="col-num" style="width: 20%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -398,7 +576,7 @@
         <p class="title">Search Items</p>
         <button class="btn__close" onclick="ord.closeItemSearchPop()"><span class="hidden">닫기</span></button>
     </div>
-    <div class="popup__body scroll-list" style="min-width: unset; width: 1400px; height: 800px;">
+    <div class="popup__body" style="min-width: unset; width: 1400px; height: 750px;">
         <div style="margin-top: 0; gap: 5px; justify-content: center;">
             <div class="table-box">
                 <table>
@@ -424,3 +602,124 @@
         </div>
     </div>
 </div>
+
+<script>
+    var barCount = 60;
+    var initialDateStr = new Date().toUTCString();
+
+    var ctx = document.getElementById('candleChart');
+
+    var barData = new Array(barCount);
+    var lineData = new Array(barCount);
+
+    getRandomData(initialDateStr);
+
+    var chart = new Chart(ctx, {
+        type: 'candlestick',
+        data: {
+            datasets: [{
+                label: "",
+                data: barData,
+            }, {
+                label: '10days',
+                type: 'line',
+                data: lineData,
+                hidden: true,
+            }, {
+                label: '60days',
+                type: 'line',
+                data: lineData,
+                hidden: true,
+            }, {
+                label: '120days',
+                type: 'line',
+                data: lineData,
+                hidden: true,
+            }, {
+                label: '224days',
+                type: 'line',
+                data: lineData,
+                hidden: true,
+            }
+            ]
+        }
+    });
+
+    function randomNumber(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function randomBar(target, index, date, lastClose) {
+        var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
+        var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
+        var high = +randomNumber(Math.max(open, close), Math.max(open, close) * 1.1).toFixed(2);
+        var low = +randomNumber(Math.min(open, close) * 0.9, Math.min(open, close)).toFixed(2);
+
+        if (!target[index]) {
+            target[index] = {};
+        }
+
+        Object.assign(target[index], {
+            x: date.valueOf(),
+            o: open,  // 시가
+            h: high, // 최고가
+            l: low, // 최저가
+            c: close // 종가
+        });
+
+    }
+
+    function getRandomData(dateStr) {
+        var date = luxon.DateTime.fromRFC2822(dateStr);
+
+        for (let i = 0; i < barData.length;) {
+            date = date.plus({days: 1});
+            if (date.weekday <= 5) {
+                randomBar(barData, i, date, i === 0 ? 30 : barData[i - 1].c);
+                lineData[i] = {x: barData[i].x, y: barData[i].c};
+                i++;
+            }
+        }
+    }
+
+    var update = function() {
+
+        var dataset = chart.config.data.datasets[0];
+
+        // candlestick
+        chart.config.type = 'candlestick';
+
+        // 가중평균 / 지수평균
+        var scaleType = document.getElementById('scale-type').value;
+        chart.config.options.scales.y.type = scaleType;
+
+        // 캔들색상
+        chart.config.data.datasets[0].backgroundColors = {
+            up: '#01ff01',
+            down: '#fe0000',
+            unchanged: '#999',
+        };
+        // 최고최저라인
+        dataset.borderColors;
+
+
+        // 선이랑 캔들이랑 같이
+        var mixed = document.getElementById('mixed').value;
+        if (mixed === 'true') {
+            chart.config.data.datasets[1].hidden = false;
+        } else {
+            chart.config.data.datasets[1].hidden = true;
+        }
+
+        chart.update();
+    };
+
+    [...document.getElementsByTagName('select')].forEach(element => element.addEventListener('change', update));
+
+    document.getElementById('update').addEventListener('click', update);
+
+    document.getElementById('randomizeData').addEventListener('click', function() {
+        getRandomData(initialDateStr, barData);
+        update();
+    });
+</script>

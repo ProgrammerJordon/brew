@@ -104,7 +104,7 @@
 <div>
     <div class="table-box">
         <table>
-            <caption class="hidden">게시판 상세조회 화면</caption>
+            <caption class="hidden">종목정보 상세조회 화면</caption>
             <colgroup>
                 <col class="num" width="10%">
                 <col class="num" width="40%">
