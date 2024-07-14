@@ -5,7 +5,7 @@
     const cst = {
 
         searchParams : {},
-        cstList : [],
+        notList : [],
 
         init : () => {
             cst.selectNoticeList();
@@ -28,33 +28,33 @@
 
             callModule.call(Util.getRequestUrl("/svc/csc/not/selectNoticeList.do"), param, (result) => {
 
-                cst.notList = result.consultVOList || [];
+                cst.notList = result.NoticeVOList || [];
 
-                $("#totCnt").text(cst.cstList.length.toLocaleString());
+                $("#totCnt").text(cst.notList.length.toLocaleString());
 
                 gridModule.clear_grid("tbody");
 
-                if(cst.cstList.length == 0) {
+                if(cst.notList.length == 0) {
                     let html = `<tr>
-                                <td colspan="4">문의사항이 존재하지 않습니다.</td>
+                                <td colspan="4">공지사항이 존재하지 않습니다.</td>
                               </tr>`
                     $("tbody").append(html);
                     return false;
                 }
 
-                for(let i = 0; i < cst.cstList.length; i++) {
-                    if(cst.cstList[i].rnum > 10) break;
+                for(let i = 0; i < cst.notList.length; i++) {
+                    if(cst.notList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="cst.selectConsultDtlsVw('\${cst.cstList[i].sn}')">
-                                <td>\${cst.cstList[i].title}</td>
-                                <td>\${cst.cstList[i].inqCnt}</td>
-                                <td>\${cst.cstList[i].rgtrId}</td>
-                                <td>\${cst.cstList[i].rgtrDt}</td>
+                    let html = `<tr onclick="cst.selectConsultDtlsVw('\${cst.notList[i].sn}')">
+                                <td>\${not.cstList[i].title}</td>
+                                <td>\${not.cstList[i].inqCnt}</td>
+                                <td>\${not.cstList[i].rgtrId}</td>
+                                <td>\${not.cstList[i].rgtrDt}</td>
                               </tr>`
 
                     $("#tbody").append(html);
                 }
-                $('#pagination').page(1, gridModule.getPageSize(cst.cstList), 'cst.pageMove');
+                $('#pagination').page(1, gridModule.getPageSize(cst.notList), 'cst.pageMove');
             })
         },
 

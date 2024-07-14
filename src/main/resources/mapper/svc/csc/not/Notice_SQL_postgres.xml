@@ -6,7 +6,16 @@
 <mapper namespace="NoticeDAO">
 
     <select id="selectNoticeList" parameterType="brew.svc.csc.not.service.NoticeVO" resultType="brew.svc.csc.not.service.NoticeVO">
-
+        select
+            sn,
+            title,
+            contents,
+            inq_cnt,
+            rgtr_id,
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
+            ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
+        from brew.brewnot
+        order by sn desc
     </select>
 
 </mapper>
