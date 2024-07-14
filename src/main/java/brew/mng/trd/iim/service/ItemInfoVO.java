@@ -18,6 +18,9 @@ public class ItemInfoVO extends CommonVO implements Serializable {
     private String crno; // 법인등록번호
     private String corpNm; // 법인명
 
+    private String dwmy; // 일,주,월,년
+    private String adjPrice; // 수정주가여부
+
     private int rnum;
     private Object res;
 

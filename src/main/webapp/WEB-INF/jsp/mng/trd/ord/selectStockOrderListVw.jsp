@@ -366,20 +366,38 @@
             </div>
             <br>
             <div>
-                <div>
-                    <select id="scale-type">
-                        <option value="linear" selected>Linear</option>
-                        <option value="logarithmic">Logarithmic</option>
-                    </select>
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                        <button>Day</button>
+                        &nbsp;&nbsp;
+                        <button>Week</button>
+                        &nbsp;&nbsp;
+                        <button>Month</button>
+                        &nbsp;&nbsp;
+                        <button>Year</button>
+                    </div>
                     &nbsp;&nbsp;&nbsp;
-                    <select id="mixed">
-                        <option value="true">Yes</option>
-                        <option value="false" selected>No</option>
-                    </select>
+                    <div>
+                        <select id="scale-type">
+                            <option value="linear" selected>Linear</option>
+                            <option value="logarithmic">Logarithmic</option>
+                        </select>
+                    </div>
                     &nbsp;&nbsp;&nbsp;
-                    <button id="update">Update</button>
+                    <div>
+                        <select id="mixed">
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                        </select>
+                    </div>
                     &nbsp;&nbsp;&nbsp;
-                    <button id="randomizeData">Randomize Data</button>
+                    <div>
+                        <button id="update">Update</button>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div>
+                        <button id="randomizeData">Randomize Data</button>
+                    </div>
                 </div>
                 <br>
                 <div>
@@ -619,12 +637,16 @@
         data: {
             datasets: [{
                 label: "",
-                data: barData,
+                data: barData
+                // [{x: 1721029224000, o: 54, h: 135, l: 5, c: 7 }]
+                // 유닉스타임, 시작가, 최고가, 최저가, 종가
             }, {
                 label: '10days',
                 type: 'line',
                 data: lineData,
                 hidden: true,
+                // [{x: 1721029224000, c: 54}]
+                // 유닉스타임 , 종가
             }, {
                 label: '60days',
                 type: 'line',
@@ -700,7 +722,7 @@
             unchanged: '#999',
         };
         // 최고최저라인
-        dataset.borderColors;
+        chart.config.data.datasets[0].borderColors;
 
 
         // 선이랑 캔들이랑 같이

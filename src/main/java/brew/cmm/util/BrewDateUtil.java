@@ -35,4 +35,19 @@ public class BrewDateUtil {
 
         return formattedDate;
     }
+
+    public String getDateBeforeDays(String days) {
+        LocalDate today = LocalDate.now();
+
+        // 100일 전의 날짜 계산
+        LocalDate pastDate = today.minusDays(Long.parseLong(days));
+
+        // 원하는 형식 정의
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // 100일 전의 날짜를 원하는 형식으로 변환
+        String formattedPastDate = pastDate.format(formatter);
+
+        return formattedPastDate;
+    }
 }

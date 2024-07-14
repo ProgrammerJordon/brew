@@ -21,8 +21,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KrxItemScheduler {
 
-    private final BrewDateUtil brewDateUtil;
-    private final BrewHttpUtil brewHttpUtil;
     private final ItemInfoService itemInfoService;
 
     @Scheduled(cron = "0 0 0 * * ?")

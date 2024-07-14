@@ -47,4 +47,10 @@ public class ItemInfoController {
     public ItemInfo selectItemInfoDtls(@RequestBody ItemInfoVO vo) throws JSONException, IOException {
         return itemInfoService.selectItemInfoDtls(vo);
     }
+
+    @RequestMapping("/selectItemInfoChart.do")
+    @ResponseBody
+    public ItemInfo selectItemInfoChart(@RequestBody ItemInfoVO vo)  throws JSONException, IOException {
+        return itemInfoService.selectItemInfoChart(vo);
+    }
 }

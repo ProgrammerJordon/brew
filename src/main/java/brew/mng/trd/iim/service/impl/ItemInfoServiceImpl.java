@@ -117,4 +117,37 @@ public class ItemInfoServiceImpl implements ItemInfoService {
                 .itemInfoVO(vo)
                 .build();
     }
+
+    @Override
+    public ItemInfo selectItemInfoChart(ItemInfoVO vo) throws JSONException, IOException {
+
+        String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice";
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("content-type", "application/json; charset=utf-8");
+        headers.put("authorization", BrewProperties.getProperty("kis.dev.accessToken"));
+        headers.put("appkey", BrewProperties.getProperty("kis.dev.appkey"));
+        headers.put("appsecret", BrewProperties.getProperty("kis.dev.appsecret"));
+        headers.put("tr_id", "FHKST03010100");
+        headers.put("custtype", "P");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("FID_COND_MRKT_DIV_CODE", "J");
+        params.put("FID_INPUT_ISCD", vo.getSrtnCd());
+        params.put("FID_INPUT_DATE_1", "19900101");
+        params.put("FID_INPUT_DATE_2", brewDateUtil.getNowDate());
+        params.put("FID_PERIOD_DIV_CODE", vo.getDwmy());
+        params.put("FID_ORG_ADJ_PRC", "1");
+
+        StringBuilder response = brewHttpUtil.getHttpRequest(url, headers, params);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode result = mapper.readTree(String.valueOf(response));
+
+        vo.setRes(result);
+
+        return ItemInfo.builder()
+                .itemInfoVO(vo)
+                .build();
+    }
 }
