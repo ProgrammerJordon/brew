@@ -10,11 +10,14 @@
 
         account : `${account}`,
         ordDvsn : "00",
+        dwmy : "D",
 
         init : () => {
             ord.selectDomesticAccount();
             ord.selectItemInfo("삼성전자", "005930");
             ord.closeItemSearchPop();
+
+            //setInterval(ord.selectItemInfoChart, 5000);
         },
         closeItemSearchPop : () => {
             var pop = document.getElementById("ItemSearchPop");
@@ -91,6 +94,15 @@
                 $("#popbody").append(html);
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(ord.ordList), 'ord.pageMove');
+        },
+        UTCtime : (dateStr) => {
+            // 입력된 dateString을 "YYYYMMDD" 형식에서 "YYYY-MM-DD" 형식으로 변환
+            var formattedDateString = dateStr.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3');
+            // 변환된 날짜 문자열로 Date 객체 생성
+            var dateObject = new Date(formattedDateString);
+            // UTC 형식의 문자열로 변환
+            var utcString = dateObject.toUTCString();
+            return utcString;
         },
         // 종목정보
         selectItemInfo : (itmsNm, srtnCd) => {
@@ -182,7 +194,117 @@
                     setlMmdd = setlMmdd.substring(0, 2) + '/' + setlMmdd.substring(2);
                 }
                 $("#setlMmdd").text(setlMmdd);
+
+                ord.selectItemInfoChart(ord.srtnCd)
             })
+        },
+        selectItemInfoChart: (srtnCd, type) => {
+            var ctx = document.getElementById('candleChart');
+            var chart = Chart.getChart(ctx); // 기존 차트 가져오기
+            if (!chart) {
+                chart = new Chart(ctx, {
+                    type: 'candlestick',
+                    data: {
+                        datasets: [
+                            {
+                                label: "price",
+                                data: [],  // 초기에는 빈 배열로 설정
+                                backgroundColors: {
+                                    up: '#01ff01',
+                                    down: '#fe0000',
+                                    unchanged: '#999',
+                                }
+                            }, {
+                                label: '10days',
+                                type: 'line',
+                                data: [],
+                            }, {
+                                label: '20days',
+                                type: 'line',
+                                data: [],
+                            }, {
+                                label: '30days',
+                                type: 'line',
+                                data: [],
+                            }
+                        ]
+                    }
+                });
+            }
+
+            let param = {
+                pdno: srtnCd,
+                dwmy: type || ord.dwmy
+            }
+
+            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectItemInfoChart.do"), param, (result) => {
+                // 데이터셋의 데이터 업데이트
+                chart.data.datasets[0].data = []; // 데이터셋 초기화
+                for (var i = 0; i < result.stockOrderVO.res.output2.length; i++) {
+                    chart.data.datasets[0].data.push({
+                        x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
+                        o: result.stockOrderVO.res.output2[i].stck_oprc,
+                        h: result.stockOrderVO.res.output2[i].stck_hgpr,
+                        l: result.stockOrderVO.res.output2[i].stck_lwpr,
+                        c: result.stockOrderVO.res.output2[i].stck_clpr
+                    });
+                }
+
+                chart.data.datasets[1].data = [];
+                for (var i = 0; i <= result.stockOrderVO.res.output2.length - 10; i += 10) {
+                    var sum = 0;
+                    for (var j = 0; j < 10; j++) {
+                        sum += parseInt(result.stockOrderVO.res.output2[i + j].stck_clpr);
+                    }
+                    var average = sum / 10;
+                    chart.data.datasets[1].data.push({
+                        x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
+                        y: average
+                    });
+                }
+
+                chart.data.datasets[2].data = [];
+                for (var i = 0; i <= result.stockOrderVO.res.output2.length - 20; i += 20) {
+                    var sum = 0;
+                    for (var j = 0; j < 20; j++) {
+                        sum += parseInt(result.stockOrderVO.res.output2[i + j].stck_clpr);
+                    }
+                    var average = sum / 20;
+                    chart.data.datasets[2].data.push({
+                        x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
+                        y: average
+                    });
+                }
+
+                chart.data.datasets[3].data = [];
+                for (var i = 0; i <= result.stockOrderVO.res.output2.length - 30; i += 30) {
+                    var sum = 0;
+                    for (var j = 0; j < 30; j++) {
+                        sum += parseInt(result.stockOrderVO.res.output2[i + j].stck_clpr);
+                    }
+                    var average = sum / 30;
+                    chart.data.datasets[3].data.push({
+                        x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
+                        y: average
+                    });
+                }
+                chart.update(); // 차트 업데이트
+            });
+        },
+        calculateAverage : (data, daysPerGroup) => {
+            var averageValues = [];
+
+            // 데이터를 daysPerGroup 단위로 묶어 평균값을 계산
+            for (var i = 0; i <= data.length - daysPerGroup; i += daysPerGroup) {
+                var sum = 0;
+                for (var j = i; j < i + daysPerGroup; j++) {
+                    sum += data[j].stck_clpr;
+                }
+                var average = sum / daysPerGroup;
+                averageValues.push(average);
+            }
+
+            return averageValues;
         },
         // 시장가 / 지정가
         chageOrdDvsn : (param) => {
@@ -478,37 +600,15 @@
             </div>
             <br>
             <div>
-                <div style="display: flex; justify-content: space-around;">
-                    <div>
-                        <button>Day</button>
+                <div style="display: flex; justify-content: right;">
+                    <div class="btn__box">
+                        <button class="btn__black__line" onclick="ord.selectItemInfoChart(ord.srtnCd, 'D')">Day</button>
                         &nbsp;&nbsp;
-                        <button>Week</button>
+                        <button class="btn__black__line" onclick="ord.selectItemInfoChart(ord.srtnCd, 'W')">Week</button>
                         &nbsp;&nbsp;
-                        <button>Month</button>
+                        <button class="btn__black__line" onclick="ord.selectItemInfoChart(ord.srtnCd, 'M')">Month</button>
                         &nbsp;&nbsp;
-                        <button>Year</button>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <div>
-                        <select id="scale-type">
-                            <option value="linear" selected>Linear</option>
-                            <option value="logarithmic">Logarithmic</option>
-                        </select>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <div>
-                        <select id="mixed">
-                            <option value="true">Yes</option>
-                            <option value="false" selected>No</option>
-                        </select>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <div>
-                        <button id="update">Update</button>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <div>
-                        <button id="randomizeData">Randomize Data</button>
+                        <button class="btn__black__line" onclick="ord.selectItemInfoChart(ord.srtnCd, 'Y')">Year</button>
                     </div>
                 </div>
                 <br>
@@ -764,128 +864,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    var barCount = 60;
-    var initialDateStr = new Date().toUTCString();
-
-    var ctx = document.getElementById('candleChart');
-
-    var barData = new Array(barCount);
-    var lineData = new Array(barCount);
-
-    getRandomData(initialDateStr);
-
-    var chart = new Chart(ctx, {
-        type: 'candlestick',
-        data: {
-            datasets: [{
-                label: "",
-                data: barData
-                // [{x: 1721029224000, o: 54, h: 135, l: 5, c: 7 }]
-                // 유닉스타임, 시작가, 최고가, 최저가, 종가
-            }, {
-                label: '10days',
-                type: 'line',
-                data: lineData,
-                hidden: true,
-                // [{x: 1721029224000, c: 54}]
-                // 유닉스타임 , 종가
-            }, {
-                label: '60days',
-                type: 'line',
-                data: lineData,
-                hidden: true,
-            }, {
-                label: '120days',
-                type: 'line',
-                data: lineData,
-                hidden: true,
-            }, {
-                label: '224days',
-                type: 'line',
-                data: lineData,
-                hidden: true,
-            }
-            ]
-        }
-    });
-
-    function randomNumber(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    function randomBar(target, index, date, lastClose) {
-        var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-        var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-        var high = +randomNumber(Math.max(open, close), Math.max(open, close) * 1.1).toFixed(2);
-        var low = +randomNumber(Math.min(open, close) * 0.9, Math.min(open, close)).toFixed(2);
-
-        if (!target[index]) {
-            target[index] = {};
-        }
-
-        Object.assign(target[index], {
-            x: date.valueOf(),
-            o: open,  // 시가
-            h: high, // 최고가
-            l: low, // 최저가
-            c: close // 종가
-        });
-
-    }
-
-    function getRandomData(dateStr) {
-        var date = luxon.DateTime.fromRFC2822(dateStr);
-
-        for (let i = 0; i < barData.length;) {
-            date = date.plus({days: 1});
-            if (date.weekday <= 5) {
-                randomBar(barData, i, date, i === 0 ? 30 : barData[i - 1].c);
-                lineData[i] = {x: barData[i].x, y: barData[i].c};
-                i++;
-            }
-        }
-    }
-
-    var update = function() {
-
-        var dataset = chart.config.data.datasets[0];
-
-        // candlestick
-        chart.config.type = 'candlestick';
-
-        // 가중평균 / 지수평균
-        var scaleType = document.getElementById('scale-type').value;
-        chart.config.options.scales.y.type = scaleType;
-
-        // 캔들색상
-        chart.config.data.datasets[0].backgroundColors = {
-            up: '#01ff01',
-            down: '#fe0000',
-            unchanged: '#999',
-        };
-        // 최고최저라인
-        chart.config.data.datasets[0].borderColors;
-
-
-        // 선이랑 캔들이랑 같이
-        var mixed = document.getElementById('mixed').value;
-        if (mixed === 'true') {
-            chart.config.data.datasets[1].hidden = false;
-        } else {
-            chart.config.data.datasets[1].hidden = true;
-        }
-
-        chart.update();
-    };
-
-    [...document.getElementsByTagName('select')].forEach(element => element.addEventListener('change', update));
-
-    document.getElementById('update').addEventListener('click', update);
-
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        getRandomData(initialDateStr, barData);
-        update();
-    });
-</script>

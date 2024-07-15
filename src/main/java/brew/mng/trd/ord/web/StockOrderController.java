@@ -1,6 +1,7 @@
 package brew.mng.trd.ord.web;
 
 import brew.cmm.service.ppt.BrewProperties;
+import brew.cmm.util.BrewDateUtil;
 import brew.cmm.util.BrewHttpUtil;
 import brew.mng.trd.ord.service.StockOrder;
 import brew.mng.trd.ord.service.StockOrderService;
@@ -26,7 +27,9 @@ import java.util.Map;
 public class StockOrderController {
 
     private final BrewHttpUtil brewHttpUtil;
+    private final BrewDateUtil brewDateUtil;
     private final StockOrderService stockOrderService;
+
     @RequestMapping("/selectStockOrderListVw.do")
     public String selectStockOrderListVw(Model model) {
         model.addAttribute("account", BrewProperties.getProperty("kis.dev.account"));
@@ -215,6 +218,40 @@ public class StockOrderController {
         params.put("QTY_ALL_ORD_YN", "Y");
 
         StringBuilder response = brewHttpUtil.postHttpRequest(url, headers, params);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode result = mapper.readTree(String.valueOf(response));
+
+        vo.setRes(result);
+
+        return StockOrder.builder()
+                .stockOrderVO(vo)
+                .build();
+    }
+
+    @RequestMapping("/selectItemInfoChart.do")
+    @ResponseBody
+    public StockOrder selectItemInfoChart(@RequestBody StockOrderVO vo) throws JSONException, IOException {
+
+        String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice";
+
+        java.util.Map<String, String> headers = new HashMap<>();
+        headers.put("content-type", "application/json; charset=utf-8");
+        headers.put("authorization", BrewProperties.getProperty("kis.dev.accessToken"));
+        headers.put("appkey", BrewProperties.getProperty("kis.dev.appkey"));
+        headers.put("appsecret", BrewProperties.getProperty("kis.dev.appsecret"));
+        headers.put("tr_id", "FHKST03010100");
+        headers.put("custtype", "P");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("FID_COND_MRKT_DIV_CODE", "J");
+        params.put("FID_INPUT_ISCD", vo.getPdno());
+        params.put("FID_INPUT_DATE_1", "19900101");
+        params.put("FID_INPUT_DATE_2", brewDateUtil.getNowDate());
+        params.put("FID_PERIOD_DIV_CODE", vo.getDwmy());
+        params.put("FID_ORG_ADJ_PRC", "0");
+
+        StringBuilder response = brewHttpUtil.getHttpRequest(url, headers, params);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode result = mapper.readTree(String.valueOf(response));
