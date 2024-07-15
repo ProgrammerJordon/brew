@@ -4,7 +4,6 @@ import brew.mng.dtm.cam.service.CollectApi;
 import brew.mng.dtm.cam.service.CollectApiService;
 import brew.mng.dtm.cam.service.CollectApiVO;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

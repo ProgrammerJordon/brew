@@ -27,6 +27,7 @@
                 pop.style.display = "none";
             }
         },
+        // 종목 조회
         selectItemInfoList : (pageIndex) => {
             let param = {
                 mrktCtg : $("#mrktCtg").val(),
@@ -91,7 +92,7 @@
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(ord.ordList), 'ord.pageMove');
         },
-
+        // 종목정보
         selectItemInfo : (itmsNm, srtnCd) => {
             // 팝업닫기
             ord.closeItemSearchPop();
@@ -183,7 +184,7 @@
                 $("#setlMmdd").text(setlMmdd);
             })
         },
-        // market, limit
+        // 시장가 / 지정가
         chageOrdDvsn : (param) => {
             ord.ordDvsn = param;
 
@@ -197,7 +198,6 @@
                 $("#market").addClass('btn__blue').removeClass('btn__black__line');
             }
         },
-
         // orderable shares
         calAvailable : () => {
 
@@ -241,39 +241,151 @@
                 }
             }
         },
+        // 계좌조회
         selectDomesticAccount : () => {
-            let param = {
-                account : ord.account
-            }
+            let param = {account : ord.account}
             callModule.call(Util.getRequestUrl("/mng/trd/ord/selectDomesticAccount.do"), param, (result) => {
+
+                var tbody = document.querySelector("#tbody1");
+
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
 
                 // holoding shares
                 if(result.stockOrderVO.res.output1.length != 0) {
 
                     for(var i = 0; i < result.stockOrderVO.res.output1.length; i++) {
-                        var html = `<tr>
+
+                        if(result.stockOrderVO.res.output1[i].hldg_qty != "0") {
+                            var html = `<tr>
                                     <td><span>\${result.stockOrderVO.res.output1[i].prdt_name}</span> <span>(</span> <span>\${result.stockOrderVO.res.output1[i].pdno}</span> <span>)</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].pchs_avg_pric}</span></td>
+                                    <td><span>\${Math.floor(result.stockOrderVO.res.output1[i].pchs_avg_pric)}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output1[i].hldg_qty}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output1[i].pchs_amt}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_amt}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_rt}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_amt}</span>&nbsp;<span>(won)</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_rt}</span>&nbsp;<span>%</span></td>
                                     <td>
                                         <div class="btn__box">
                                             <button class="btn__blue">Sell</button>
                                         </div>
                                     </td>
                                 </tr>`;
+                        }
+                        $("#tbody1").append(html);
                     }
-                    $("#tbody1").append(html);
                 }
 
                 // cash
                 $("#pchsAmtSmtlAmt").text(result.stockOrderVO.res.output2[0].pchs_amt_smtl_amt.toLocaleString());
                 $("#evluAmtSmtlAmt").text(result.stockOrderVO.res.output2[0].evlu_amt_smtl_amt.toLocaleString());
                 $("#evluPflsSmtlAmt").text(result.stockOrderVO.res.output2[0].evlu_pfls_smtl_amt.toLocaleString());
-                $("#dncaTotAmt").text(result.stockOrderVO.res.output2[0].dnca_tot_amt.toLocaleString());
+                $("#dncaTotAmt").text(result.stockOrderVO.res.output2[0].prvs_rcdl_excc_amt.toLocaleString());
 
+                ord.selectStockOrderList();
+            })
+        },
+        // 주문내역
+        selectStockOrderList : () => {
+            let param = {account : ord.account}
+            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectStockOrderList.do"), param, (result) => {
+
+                var tbody = document.querySelector("#tbody2");
+
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                if(result.stockOrderVO.res.output.length != 0) {
+                    for(var i = 0; i < result.stockOrderVO.res.output.length; i++) {
+                        var html = `<tr>
+                                    <td><span>\${result.stockOrderVO.res.output[i].rvse_cncl_dvsn_name}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].orgn_odno}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].pdno}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].ord_unpr}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].ord_qty}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].ord_tmd}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].tot_ccld_qty}</span></td>
+                                    <td>
+                                        <div class="btn__box">
+                                            <button class="btn__blue" onclick="ord.cancleOrder('\${result.stockOrderVO.res.output[i].ord_gno_brno}', '\${result.stockOrderVO.res.output[i].orgn_odno}', '\${result.stockOrderVO.res.output[i].ord_dvsn_cd}')">Cancle</button>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
+                        $("#tbody2").append(html);
+                    }
+                }if(result.stockOrderVO.res.output.length == 0) {
+
+                    var html = `<tr>
+                                    <td colspan="8" style="text-align: center;"><span>There is no order!</span></td>
+                                </tr>`;
+
+                    $("#tbody2").append(html);
+                }
+
+                //result.stockOrderVO.res.output[0].odno "0000010053" //주문채번지점번호
+                //result.stockOrderVO.res.output[0].ord_dvsn_cd "00" // 주문구분코드
+                //result.stockOrderVO.res.output[0].orgn_odno  //	정정/취소주문 인경우 원주문번호 1111 취소시 필요
+                //result.stockOrderVO.res.output[0].ord_dvsn_name "지정가" // 주문구분명
+                //result.stockOrderVO.res.output[0].ord_gno_brno "06410" // 영업점코드  11111 취소시 필요
+                //result.stockOrderVO.res.output[0].pdno  // 상품번호
+                //result.stockOrderVO.res.output[0].ord_qty "1" // 주문수량
+                //result.stockOrderVO.res.output[0].ord_tmd "140018" 주문시각
+                //result.stockOrderVO.res.output[0].ord_unpr "192" // 주문가격
+                //result.stockOrderVO.res.output[0].rvse_cncl_dvsn_name "현금매도" // 정정취소구분명
+                //result.stockOrderVO.res.output[0].sll_buy_dvsn_cd "01" // 매도매수구분코드 (매도 : 01 // 매수 : 02)
+                //result.stockOrderVO.res.output[0].tot_ccld_amt "00" // 총체결금액
+                //result.stockOrderVO.res.output[0].tot_ccld_qty "00" // 총체결수량
+
+
+
+            })
+        },
+        // 취소
+        cancleOrder : (ordGnoBrno ,orgnOdno, ordDvsnCd) => {
+           let param = {
+               account : ord.account,
+               ordGnoBrno : ordGnoBrno,
+               orgnOdno : orgnOdno,
+               ordDvsnCd : ordDvsnCd
+
+           }
+           callModule.call(Util.getRequestUrl("/mng/trd/ord/cancleOrder.do"), param, (result) => {
+               console.log(result)
+               MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
+                   ord.selectDomesticAccount();
+               })
+           })
+        },
+        // 매수
+        buyDomesticStock : () => {
+            let param = {
+                account : ord.account, // 계좌번호
+                pdno : ord.srtnCd, // 종목번호
+                ordDvsn : ord.ordDvsn, // ordDvsn, // 시장가 / 지정가
+                ordUnpr : $("#price").val(), // 주문가격
+                ordQty : $("#amount").val() // 주문수량
+            }
+            callModule.call(Util.getRequestUrl("/mng/trd/ord/buyDomesticStock.do"), param, (result) => {
+                MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
+                    ord.selectDomesticAccount();
+                })
+            })
+        },
+        // 매도
+        sellDomesticStock : () => {
+            let param = {
+                account : ord.account, // 계좌번호
+                pdno : ord.srtnCd, // 종목번호
+                ordDvsn : ord.ordDvsn, // ordDvsn, // 시장가 / 지정가
+                ordUnpr : $("#price").val(), // 주문가격
+                ordQty : $("#amount").val() // 주문수량
+            }
+            callModule.call(Util.getRequestUrl("/mng/trd/ord/sellDomesticStock.do"), param, (result) => {
+                MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
+                    ord.selectDomesticAccount();
+                })
             })
         }
 
@@ -514,13 +626,45 @@
             <br>
             <div style="display: flex; justify-content: space-around;">
                 <div class="btn__box">
-                    <button class="btn__red">Buy</button>
+                    <button class="btn__red" onclick="ord.buyDomesticStock();">Buy</button>
                 </div>
                 <div class="btn__box">
-                    <button class="btn__blue">Sell</button>
+                    <button class="btn__blue" onclick="ord.sellDomesticStock();">Sell</button>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div class="table-box">
+        <table>
+            <caption class="hidden">정정/취소 목록</caption>
+            <colgroup>
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+                <col class="col-num" width="12.5%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Order Type</th>
+                    <th>Order NO.</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                    <th>Completed Amount</th>
+                    <th>Cancle</th>
+                </tr>
+            </thead>
+            <tbody id="tbody2"></tbody>
+        </table>
     </div>
 </div>
 <br>
