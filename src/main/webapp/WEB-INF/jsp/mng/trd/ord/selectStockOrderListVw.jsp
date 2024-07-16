@@ -372,16 +372,12 @@
 
                 var tbody = document.querySelector("#tbody1");
 
-                var html = `<tr>
-                                <td colspan="7" style="align-items: center;"><span>there is no holding shares</span></td>
-                            </tr>`;
-                $("#tbody1").append(html);
-
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
                 // holoding shares
                 if(result.stockOrderVO.res.output1.length != 0) {
-                    while (tbody.firstChild) {
-                        tbody.removeChild(tbody.firstChild);
-                    }
+                    $("#tbody1").append(html);
                     for(var i = 0; i < result.stockOrderVO.res.output1.length; i++) {
 
                         if(result.stockOrderVO.res.output1[i].hldg_qty != "0") {
