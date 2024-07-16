@@ -87,4 +87,13 @@ public class BrewIdGnrProperties {
         return String.format("EXIT_%015d", nextValue + 1);
     }
 
+    public String getNextAdvId() {
+        // 현재 LOG_ID 값 조회
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextAdvId");
+        // LOG_ID 값 +1
+        sqlSession.update("BrewIdGnrDAO.updateNextAdvId");
+        // 현재 LOG_ID 값에서 +1 값 반환
+        return String.format("ADV_%016d", nextValue + 1);
+    }
+
 }

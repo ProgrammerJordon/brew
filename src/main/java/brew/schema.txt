@@ -499,6 +499,7 @@ INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FAQ_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('CODE_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('USER_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('EXIT_ID', 0);
+--INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ADV_ID', 0);
 
 -- 방문자 이력로그
 create table comtnvisitorlog
@@ -650,3 +651,46 @@ create index brewnot_sn_index
 comment on index brewnot_sn_index is '공지사항인덱스';
 
 #################24.07.14 추가 한 부분#################
+
+create table comtnadverties
+(
+    adv_id       varchar   not null
+        constraint comtnadverties_pk
+            primary key,
+    title        varchar   not null,
+    contents     varchar   not null,
+    inq_cnt      integer default 0,
+    atch_file_id varchar,
+    rgtr_id      varchar   not null,
+    rgtr_dt      timestamp not null,
+    mdfr_id      varchar   not null,
+    mdfr_dt      timestamp not null
+);
+
+comment on table comtnadverties is '광고';
+
+comment on column comtnadverties.adv_id is '광고ID';
+
+comment on column comtnadverties.title is '제목';
+
+comment on column comtnadverties.contents is '내용';
+
+comment on column comtnadverties.inq_cnt is '조회수';
+
+comment on column comtnadverties.atch_file_id is '첨부파일';
+
+comment on column comtnadverties.rgtr_id is '등록자ID';
+
+comment on column comtnadverties.rgtr_dt is '등록일시';
+
+comment on column comtnadverties.mdfr_id is '수정자ID';
+
+comment on column comtnadverties.mdfr_dt is '수정일시';
+
+alter table comtnadverties
+    owner to postgres;
+
+-- ID 추가
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ADV_ID', 0);
+
+#################24.07.16 추가 한 부분#################
