@@ -210,8 +210,8 @@ public class StockOrderController {
         params.put("CANO", vo.getAccount());
         params.put("ACNT_PRDT_CD", "01");
         params.put("KRX_FWDG_ORD_ORGNO", vo.getOrdGnoBrno());
-        params.put("ORGN_ODNO", vo.getOrgnOdno());
-        params.put("ORD_DVSN", vo.getOrdDvsn());
+        params.put("ORGN_ODNO", vo.getOdno());
+        params.put("ORD_DVSN", vo.getOrdDvsnCd());
         params.put("RVSE_CNCL_DVSN_CD", "02");
         params.put("ORD_QTY", "0");
         params.put("ORD_UNPR", "0");

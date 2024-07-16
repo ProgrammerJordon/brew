@@ -18,7 +18,7 @@ public class StockOrderVO extends CommonVO implements Serializable {
     private Object res; // 응답 (JSON TYPE)
 
     private String ordGnoBrno; // 한국투자증권 채번번호
-    private String orgnOdno; // 원주문번호
+    private String odno; // 원주문번호
     private String ordDvsnCd; // 주문구분 // 시장가 / 지정가
     private String dwmy; // 일주월년
 

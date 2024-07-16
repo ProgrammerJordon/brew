@@ -105,9 +105,12 @@
             return utcString;
         },
         // 종목정보
-        selectItemInfo : (itmsNm, srtnCd) => {
-            // 팝업닫기
+        selectItemInfo : (itmsNm, srtnCd, close) => {
+
             ord.closeItemSearchPop();
+            if(close == 'close') {
+                ord.closeItemSearchPop();
+            }
             // 글로벌 종목코드 변경
             ord.srtnCd = srtnCd;
             // 종목명 부여
@@ -238,8 +241,7 @@
             }
 
             callModule.call(Util.getRequestUrl("/mng/trd/ord/selectItemInfoChart.do"), param, (result) => {
-                // 데이터셋의 데이터 업데이트
-                chart.data.datasets[0].data = []; // 데이터셋 초기화
+                chart.data.datasets[0].data = [];
                 for (var i = 0; i < result.stockOrderVO.res.output2.length; i++) {
                     chart.data.datasets[0].data.push({
                         x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
@@ -259,7 +261,7 @@
                     var average = sum / 10;
                     chart.data.datasets[1].data.push({
                         x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
-                        y: average
+                        y: Math.floor(average)
                     });
                 }
 
@@ -272,7 +274,7 @@
                     var average = sum / 20;
                     chart.data.datasets[2].data.push({
                         x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
-                        y: average
+                        y: Math.floor(average)
                     });
                 }
 
@@ -285,7 +287,7 @@
                     var average = sum / 30;
                     chart.data.datasets[3].data.push({
                         x: luxon.DateTime.fromRFC2822(ord.UTCtime(result.stockOrderVO.res.output2[i].stck_bsop_date)).valueOf(),
-                        y: average
+                        y: Math.floor(average)
                     });
                 }
                 chart.update(); // 차트 업데이트
@@ -370,29 +372,32 @@
 
                 var tbody = document.querySelector("#tbody1");
 
-                while (tbody.firstChild) {
-                    tbody.removeChild(tbody.firstChild);
-                }
+                var html = `<tr>
+                                <td colspan="7" style="align-items: center;"><span>there is no holding shares</span></td>
+                            </tr>`;
+                $("#tbody1").append(html);
 
                 // holoding shares
                 if(result.stockOrderVO.res.output1.length != 0) {
-
+                    while (tbody.firstChild) {
+                        tbody.removeChild(tbody.firstChild);
+                    }
                     for(var i = 0; i < result.stockOrderVO.res.output1.length; i++) {
 
                         if(result.stockOrderVO.res.output1[i].hldg_qty != "0") {
-                            var html = `<tr>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].prdt_name}</span> <span>(</span> <span>\${result.stockOrderVO.res.output1[i].pdno}</span> <span>)</span></td>
-                                    <td><span>\${Math.floor(result.stockOrderVO.res.output1[i].pchs_avg_pric)}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].hldg_qty}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].pchs_amt}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_amt}</span>&nbsp;<span>(won)</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_rt}</span>&nbsp;<span>%</span></td>
-                                    <td>
-                                        <div class="btn__box">
-                                            <button class="btn__blue">Sell</button>
-                                        </div>
-                                    </td>
-                                </tr>`;
+                            var html = `<tr onclick="ord.selectItemInfo('\${result.stockOrderVO.res.output1[i].prdt_name}', '\${result.stockOrderVO.res.output1[i].pdno}', 'close')">
+                                            <td><span>\${result.stockOrderVO.res.output1[i].prdt_name}</span> <span>(</span> <span>\${result.stockOrderVO.res.output1[i].pdno}</span> <span>)</span></td>
+                                            <td><span>\${Math.floor(result.stockOrderVO.res.output1[i].pchs_avg_pric)}</span></td>
+                                            <td><span>\${result.stockOrderVO.res.output1[i].ord_psbl_qty}</span></td>
+                                            <td><span>\${result.stockOrderVO.res.output1[i].pchs_amt}</span></td>
+                                            <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_amt}</span>&nbsp;<span>(won)</span></td>
+                                            <td><span>\${result.stockOrderVO.res.output1[i].evlu_pfls_rt}</span>&nbsp;<span>%</span></td>
+                                            <td>
+                                                <div class="btn__box">
+                                                    <button class="btn__blue" onclick="ord.sellDomesticStock('market', '\${result.stockOrderVO.res.output1[i].pdno}', '\${result.stockOrderVO.res.output1[i].ord_psbl_qty}')">Market</button>
+                                                </div>
+                                            </td>
+                                        </tr>`;
                         }
                         $("#tbody1").append(html);
                     }
@@ -422,15 +427,15 @@
                     for(var i = 0; i < result.stockOrderVO.res.output.length; i++) {
                         var html = `<tr>
                                     <td><span>\${result.stockOrderVO.res.output[i].rvse_cncl_dvsn_name}</span></td>
-                                    <td><span>\${result.stockOrderVO.res.output[i].orgn_odno}</span></td>
+                                    <td><span>\${result.stockOrderVO.res.output[i].odno}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output[i].pdno}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output[i].ord_unpr}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output[i].ord_qty}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output[i].ord_tmd}</span></td>
                                     <td><span>\${result.stockOrderVO.res.output[i].tot_ccld_qty}</span></td>
-                                    <td>
-                                        <div class="btn__box">
-                                            <button class="btn__blue" onclick="ord.cancleOrder('\${result.stockOrderVO.res.output[i].ord_gno_brno}', '\${result.stockOrderVO.res.output[i].orgn_odno}', '\${result.stockOrderVO.res.output[i].ord_dvsn_cd}')">Cancle</button>
+                                    <td style="display: flex; justify-content: center;">
+                                        <div>
+                                            <button class="btn__blue" onclick="ord.cancleOrder('\${result.stockOrderVO.res.output[i].ord_gno_brno}', '\${result.stockOrderVO.res.output[i].odno}', '\${result.stockOrderVO.res.output[i].ord_dvsn_cd}')">Cancle</button>
                                         </div>
                                     </td>
                                 </tr>`;
@@ -445,36 +450,18 @@
 
                     $("#tbody2").append(html);
                 }
-
-                //result.stockOrderVO.res.output[0].odno "0000010053" //주문채번지점번호
-                //result.stockOrderVO.res.output[0].ord_dvsn_cd "00" // 주문구분코드
-                //result.stockOrderVO.res.output[0].orgn_odno  //	정정/취소주문 인경우 원주문번호 1111 취소시 필요
-                //result.stockOrderVO.res.output[0].ord_dvsn_name "지정가" // 주문구분명
-                //result.stockOrderVO.res.output[0].ord_gno_brno "06410" // 영업점코드  11111 취소시 필요
-                //result.stockOrderVO.res.output[0].pdno  // 상품번호
-                //result.stockOrderVO.res.output[0].ord_qty "1" // 주문수량
-                //result.stockOrderVO.res.output[0].ord_tmd "140018" 주문시각
-                //result.stockOrderVO.res.output[0].ord_unpr "192" // 주문가격
-                //result.stockOrderVO.res.output[0].rvse_cncl_dvsn_name "현금매도" // 정정취소구분명
-                //result.stockOrderVO.res.output[0].sll_buy_dvsn_cd "01" // 매도매수구분코드 (매도 : 01 // 매수 : 02)
-                //result.stockOrderVO.res.output[0].tot_ccld_amt "00" // 총체결금액
-                //result.stockOrderVO.res.output[0].tot_ccld_qty "00" // 총체결수량
-
-
-
             })
         },
         // 취소
-        cancleOrder : (ordGnoBrno ,orgnOdno, ordDvsnCd) => {
+        cancleOrder : (ordGnoBrno ,odno, ordDvsnCd) => {
            let param = {
                account : ord.account,
                ordGnoBrno : ordGnoBrno,
-               orgnOdno : orgnOdno,
+               odno : odno,
                ordDvsnCd : ordDvsnCd
 
            }
            callModule.call(Util.getRequestUrl("/mng/trd/ord/cancleOrder.do"), param, (result) => {
-               console.log(result)
                MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
                    ord.selectDomesticAccount();
                })
@@ -496,7 +483,7 @@
             })
         },
         // 매도
-        sellDomesticStock : () => {
+        sellDomesticStock : (type, pdno, ordQty) => {
             let param = {
                 account : ord.account, // 계좌번호
                 pdno : ord.srtnCd, // 종목번호
@@ -504,6 +491,17 @@
                 ordUnpr : $("#price").val(), // 주문가격
                 ordQty : $("#amount").val() // 주문수량
             }
+
+            if(type == 'market') {
+                param = {
+                    account : ord.account, // 계좌번호
+                    pdno : pdno, // 종목번호
+                    ordDvsn : "01", // ordDvsn, // 시장가 / 지정가
+                    ordUnpr : "0", // 주문가격
+                    ordQty : ordQty // 주문수량
+                }
+            }
+
             callModule.call(Util.getRequestUrl("/mng/trd/ord/sellDomesticStock.do"), param, (result) => {
                 MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
                     ord.selectDomesticAccount();
