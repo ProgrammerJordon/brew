@@ -871,6 +871,34 @@
                 }
             });
         },
+        noloadcall: function (url, data, callback, async = true, method) {
+
+            if (method === undefined) {
+                method = 'POST';
+            }
+
+            $.ajax({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("AJAX", true);
+                },
+                complete: function() {
+                },
+                cache: false,
+                async: async,
+                type: method,
+                dataType: 'json',
+                url: url,
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=UTF-8",
+                traditional: true,
+                success: function (result) {
+                    callModule.successHandler(result, callback);
+                },
+                error: function (xhr, status, error) {
+                    callModule.errorHandler(xhr, status, error);
+                }
+            });
+        },
         callForm: function (frmId, url, dataType, callback, async = true) {
             
             $("#" + frmId).ajaxSubmit({

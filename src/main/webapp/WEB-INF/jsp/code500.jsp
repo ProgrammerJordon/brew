@@ -2,7 +2,7 @@
 <div class="wrap type01">
     <div class="error__box">
         <div>
-            <img src="${pageContext.request.contextPath }/images/img-error.svg" alt="오류">
+            <img src="${pageContext.request.contextPath}/images/img-error.svg" alt="오류">
         </div>
         <div>
             <span>500 오류</span>

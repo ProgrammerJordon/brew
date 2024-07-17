@@ -6,7 +6,7 @@
 
         searchParams : {},
         ordList : [],
-        srtnCd : "",
+        srtnCd : "005930",
 
         account : `${account}`,
         ordDvsn : "00",
@@ -17,7 +17,14 @@
             ord.selectItemInfo("삼성전자", "005930");
             ord.closeItemSearchPop();
 
-            //setInterval(ord.selectItemInfoChart, 5000);
+            setInterval(function() {
+                try {
+                    ord.selectItemInfoChart(ord.srtnCd, ord.dwmy);
+                } catch (error) {
+                    MessageUtil.toast("데이터 요철에 실패하였습니다.", 2000)
+                    window.location.href = "${pageContext.request.contextPath}/mng/min/idx/selectMainVw.do";
+                }
+            }, 1000);
         },
         closeItemSearchPop : () => {
             var pop = document.getElementById("ItemSearchPop");
@@ -40,7 +47,7 @@
 
             ord.searchParams = param;
 
-            callModule.call(Util.getRequestUrl("/mng/trd/iim/selectItemInfoList.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/iim/selectItemInfoList.do"), param, (result) => {
 
                 ord.closeItemSearchPop();
 
@@ -120,7 +127,7 @@
             // 종목코드로 종목관련 정보 조회
             let param = {srtnCd : ord.srtnCd}
 
-            callModule.call(Util.getRequestUrl("/mng/trd/iim/selectItemInfoDtls.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/iim/selectItemInfoDtls.do"), param, (result) => {
 
                 $("#itemInfoDtls").show();
                 //시장구분
@@ -235,12 +242,43 @@
                 });
             }
 
+            ord.dwmy = type || 'D'
+
             let param = {
                 pdno: srtnCd,
-                dwmy: type || ord.dwmy
+                dwmy: ord.dwmy
             }
 
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectItemInfoChart.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/selectItemInfoChart.do"), param, (result) => {
+
+                var open = result.stockOrderVO.res.output2[0].stck_oprc;
+                var high = result.stockOrderVO.res.output2[0].stck_hgpr;
+                var low = result.stockOrderVO.res.output2[0].stck_lwpr;
+                var close = result.stockOrderVO.res.output2[0].stck_clpr;
+
+                $("#nowPrice").text(close);
+                $("#highPrice").text(high);
+                $("#lowPrice").text(low);
+                $("#openPrice").text(open);
+
+                $("#price").val(close)
+
+                var priceStatus = document.getElementById("priceStatus");
+                var difference = close - open;
+
+                var difference = close - open;
+                var pricePercent = (difference / open) * 100;
+                var updownPercent = pricePercent.toFixed(2);
+
+                if (difference > 0) {
+                    priceStatus.innerHTML = `<span style="color:red; font-size: 1em;">▲ \${difference} ( \${updownPercent} % )</span>`;
+                } else if (difference < 0) {
+                    priceStatus.innerHTML = `<span style="color:blue; font-size: 1em;">▼ \${difference} ( \${updownPercent} % )</span>`;
+                } else {
+                    priceStatus.innerHTML = `<span style="color:gray; font-size: 1em;">- 0 ( 0 % )</span>`;
+                }
+
+
                 chart.data.datasets[0].data = [];
                 for (var i = 0; i < result.stockOrderVO.res.output2.length; i++) {
                     chart.data.datasets[0].data.push({
@@ -368,7 +406,7 @@
         // 계좌조회
         selectDomesticAccount : () => {
             let param = {account : ord.account}
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectDomesticAccount.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/selectDomesticAccount.do"), param, (result) => {
 
                 var tbody = document.querySelector("#tbody1");
 
@@ -411,7 +449,7 @@
         // 주문내역
         selectStockOrderList : () => {
             let param = {account : ord.account}
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/selectStockOrderList.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/selectStockOrderList.do"), param, (result) => {
 
                 var tbody = document.querySelector("#tbody2");
 
@@ -457,7 +495,7 @@
                ordDvsnCd : ordDvsnCd
 
            }
-           callModule.call(Util.getRequestUrl("/mng/trd/ord/cancleOrder.do"), param, (result) => {
+           callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/cancleOrder.do"), param, (result) => {
                MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
                    ord.selectDomesticAccount();
                })
@@ -472,7 +510,7 @@
                 ordUnpr : $("#price").val(), // 주문가격
                 ordQty : $("#amount").val() // 주문수량
             }
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/buyDomesticStock.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/buyDomesticStock.do"), param, (result) => {
                 MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
                     ord.selectDomesticAccount();
                 })
@@ -498,7 +536,7 @@
                 }
             }
 
-            callModule.call(Util.getRequestUrl("/mng/trd/ord/sellDomesticStock.do"), param, (result) => {
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/sellDomesticStock.do"), param, (result) => {
                 MessageUtil.alert(result.stockOrderVO.res.msg1, () => {
                     ord.selectDomesticAccount();
                 })
@@ -586,11 +624,35 @@
     <br>
     <div style="display: flex; justify-content: space-between;">
         <div style="width: 65%">
-            <div>
-                <div style="font-size: 1.5em;">
+            <div style="display: flex; align-items: center;">
+                <div style="font-size: 2em;">
                     <span id="itmsNm"></span>
                     <span id="srtnCd"></span>
                 </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div style="display: flex; font-size: 1.5em;">
+                    <div class="mr-16">
+                        <span id="nowPrice"></span>
+                    </div>
+                    <div id="priceStatus"></div>
+                </div>
+            </div>
+            <br>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex;">
+                    <div>
+                        <span>Highest Price : </span><span id="highPrice" style="color: red"></span>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div>
+                        <span>Open Price : </span> <span id="openPrice" style="color: gray"></span>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div>
+                        <span>Lowest Price : </span> <span id="lowPrice" style="color: blue"></span>
+                    </div>
+                </div>
+                <div></div>
             </div>
             <br>
             <div>

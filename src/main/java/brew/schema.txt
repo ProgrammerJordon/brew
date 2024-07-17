@@ -664,7 +664,8 @@ create table comtnadverties
     rgtr_id      varchar   not null,
     rgtr_dt      timestamp not null,
     mdfr_id      varchar   not null,
-    mdfr_dt      timestamp not null
+    mdfr_dt      timestamp not null,
+    link_ref     varchar
 );
 
 comment on table comtnadverties is '광고';
@@ -687,10 +688,12 @@ comment on column comtnadverties.mdfr_id is '수정자ID';
 
 comment on column comtnadverties.mdfr_dt is '수정일시';
 
+comment on column comtnadverties.link_ref is '링크URL';
+
 alter table comtnadverties
     owner to postgres;
 
--- ID 추가
+-- ADV_ID 추가
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ADV_ID', 0);
 
 #################24.07.16 추가 한 부분#################

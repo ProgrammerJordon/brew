@@ -15,21 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
+@SuppressWarnings("unchecked")
 public class BrewHttpUtil {
-
-    /**
-     * String url = "http://www.example.com";
-     * <p>
-     * Map<String, String> headers = Map.of(
-     * "Authorization", "Bearer your_access_token",
-     * "Content-Type", "application/json"
-     * );
-     * <p>
-     * Map<String, String> param = Map.of(
-     * "param1", "value1",
-     * "param2", "value2"
-     * );
-     */
 
     public StringBuilder getHttpRequest(String url, Map<String, String> headers, Map<String, String> params) throws IOException, JSONException {
 
