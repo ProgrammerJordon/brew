@@ -19,8 +19,6 @@ import java.util.Map;
 public class BrewHttpUtil {
 
     public StringBuilder getHttpRequest(String url, Map<String, String> headers, Map<String, String> params) throws IOException, JSONException {
-
-        // URL 설정 및 파라미터 추가
         StringBuilder requestURL = new StringBuilder(url + "?");
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -33,35 +31,33 @@ public class BrewHttpUtil {
         }
 
         String getUrl = requestURL.toString();
-        // URL 설정
         URL reqURL = new URL(getUrl);
-
         HttpURLConnection conn = (HttpURLConnection) reqURL.openConnection();
-
-        // 요청 방식 설정 (GET, POST 등)
         conn.setRequestMethod("GET");
 
-        // 헤더 추가
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             conn.setRequestProperty(entry.getKey(), entry.getValue());
         }
 
-        // 응답 코드 확인
-        int responseCode = conn.getResponseCode();
-
-        // 응답 데이터 읽기
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-
         StringBuilder response = new StringBuilder();
 
-        String responseLine;
-
-        while ((responseLine = br.readLine()) != null) {
-            response.append(responseLine.trim());
+        try {
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+            } else {
+                // 서버가 200 이외의 응답 코드를 반환하는 경우
+                response.append(responseCode);
+            }
+        } catch (IOException e) {
+            response.append("Exception occurred: ").append(e.getMessage());
+        } finally {
+            conn.disconnect();
         }
-
-        // 연결 종료
-        conn.disconnect();
 
         return response;
     }

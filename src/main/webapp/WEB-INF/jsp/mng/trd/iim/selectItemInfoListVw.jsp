@@ -16,9 +16,7 @@
                 if(boolean) {
                     let param = {};
                     callModule.call(Util.getRequestUrl("/mng/trd/iim/insertItemInfoBatch.do"), param, (result) => {
-                        debugger;
                         MessageUtil.alert(result.itemInfoVO.resultMessage, () => {
-
                         })
                     })
                 }

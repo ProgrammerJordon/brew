@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StockOrderDAO">
+
+    <select id="searchConditionItem" parameterType="brew.mng.trd.ord.service.StockOrderVO" resultType="brew.mng.trd.ord.service.StockOrderVO">
+        SELECT
+            mrkt_ctg,
+            srtn_cd,
+            itms_nm
+        FROM brew.comtniteminfo
+        WHERE 1=1
+            AND mrkt_ctg <![CDATA[ <> ]]> 'KONEX'
+            AND itms_nm NOT LIKE '%스팩%'
+            AND itms_nm NOT LIKE '%리츠%'
+    </select>
+
+</mapper>

@@ -22,4 +22,12 @@ public class StockOrderVO extends CommonVO implements Serializable {
     private String ordDvsnCd; // 주문구분 // 시장가 / 지정가
     private String dwmy; // 일주월년
 
+
+    private String mrktCtg;
+    private String srtnCd;
+    private String itmsNm;
+
+    private int highPrice;
+    private int nowPrice;
+
 }

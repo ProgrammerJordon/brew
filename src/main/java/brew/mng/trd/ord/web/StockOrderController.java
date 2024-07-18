@@ -6,9 +6,9 @@ import brew.cmm.util.BrewHttpUtil;
 import brew.mng.trd.ord.service.StockOrder;
 import brew.mng.trd.ord.service.StockOrderService;
 import brew.mng.trd.ord.service.StockOrderVO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/mng/trd/ord")
@@ -260,6 +259,59 @@ public class StockOrderController {
 
         return StockOrder.builder()
                 .stockOrderVO(vo)
+                .build();
+    }
+
+    @RequestMapping("/searchConditionItem.do")
+    @ResponseBody
+    public StockOrder searchConditionItem(@RequestBody StockOrderVO vo) throws JSONException, IOException {
+        String url = BrewProperties.getProperty("kis.dev.url") + "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice";
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("content-type", "application/json; charset=utf-8");
+        headers.put("authorization", BrewProperties.getProperty("kis.dev.accessToken"));
+        headers.put("appkey", BrewProperties.getProperty("kis.dev.appkey"));
+        headers.put("appsecret", BrewProperties.getProperty("kis.dev.appsecret"));
+        headers.put("tr_id", "FHKST03010100");
+        headers.put("custtype", "P");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("FID_COND_MRKT_DIV_CODE", "J");
+        params.put("FID_INPUT_DATE_1", brewDateUtil.getDateBeforeDays("30"));
+        params.put("FID_INPUT_DATE_2", brewDateUtil.getNowDate());
+        params.put("FID_PERIOD_DIV_CODE", "D");
+        params.put("FID_ORG_ADJ_PRC", "0");
+
+        StockOrder ItemList = stockOrderService.searchConditionItem(vo);
+
+        if (ItemList == null || ItemList.getStockOrderVOList() == null) {
+            throw new RuntimeException("ItemList or stockOrderVOList is null");
+        }
+
+        List<StockOrderVO> rs = new ArrayList<>();
+
+        for (int i = 0; i < ItemList.getStockOrderVOList().size(); i++) {
+            StockOrderVO container = new StockOrderVO();
+
+            params.put("FID_INPUT_ISCD", ItemList.getStockOrderVOList().get(i).getSrtnCd());
+
+            StringBuilder response = brewHttpUtil.getHttpRequest(url, headers, params);
+
+            if(response != new StringBuilder(500)) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode result = mapper.readTree(String.valueOf(response));
+
+                container.setMrktCtg(Optional.ofNullable(ItemList.getStockOrderVOList().get(i).getMrktCtg()).orElse(""));
+                container.setItmsNm(Optional.ofNullable(ItemList.getStockOrderVOList().get(i).getItmsNm()).orElse(""));
+                container.setSrtnCd(Optional.ofNullable(ItemList.getStockOrderVOList().get(i).getSrtnCd()).orElse(""));
+                container.setRes(result);
+
+                rs.add(container);
+            }
+        }
+
+        return StockOrder.builder()
+                .stockOrderVOList(rs)
                 .build();
     }
 }

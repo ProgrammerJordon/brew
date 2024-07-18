@@ -541,8 +541,83 @@
                     ord.selectDomesticAccount();
                 })
             })
-        }
+        },
+        searchConditionItem : () => {
 
+            ord.disableSearchButton();
+
+            let param = {}
+            callModule.noloadcall(Util.getRequestUrl("/mng/trd/ord/searchConditionItem.do"), param, (result) => {
+
+                var tbody = document.querySelector("#tbody3");
+
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                for(let i = 0; i < result.stockOrderVOList.length; i++) {
+
+                    let output2 = result.stockOrderVOList[i].res.output2;
+
+                    if (!output2 || !output2[0] || !output2[0].stck_clpr) {
+                        continue;
+                    }
+
+                    let nowPrice = parseInt(output2[0].stck_clpr, 10);
+                    let isHighest = true;
+
+                    for (let j = 1; j <= 14; j++) {
+                        if (!output2[j] || !output2[j].stck_hgpr) {
+                            continue;
+                        }
+
+                        let highPrice = parseInt(output2[j].stck_hgpr, 10);
+
+                        if (nowPrice <= highPrice) {
+                            isHighest = false;
+                            break;
+                        }
+                    }
+
+                    if(isHighest) {
+                        var html = `<tr onclick="ord.selectItemInfo('\${result.stockOrderVOList[i].itmsNm}', '\${result.stockOrderVOList[i].srtnCd}', 'close')">
+                                        <td><span>\${result.stockOrderVOList[i].mrktCtg}</span></td>
+                                        <td><span>\${result.stockOrderVOList[i].itmsNm}</span> <span>(</span> <span>\${result.stockOrderVOList[i].srtnCd}</span> <span>)</span></td>
+                                        <td><span>\${nowPrice}</td>
+                                        <td>
+                                            <div>
+                                                <button class="btn__bluegreen">Buy</button>
+                                            </div>
+                                        </td>
+                                    </tr>`
+                        $("#tbody3").append(html);
+                    }
+
+                    ord.enableSearchButton();
+
+                }
+            })
+        },
+        disableSearchButton : () => {
+            var btn = document.getElementById("itemSearchBtn");
+            btn.disabled = true;
+            btn.classList.add("btn__gray");
+            btn.classList.remove("btn__black__line");
+            btn.style.cursor = "default"
+
+            var html = `<tr>
+                            <td style="text-align: center;" rowspan="3" colspan="4">검색조건으로 조회중입니다.</td>
+                        </tr>`;
+            $("#tbody3").append(html);
+        },
+
+        enableSearchButton : () => {
+            var btn = document.getElementById("itemSearchBtn");
+            btn.disabled = false;
+            btn.classList.add("btn__black__line");
+            btn.classList.remove("btn__gray");
+            btn.style.cursor = "pointer";
+        }
     }
 
     $(() => {
@@ -669,7 +744,7 @@
                 </div>
                 <br>
                 <div>
-                    <canvas id="candleChart" style="width: 1100px; height: 450px;"></canvas>
+                    <canvas id="candleChart" style="width: 1100px; height: 300px;"></canvas>
                 </div>
             </div>
             <br>
@@ -860,27 +935,35 @@
                 </table>
             </div>
         </div>
-        <div style="width: 30%">
-            <div class="search__results">
+        <div style="width: 30%;">
+            <div class="search__results" style="align-items: center;">
                 <div>
                     <span>Condition Search</span>
                 </div>
+                <div class="btn__box">
+                    <button id="itemSearchBtn" class="btn__black__line" onclick="ord.searchConditionItem();">
+                        <span>Search</span>
+                    </button>
+                </div>
             </div>
-            <div class="table-box">
+            <div class="table-box" style="height: 300px; overflow-y: auto;">
                 <table>
                     <colgroup class="hidden"></colgroup>
                     <colgroup>
-                        <col class="col-num" style="width: 40%">
-                        <col class="col-num" style="width: 40%">
-                        <col class="col-num" style="width: 20%">
+                        <col class="col-num" style="width: 15%">
+                        <col class="col-num" style="width: 35%">
+                        <col class="col-num" style="width: 35%">
+                        <col class="col-num" style="width: 15%">
                     </colgroup>
                     <thead>
                         <tr>
+                            <th>Market</th>
                             <th>Name(Ticker)</th>
                             <th>Price</th>
                             <th>Buy</th>
                         </tr>
                     </thead>
+                    <tbody id="tbody3"></tbody>
                 </table>
             </div>
         </div>
@@ -896,7 +979,7 @@
     </div>
     <div class="popup__body" style="min-width: unset; width: 1400px; height: 750px;">
         <div style="margin-top: 0; gap: 5px; justify-content: center;">
-            <div class="table-box">
+            <div class="table-box" style="height: 500px; overflow-y: auto;">
                 <table>
                     <caption class="hidden">종목 검색 목록</caption>
                     <colgroup>
