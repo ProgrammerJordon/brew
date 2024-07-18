@@ -769,16 +769,16 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <span id="pchsAmtSmtlAmt"></span>
+                                    <span id="pchsAmtSmtlAmt"></span>&nbsp;&nbsp;<span>(won)</span>
                                 </td>
                                 <td>
-                                    <span id="evluAmtSmtlAmt"></span>
+                                    <span id="evluAmtSmtlAmt"></span>&nbsp;&nbsp;<span>(won)</span>
                                 </td>
                                 <td>
-                                    <span id="evluPflsSmtlAmt"></span>
+                                    <span id="evluPflsSmtlAmt"></span>&nbsp;&nbsp;<span>(won)</span>
                                 </td>
                                 <td>
-                                    <span id="dncaTotAmt"></span>
+                                    <span id="dncaTotAmt"></span>&nbsp;&nbsp;<span>(won)</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -950,10 +950,10 @@
                 <table>
                     <colgroup class="hidden"></colgroup>
                     <colgroup>
-                        <col class="col-num" style="width: 15%">
+                        <col class="col-num" style="width: 10%">
                         <col class="col-num" style="width: 35%">
                         <col class="col-num" style="width: 35%">
-                        <col class="col-num" style="width: 15%">
+                        <col class="col-num" style="width: 20%">
                     </colgroup>
                     <thead>
                         <tr>
