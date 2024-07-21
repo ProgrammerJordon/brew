@@ -11,9 +11,9 @@
             cst.selectNoticeList();
         },
 
-        selectConsultInsertVw : () => {
+        selectNoticeInsertVw : () => {
             let param = {}
-            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultInsertVw.do"), param, 'get');
+            callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeInsertVw.do"), param, 'get');
         },
 
         selectConsultDtlsVw : (sn) => {
@@ -92,7 +92,7 @@
             <span>건</span>
         </div>
         <div class="btn__box">
-            <button class="btn__bluegreen" onclick="cst.selectConsultInsertVw();">
+            <button class="btn__bluegreen" onclick="cst.selectNoticeInsertVw();">
                 <span>등록</span>
             </button>
         </div>

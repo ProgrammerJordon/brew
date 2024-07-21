@@ -26,4 +26,12 @@ public class NoticeController {
     public Notice selectNoticeList(@RequestBody NoticeVO vo) {
         return noticeService.selectNoticeList(vo);
     }
+
+    @RequestMapping("/selectNoticeInsertVw.do")
+    public String selectNoticeInsertVw() {
+        return "/svc/csc/not/selectNoticeInsertVw";
+    }
+
+
+
 }
