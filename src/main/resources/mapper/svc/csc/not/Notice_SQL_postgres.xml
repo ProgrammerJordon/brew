@@ -62,4 +62,13 @@
             sn = #{sn}
     </delete>
 
+    <update id="updateNotice" parameterType="brew.svc.csc.not.service.NoticeVO">
+        update
+            brew.brewnot
+        set
+            title = #{title},
+            contents = #{contents}
+        where
+            sn = #{sn}
+    </update>
 </mapper>

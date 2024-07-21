@@ -28,4 +28,8 @@ public class NoticeDAO {
     public int deleteNotice(NoticeVO vo) {
         return sqlSession.delete("NoticeDAO.deleteNotice", vo);
     }
+
+    public int updateNotice(NoticeVO vo) {
+        return sqlSession.update("NoticeDAO.updateNotice", vo);
+    }
 }

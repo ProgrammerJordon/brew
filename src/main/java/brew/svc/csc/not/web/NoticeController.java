@@ -62,5 +62,20 @@ public class NoticeController {
         return noticeService.deleteNotice(vo);
     }
 
+    @RequestMapping("updateNoticeVw.do")
+    public String updateNoticeVw(@RequestParam(name = "sn") int sn,
+                                 NoticeVO vo,
+                                 Model model) {
+        vo.setSn(sn);
+        model.addAttribute("vo", vo);
+
+        return "/svc/csc/not/updateNoticeVw";
+    }
+
+    @RequestMapping("updateNotice.do")
+    @ResponseBody
+    public Notice updateNotice(@RequestBody NoticeVO vo) {
+        return noticeService.updateNotice(vo);
+    }
 
 }

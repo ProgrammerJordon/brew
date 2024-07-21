@@ -8,4 +8,6 @@ public interface NoticeService {
     public Notice selectNoticeDtVw(NoticeVO vo);
 
     public Notice deleteNotice(NoticeVO vo);
+
+    public Notice updateNotice(NoticeVO vo);
 }

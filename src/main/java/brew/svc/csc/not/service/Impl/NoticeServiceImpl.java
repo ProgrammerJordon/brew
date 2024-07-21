@@ -55,4 +55,19 @@ public class NoticeServiceImpl implements NoticeService {
                 .noticeVO(vo)
                 .build();
     }
+
+    @Override
+    public Notice updateNotice(NoticeVO vo) {
+        int update_result = noticeDAO.updateNotice(vo);
+
+        if (update_result == 1) {
+            vo.setResultMessage("공지사항 수정이 완료 되었습니다.");
+        } else {
+            vo.setResultMessage("공지사항 수정이 실패 하였습니다.\n지속적으로 실패시 관리자에게 문의 바랍니다.");
+        }
+
+        return Notice.builder()
+                .noticeVO(vo)
+                .build();
+    }
 }
