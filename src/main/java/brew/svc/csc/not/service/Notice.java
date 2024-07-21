@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notice {
-    private List<NoticeVO> NoticeVOList;
-    private NoticeVO NoticeVO;
+    private List<NoticeVO> noticeVOList;
+    private NoticeVO noticeVO;
 }

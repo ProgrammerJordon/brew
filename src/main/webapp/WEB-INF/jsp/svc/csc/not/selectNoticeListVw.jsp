@@ -16,9 +16,9 @@
             callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeInsertVw.do"), param, 'get');
         },
 
-        selectConsultDtlsVw : (sn) => {
+        selectNoticeDtlsVw : (sn) => {
             let param = {sn : sn}
-            callModule.post(Util.getRequestUrl("/svc/csc/cst/selectConsultDtlsVw.do"), param, 'get');
+            callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeDtlsVw.do"), param, 'get');
         },
 
         selectNoticeList : function() {
@@ -28,7 +28,7 @@
 
             callModule.call(Util.getRequestUrl("/svc/csc/not/selectNoticeList.do"), param, (result) => {
 
-                cst.notList = result.NoticeVOList || [];
+                cst.notList = result.noticeVOList || [];
 
                 $("#totCnt").text(cst.notList.length.toLocaleString());
 
@@ -45,11 +45,11 @@
                 for(let i = 0; i < cst.notList.length; i++) {
                     if(cst.notList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="cst.selectConsultDtlsVw('\${cst.notList[i].sn}')">
-                                <td>\${not.cstList[i].title}</td>
-                                <td>\${not.cstList[i].inqCnt}</td>
-                                <td>\${not.cstList[i].rgtrId}</td>
-                                <td>\${not.cstList[i].rgtrDt}</td>
+                    let html = `<tr onclick="cst.selectNoticeDtlsVw('\${cst.notList[i].sn}')">
+                                <td>\${cst.notList[i].title}</td>
+                                <td>\${cst.notList[i].inqCnt}</td>
+                                <td>\${cst.notList[i].rgtrId}</td>
+                                <td>\${cst.notList[i].rgtrDt}</td>
                               </tr>`
 
                     $("#tbody").append(html);
@@ -63,7 +63,7 @@
 
             gridModule.clear_grid("tbody");
 
-            cst.cstList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
+            cst.notList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
 
                 let html = `<tr onclick="cst.selectConsultDtlsVw('\${vo.sn}')">
                                 <td>\${vo.title}</td>

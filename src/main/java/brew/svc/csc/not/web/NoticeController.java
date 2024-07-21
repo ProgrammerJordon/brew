@@ -5,8 +5,10 @@ import brew.svc.csc.not.service.NoticeService;
 import brew.svc.csc.not.service.NoticeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -32,6 +34,33 @@ public class NoticeController {
         return "/svc/csc/not/selectNoticeInsertVw";
     }
 
+    @RequestMapping("insertNotice.do")
+    @ResponseBody
+    public Notice insertNotice(@RequestBody NoticeVO vo) {
+        return noticeService.insertNotice(vo);
+    }
+
+    @RequestMapping("selectNoticeDtlsVw.do")
+    public String selectNoticeDtlsVw(@RequestParam(name = "sn") int sn,
+                                     NoticeVO vo,
+                                     Model model) {
+        vo.setSn(sn);
+        model.addAttribute("vo", vo);
+
+        return "/svc/csc/not/selectNoticeDtlsVw";
+    }
+
+    @RequestMapping("selectNoticeDtVw.do")
+    @ResponseBody
+    public Notice selectNoticeDtVw(@RequestBody NoticeVO vo) {
+        return noticeService.selectNoticeDtVw(vo);
+    }
+
+    @RequestMapping("deleteNotice.do")
+    @ResponseBody
+    public Notice deleteNotice(@RequestBody NoticeVO vo) {
+        return noticeService.deleteNotice(vo);
+    }
 
 
 }

@@ -16,4 +16,16 @@ public class NoticeDAO {
     public List<NoticeVO> selectNoticeList(NoticeVO vo) {
         return sqlSession.selectList("NoticeDAO.selectNoticeList", vo);
     }
+
+    public int insertNotice(NoticeVO vo) {
+        return sqlSession.insert("NoticeDAO.insertNotice", vo);
+    }
+
+    public NoticeVO selectNoticeDtVw(NoticeVO vo) {
+        return sqlSession.selectOne("NoticeDAO.selectNoticeDtVw", vo);
+    }
+
+    public int deleteNotice(NoticeVO vo) {
+        return sqlSession.delete("NoticeDAO.deleteNotice", vo);
+    }
 }

@@ -18,4 +18,48 @@
         order by sn desc
     </select>
 
+    <insert id="insertNotice" parameterType="brew.svc.csc.not.service.NoticeVO">
+        <selectKey keyProperty="sn" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(sn) + 1, 1) FROM brew.brewnot
+        </selectKey>
+        INSERT INTO brew.brewnot (
+        sn
+        ,title
+        ,contents
+        ,inq_cnt
+        ,rgtr_id
+        ,rgtr_dt
+        ,mdfr_id
+        ,mdfr_dt
+        )
+        VALUES (
+        #{sn}
+        ,#{title}
+        ,#{contents}
+        ,0
+        ,'admin'
+        ,current_timestamp
+        ,'admin'
+        ,current_timestamp
+        )
+    </insert>
+
+    <select id="selectNoticeDtVw" parameterType="brew.svc.csc.not.service.NoticeVO" resultType="brew.svc.csc.not.service.NoticeVO">
+        select
+            sn,
+            title,
+            contents
+        from
+            brew.brewnot
+        where
+            sn = #{sn}
+    </select>
+
+    <delete id="deleteNotice" parameterType="brew.svc.csc.not.service.NoticeVO">
+        delete from
+                   brew.brewnot
+        where
+            sn = #{sn}
+    </delete>
+
 </mapper>

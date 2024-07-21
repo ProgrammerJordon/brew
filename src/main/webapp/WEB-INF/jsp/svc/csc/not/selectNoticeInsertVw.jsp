@@ -12,7 +12,7 @@
             callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeListVw.do"), param, 'get');
         },
 
-        insertConsult : () => {
+        insertNotice : () => {
 
             var validationGroup = [
                 {id: 'title', name: '제목', mandatory: true},
@@ -21,15 +21,16 @@
 
             if (!Util.validateComponent(validationGroup)) return;
 
-            MessageUtil.confirm("문의사항을 등록하시겠습니까?", (boolean) => {
+            MessageUtil.confirm("공지사항을 등록하시겠습니까?", (boolean) => {
                 if(boolean) {
                     var param = {
                         title : $("#title").val(),
                         contents : $("#contents").val(),
                     }
-                    callModule.call(Util.getRequestUrl("/svc/csc/cst/insertConsult.do"), param, (result) => {
-                        MessageUtil.alert(result.consultVO.resultMessage, () => {
-                            cst.selectConsultListVw();
+
+                    callModule.call(Util.getRequestUrl("/svc/csc/not/insertNotice.do"), param, (result) => {
+                        MessageUtil.alert(result.noticeVO.resultMessage, () => {
+                            cst.selectNoticeListVw();
                         });
                     })
                 }
@@ -78,7 +79,7 @@
                 </button>
             </div>
             <div class="right">
-                <button class="btn__bluegreen" onclick="cst.insertConsult();">
+                <button class="btn__bluegreen" onclick="cst.insertNotice();">
                     <span>등록</span>
                 </button>
             </div>
