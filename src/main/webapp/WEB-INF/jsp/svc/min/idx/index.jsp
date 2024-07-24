@@ -6,7 +6,7 @@
 </script>
 
 <div>
-    메인 페이지
+    Main
 </div>
 
 <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/template_bottom.jspf" %>
