@@ -71,4 +71,5 @@
         where
             sn = #{sn}
     </update>
+
 </mapper>
