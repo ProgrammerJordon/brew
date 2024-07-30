@@ -68,6 +68,7 @@ public class NoticeController {
     public String updateNoticeVw(@RequestParam(name = "sn") int sn,
                                  NoticeVO vo,
                                  Model model) {
+//        System.out.println(sn);
         vo.setSn(sn);
         model.addAttribute("vo", vo);
 
@@ -80,8 +81,5 @@ public class NoticeController {
     public Notice updateNotice(@RequestBody NoticeVO vo) {
         return noticeService.updateNotice(vo);
     }
-
-    //@RequestMapping
-
 
 }
