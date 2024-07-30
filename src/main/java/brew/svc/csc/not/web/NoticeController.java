@@ -56,12 +56,14 @@ public class NoticeController {
         return noticeService.selectNoticeDtVw(vo);
     }
 
+    //공지사항 삭제
     @RequestMapping("deleteNotice.do")
     @ResponseBody
     public Notice deleteNotice(@RequestBody NoticeVO vo) {
         return noticeService.deleteNotice(vo);
     }
 
+    //공지사항 수정하는 화면
     @RequestMapping("updateNoticeVw.do")
     public String updateNoticeVw(@RequestParam(name = "sn") int sn,
                                  NoticeVO vo,
@@ -78,5 +80,8 @@ public class NoticeController {
     public Notice updateNotice(@RequestBody NoticeVO vo) {
         return noticeService.updateNotice(vo);
     }
+
+    //@RequestMapping
+
 
 }
