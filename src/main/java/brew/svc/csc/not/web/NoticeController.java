@@ -72,6 +72,7 @@ public class NoticeController {
         return "/svc/csc/not/updateNoticeVw";
     }
 
+    //공지사항 수정
     @RequestMapping("updateNotice.do")
     @ResponseBody
     public Notice updateNotice(@RequestBody NoticeVO vo) {
