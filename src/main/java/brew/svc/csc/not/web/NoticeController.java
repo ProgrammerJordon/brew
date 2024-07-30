@@ -37,6 +37,7 @@ public class NoticeController {
     @RequestMapping("insertNotice.do")
     @ResponseBody
     public Notice insertNotice(@RequestBody NoticeVO vo) {
+        System.out.println("test");
         return noticeService.insertNotice(vo);
     }
 
@@ -68,7 +69,6 @@ public class NoticeController {
     public String updateNoticeVw(@RequestParam(name = "sn") int sn,
                                  NoticeVO vo,
                                  Model model) {
-//        System.out.println(sn);
         vo.setSn(sn);
         model.addAttribute("vo", vo);
 
