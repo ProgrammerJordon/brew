@@ -144,6 +144,10 @@
                         </li>
                         <br>
                         <li>
+                            <a onclick="mmm.movePage('/mng/cmm/org/selectOrganiztionListVw.do');">조직관리</a>
+                        </li>
+                        <br>
+                        <li>
                             <a onclick="mmm.movePage('/mng/cmm/ccd/selectCodeListVw.do');">공통코드관리</a>
                         </li>
                         <br>
