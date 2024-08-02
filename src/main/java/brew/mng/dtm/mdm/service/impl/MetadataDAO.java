@@ -31,4 +31,8 @@ public class MetadataDAO {
     int updateMetadata(MetadataVO vo) {
         return sqlSession.update("MetadataDAO.updateMetadata", vo);
     }
+
+    int deleteMetadata(MetadataVO vo) {
+        return sqlSession.delete("MetadataDAO.deleteMetadata", vo);
+    }
 }

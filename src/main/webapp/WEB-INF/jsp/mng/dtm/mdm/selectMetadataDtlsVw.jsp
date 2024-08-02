@@ -24,12 +24,12 @@
         },
         updateMetadata : () => {
 
-            // var validationGroup = [
-            //     {id: 'datasetNm', name: '데이터셋명', mandatory: true},
-            //     {id: 'datasetEngNm', name: '데이터셋영문명', mandatory: true},
-            // ];
-            //
-            // if (!Util.validateComponent(validationGroup)) return;
+            var validationGroup = [
+                {id: 'datasetNm', name: '데이터셋명', mandatory: true},
+                {id: 'datasetEngNm', name: '데이터셋영문명', mandatory: true},
+            ];
+
+            if (!Util.validateComponent(validationGroup)) return;
 
             MessageUtil.confirm("메타데이터를 수정하시겠습니까?", async (boolean) => {
 
@@ -58,6 +58,22 @@
                 }
 
             }, "수정", "취소")
+        },
+        deleteMetadata : () => {
+
+            MessageUtil.confirm("메타데이터를 삭제하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        mdmId : mdm.mdmId,
+                        atchFileId : $("#atchFileId").val() || null
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/dtm/mdm/deleteMetadata.do"), param, (result) => {
+                        MessageUtil.alert(result.metadataVO.resultMessage, () => {
+                            mdm.selectMetadataListVw();
+                        });
+                    })
+                }
+            }, "삭제", "취소")
         }
     }
 
@@ -164,7 +180,7 @@
                 </button>
             </div>
             <div class="right">
-                <button class="btn__red" onclick="">
+                <button class="btn__red" onclick="mdm.deleteMetadata();">
                     <span>삭제</span>
                 </button>
                 <button class="btn__bluegreen" onclick="mdm.updateMetadata();">

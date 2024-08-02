@@ -82,4 +82,10 @@
             and mdm_id = #{mdmId}
     </update>
 
+    <delete id="deleteMetadata" parameterType="brew.mng.dtm.mdm.service.MetadataVO">
+        delete from brew.comtnmetadata
+        where 1=1
+            and mdm_id = #{mdmId}
+    </delete>
+
 </mapper>

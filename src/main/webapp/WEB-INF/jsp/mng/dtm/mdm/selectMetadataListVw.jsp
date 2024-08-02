@@ -51,7 +51,7 @@
                                     <td>
                                         <div style="display: flex; justify-content: space-between;">
                                             <div style="width: 60%;">
-                                                <div>\${mdm.mdmList[i].datasetNm} <span>(</sapn><em>\${mdm.mdmList[i].datasetEngNm}</em><span>)</sapn></div>
+                                                <div>\${mdm.mdmList[i].datasetNm} <span>(</span><em>\${mdm.mdmList[i].datasetEngNm}</em><span>)</span></div>
                                             </div>
                                             <div style="width: 40%; display: flex; justify-content: space-around;">
                                                 <div><span>조회수 : </span>&nbsp;&nbsp;\${mdm.mdmList[i].inqCnt}&nbsp;&nbsp;<span>회</span></div>
@@ -76,7 +76,7 @@
                                 <td>
                                    <div style="display: flex; justify-content: space-between;">
                                         <div style="width: 60%;">
-                                            <div>\${vo.datasetNm} <span>(</sapn><em>\${vo.datasetEngNm}</em><span>)</sapn></div>
+                                            <div>\${vo.datasetNm} <span>(</span><em>\${vo.datasetEngNm}</em><span>)</span></div>
                                         </div>
                                         <div style="width: 40%; display: flex; justify-content: space-around;"">
                                             <div><span>조회수 : </span>&nbsp;&nbsp;\${vo.inqCnt}&nbsp;&nbsp;<span>회</span></div>

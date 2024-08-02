@@ -12,12 +12,12 @@
         insertMetadata : () => {
 
 
-            // var validationGroup = [
-            //     {id: 'datasetNm', name: '데이터셋명', mandatory: true},
-            //     {id: 'datasetEngNm', name: '데이터셋영문명', mandatory: true},
-            // ];
-            //
-            // if (!Util.validateComponent(validationGroup)) return;
+            var validationGroup = [
+                {id: 'datasetNm', name: '데이터셋명', mandatory: true},
+                {id: 'datasetEngNm', name: '데이터셋영문명', mandatory: true},
+            ];
+
+            if (!Util.validateComponent(validationGroup)) return;
 
             MessageUtil.confirm("메타데이터를 등록하시겠습니까?", async (boolean) => {
 

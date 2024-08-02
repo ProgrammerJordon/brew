@@ -91,4 +91,10 @@ public class MetadataController {
 
         return metadataService.updateMetadata(vo);
     }
+
+    @RequestMapping("/deleteMetadata.do")
+    @ResponseBody
+    public Metadata deleteMetadata(@RequestBody MetadataVO vo) throws Exception {
+        return metadataService.deleteMetadata(vo);
+    }
 }
