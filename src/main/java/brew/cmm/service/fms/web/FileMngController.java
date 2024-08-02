@@ -149,18 +149,17 @@ public class FileMngController {
     }
 
     @RequestMapping("/cmm/fms/deleteFileInfModule.do")
-    public @ResponseBody Map<String, Object> deleteFileInfModule(@RequestBody Map<String, String> param) throws Exception {
+    @ResponseBody
+    public Map<String, Object> deleteFileInfModule(@RequestBody List<Map<String, String>> param) throws Exception {
 
-        FileVO fvo = new FileVO();
-        fvo.setAtchFileId(param.get("atchFileId"));
-
-        List<FileVO> fvoList = fileService.selectFileInfs(fvo);
-
-        for(int i = 0 ; i < fvoList.size() ; i++) {
-            fileService.deleteFileInf(fvoList.get(i));
+        for(int i = 0; i < param.size(); i++) {
+            FileVO vo = new FileVO();
+            vo.setAtchFileId(param.get(i).get("atchFileId"));
+            vo.setFileSn(param.get(i).get("fileSn"));
+            vo.setStreFileNm(param.get(i).get("streFileNm"));
+            vo.setFileStrePath(param.get(i).get("fileStrePath"));
+            fileService.deleteFileInf(vo);
         }
-
-        fileService.deleteFileInf(fvo);
 
         Map<String, Object> result = new HashMap<>();
 

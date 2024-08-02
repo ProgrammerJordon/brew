@@ -59,7 +59,7 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('');">
+                        <li onclick="mmm.movePage('/mng/dtm/mdm/selectMetadataListVw.do');">
                             <a>메타데이터관리</a>
                         </li>
                         <br>

@@ -11,6 +11,11 @@
             ,a.file_sn
             ,a.orignl_file_nm
             ,a.file_extsn
+            ,case
+                when left(a.stre_file_nm, 3) = 'BBS' then '공지사항'
+                when left(a.stre_file_nm, 3) = 'MDM' then '메타데이터'
+                else left(a.stre_file_nm, 3)
+            end as stre_file_nm
             ,ROUND((a.file_size / 1024) / 1024, 2) || ' ' || 'MB' as file_size
             ,to_char(b.creat_pnttm, 'YYYY-MM-DD') as rgtr_dt
             ,ROW_NUMBER() OVER(ORDER BY a.atch_file_id DESC) AS RNUM

@@ -499,6 +499,7 @@ INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('FAQ_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('CODE_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('USER_ID', 0);
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('EXIT_ID', 0);
+--INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('MDM_ID', 0);
 --INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ADV_ID', 0);
 
 -- 방문자 이력로그
@@ -697,3 +698,64 @@ alter table comtnadverties
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ADV_ID', 0);
 
 #################24.07.16 추가 한 부분#################
+
+#################24.08.02 추가 한 부분#################
+-- 메타데이터
+create table comtnmetadata
+(
+    mdm_id          varchar not null
+        constraint comtnmetadata_pk
+            primary key,
+    dataset_nm      varchar,
+    dataset_eng_nm  varchar,
+    dataset_clsf_cd varchar,
+    auth_cd         varchar,
+    sce_level       varchar,
+    dept_nm         varchar,
+    explain         varchar,
+    rgtr_id         varchar,
+    rgtr_dt         timestamp,
+    mdfr_id         varchar,
+    mdfr_dt         timestamp,
+    inq_cnt         integer default 0,
+    atch_file_id    varchar
+);
+
+comment on table comtnmetadata is '메타데이터';
+
+comment on column comtnmetadata.mdm_id is '메타데이터 아이디';
+
+comment on column comtnmetadata.dataset_nm is '데이터셋명';
+
+comment on column comtnmetadata.dataset_eng_nm is '데이터셋영문명';
+
+comment on column comtnmetadata.dataset_clsf_cd is '데이터분류코드';
+
+comment on column comtnmetadata.auth_cd is '권한코드';
+
+comment on column comtnmetadata.sce_level is '보안레벨';
+
+comment on column comtnmetadata.dept_nm is '부서명';
+
+comment on column comtnmetadata.explain is '설명';
+
+comment on column comtnmetadata.rgtr_id is '등록자 아디이';
+
+comment on column comtnmetadata.rgtr_dt is '등록일시';
+
+comment on column comtnmetadata.mdfr_id is '수정자 아이디';
+
+comment on column comtnmetadata.mdfr_dt is '수정일시';
+
+comment on column comtnmetadata.inq_cnt is '조회수';
+
+comment on column comtnmetadata.atch_file_id is '첨부파일 아이디';
+
+alter table comtnmetadata
+    owner to postgres
+
+
+-- MDM_ID 추가
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('MDM_ID', 0);
+
+#################24.08.02 추가 한 부분#################

@@ -8,92 +8,70 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository("BrewIdGnrDAO")
 @RequiredArgsConstructor
+@Transactional
 public class BrewIdGnrProperties {
 
     private final SqlSessionTemplate sqlSession;
 
     @Transactional
     public String getNextFileId() {
-        // 현재 FILE_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextFileId");
-        // FILE_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextFileId");
-        // 현재 FILE_ID 값에서 +1 값 반환
         return String.format("FILE_%015d", nextValue + 1);
     }
 
-    @Transactional
     public String getNextLogId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextLogId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextLogId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("LOG_%016d", nextValue + 1);
     }
 
-    @Transactional
     public String getNextLoginLogId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextLoginLogId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextLoginLogId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("LGI_%016d", nextValue + 1);
     }
 
     public String getNextBbsId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextBbsId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextBbsId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("BBS_%016d", nextValue + 1);
     }
 
     public String getNextFaqId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextFaqId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextFaqId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("FAQ_%016d", nextValue + 1);
     }
 
     public String getNextCodeId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextCodeId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextCodeId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("CODE_%03d", nextValue + 1);
     }
 
     public String getNextUserId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextUserId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextUserId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("USER_%015d", nextValue + 1);
     }
 
     public String getNextExitId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextExitId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextExitId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("EXIT_%015d", nextValue + 1);
     }
 
     public String getNextAdvId() {
-        // 현재 LOG_ID 값 조회
         int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextAdvId");
-        // LOG_ID 값 +1
         sqlSession.update("BrewIdGnrDAO.updateNextAdvId");
-        // 현재 LOG_ID 값에서 +1 값 반환
         return String.format("ADV_%016d", nextValue + 1);
+    }
+
+    public String getNextMdmId() {
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextMdmId");
+        sqlSession.update("BrewIdGnrDAO.updateNextMdmId");
+        return String.format("MDM_%016d", nextValue + 1);
     }
 
 }

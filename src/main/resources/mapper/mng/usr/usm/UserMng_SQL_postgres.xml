@@ -23,9 +23,9 @@
             and auth_cd = #{authCd}
         </if>
         <if test="searchKeyword != null and searchKeyword != ''">
-            and user_id like '%' || #{searchKeyword} || '%'
+            and ( user_id like '%' || #{searchKeyword} || '%'
                 or user_nm like '%' || #{searchKeyword} || '%'
-                or nick_nm like '%' || #{searchKeyword} || '%'
+                or nick_nm like '%' || #{searchKeyword} || '%' )
         </if>
         order by user_sn desc
     </select>

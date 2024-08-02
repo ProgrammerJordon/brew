@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MetadataDAO">
+
+    <insert id="insertMetadata" parameterType="brew.mng.dtm.mdm.service.MetadataVO">
+
+        INSERT INTO brew.comtnmetadata (
+            mdm_id
+           ,dataset_nm
+           ,dataset_eng_nm
+           ,dataset_clsf_cd
+           ,auth_cd
+           ,sce_level
+           ,dept_nm
+           ,explain
+           ,atch_file_id
+           ,inq_cnt
+           ,rgtr_id
+           ,rgtr_dt
+           ,mdfr_id
+           ,mdfr_dt
+        ) VALUES (
+            #{mdmId}
+            ,#{datasetNm}
+            ,#{datasetEngNm}
+            ,#{datasetClsfCd}
+            ,#{authCd}
+            ,#{sceLevel}
+            ,#{deptNm}
+            ,#{explain}
+            ,#{atchFileId}
+            ,0
+            ,#{rgtrId}
+            ,current_timestamp
+            ,#{mdfrId}
+            ,current_timestamp
+        )
+
+    </insert>
+
+    <select id="selectMetadataList" parameterType="brew.mng.dtm.mdm.service.MetadataVO" resultType="brew.mng.dtm.mdm.service.MetadataVO">
+        select
+            mdm_id
+            ,dataset_nm
+            ,dataset_eng_nm
+            ,inq_cnt
+            ,dept_nm
+            ,to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt
+            ,ROW_NUMBER() OVER(ORDER BY mdm_id DESC) AS RNUM
+        from brew.comtnmetadata
+        <if test="searchKeyword != null and searchKeyword != ''">
+            and ( dataset_nm like '%' || #{searchKeyword} || '%'
+            or dataset_eng_nm like '%' || #{searchKeyword} || '%'
+            or dept_nm like '%' || #{searchKeyword} || '%')
+        </if>
+    </select>
+
+    <select id="selectMetadataDtls" parameterType="brew.mng.dtm.mdm.service.MetadataVO" resultType="brew.mng.dtm.mdm.service.MetadataVO">
+        select *
+        from brew.comtnmetadata
+        where 1=1
+            and mdm_id = #{mdmId}
+    </select>
+
+    <update id="updateMetadata" parameterType="brew.mng.dtm.mdm.service.MetadataVO">
+        update brew.comtnmetadata
+            set
+              dataset_nm = #{datasetNm}
+              ,dataset_eng_nm = #{datasetEngNm}
+              ,dataset_clsf_cd = #{datasetClsfCd}
+              ,auth_cd = #{authCd}
+              ,sce_level = #{sceLevel}
+              ,dept_nm = #{deptNm}
+              ,explain = #{explain}
+              ,atch_file_id = #{atchFileId}
+              ,mdfr_id = #{mdfrId}
+              ,mdfr_dt = current_timestamp
+        where 1=1
+            and mdm_id = #{mdmId}
+    </update>
+
+</mapper>

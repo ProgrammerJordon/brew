@@ -242,6 +242,8 @@
     }
 
     async function fileUpdate() {
+
+        debugger;
         var insertArray = anoFileLists.filter(item => item.state === "insert");
         var deleteArray = anoFileLists.filter(item => item.state === "delete");
 
@@ -320,6 +322,7 @@
 
         var jsonData = JSON.stringify(deleteArray);
 
+        debugger;
         try {
             const response = await fetch('<c:url value="/cmm/fms/deleteFileInfModule.do" />', {
                 method: 'POST',
@@ -328,6 +331,7 @@
                 },
                 body: jsonData,
             });
+            debugger;
             const result = await response.json();
             return result.status === "success";
         } catch (error) {

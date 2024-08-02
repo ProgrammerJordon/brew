@@ -12,6 +12,7 @@ public class FileDataMngVO extends CommonVO implements Serializable {
 
     private String atchFileId;
     private int fileSn;
+    private String streFileNm;
     private String orignlFileNm;
     private String fileExtsn;
     private String fileSize;

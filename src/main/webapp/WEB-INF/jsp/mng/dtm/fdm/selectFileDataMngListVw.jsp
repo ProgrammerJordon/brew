@@ -43,6 +43,7 @@
                     if (fdm.fdmList[i].rnum > 10) break;
 
                     let html = `<tr>
+                                    <td>\${fdm.fdmList[i].streFileNm}</td>
                                     <td>\${fdm.fdmList[i].orignlFileNm}</td>
                                     <td>\${fdm.fdmList[i].fileSize}</td>
                                     <td>\${fdm.fdmList[i].rgtrDt}</td>
@@ -53,7 +54,7 @@
                                     </td>
                                </tr>`
 
-                    $("tbody").append(html);
+                    $("#tbody").append(html);
                 }
                 $('#pagination').page(1, gridModule.getPageSize(fdm.fdmList), 'fdm.pageMove');
             })
@@ -65,6 +66,7 @@
 
             fdm.fdmList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
                 let html = `<tr>
+                                <td>\${vo.streFileNm}</td>
                                 <td>\${vo.orignlFileNm}</td>
                                 <td>\${vo.fileSize}</td>
                                 <td>\${vo.rgtrDt}</td>
@@ -74,7 +76,7 @@
                                     </div>
                                 </td>
                            </tr>`
-                $("tbody").append(html);
+                $("#tbody").append(html);
             });
             $('#pagination').page(pageIndex, gridModule.getPageSize(fdm.fdmList), 'fdm.pageMove');
         },
@@ -112,13 +114,15 @@
         <table>
             <caption class="hidden">파일데이터 관리 목록</caption>
             <colgroup>
-                <col class="num" width="55%">
+                <col class="num" width="15%">
+                <col class="num" width="40%">
                 <col class="num" width="15%">
                 <col class="num" width="15%">
                 <col class="num" width="15%">
             </colgroup>
             <thead>
                 <tr>
+                    <th>분류</th>
                     <th>파일명</th>
                     <th>파일크기</th>
                     <th>등록일자</th>
