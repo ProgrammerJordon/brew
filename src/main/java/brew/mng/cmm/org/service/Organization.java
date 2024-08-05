@@ -11,9 +11,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Organiztion {
+public class Organization {
 
-    private List<OrganiztionVO> organiztionVOList;
-    private OrganiztionVO organiztionVO;
+    private List<OrganizationVO> organizationVOList;
+    private OrganizationVO organizationVO;
 
 }

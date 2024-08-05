@@ -759,3 +759,67 @@ alter table comtnmetadata
 INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('MDM_ID', 0);
 
 #################24.08.02 추가 한 부분#################
+
+#################24.08.05 추가 한 부분#################
+
+create table comtnorg
+(
+    org_id   varchar           not null
+        constraint comtnorg_pk
+            primary key,
+    org_nm   varchar,
+    tel_no   varchar,
+    rgtr_id  varchar,
+    rgtr_dt  timestamp,
+    mdfr_id  varchar,
+    mdfr_dt  timestamp,
+    org_ordr integer default 1 not null
+);
+
+comment on table comtnorg is '조직관리';
+
+comment on column comtnorg.org_id is '조직 아이디';
+
+comment on column comtnorg.org_nm is '조직명';
+
+comment on column comtnorg.tel_no is '전화번호';
+
+comment on column comtnorg.rgtr_id is '등록자 아이디';
+
+comment on column comtnorg.rgtr_dt is '등록일시';
+
+comment on column comtnorg.mdfr_id is '수정자 아이디';
+
+comment on column comtnorg.mdfr_dt is '수정일시';
+
+comment on column comtnorg.org_ordr is '조직순번';
+
+alter table comtnorg
+    owner to postgres;
+
+-- ORG_ID 추가
+INSERT INTO brew.comtecopseq (table_name, next_id) VALUES ('ORG_ID', 0);
+
+-- row 추가
+INSERT INTO brew.comtnorg (
+    org_id
+    ,org_nm
+    ,tel_no
+    ,org_ordr
+    ,rgtr_id
+    ,rgtr_dt
+    ,mdfr_id
+    ,mdfr_dt
+)
+VALUES (
+    '10000000''
+    ,'BREW'
+    ,'000000000'
+    ,'1'
+    ,'ADMIN'
+    ,current_timestamp
+    ,'ADMIN'
+    ,current_timestamp
+)
+
+#################24.08.05 추가 한 부분#################

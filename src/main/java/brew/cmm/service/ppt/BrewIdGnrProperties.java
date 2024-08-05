@@ -74,4 +74,10 @@ public class BrewIdGnrProperties {
         return String.format("MDM_%016d", nextValue + 1);
     }
 
+    public String getNextOrgId() {
+        int nextValue = sqlSession.selectOne("BrewIdGnrDAO.getNextOrgId");
+        sqlSession.update("BrewIdGnrDAO.updateNextOrgId");
+        return String.format("%02d", nextValue + 1);
+    }
+
 }

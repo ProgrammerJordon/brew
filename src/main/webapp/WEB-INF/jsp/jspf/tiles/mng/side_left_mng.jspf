@@ -144,7 +144,7 @@
                         </li>
                         <br>
                         <li>
-                            <a onclick="mmm.movePage('/mng/cmm/org/selectOrganiztionListVw.do');">조직관리</a>
+                            <a onclick="mmm.movePage('/mng/cmm/org/selectOrganizationListVw.do');">조직관리</a>
                         </li>
                         <br>
                         <li>

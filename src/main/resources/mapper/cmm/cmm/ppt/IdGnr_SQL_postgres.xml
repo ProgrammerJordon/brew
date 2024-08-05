@@ -135,4 +135,18 @@
         SET next_id = next_id + 1
         WHERE table_name = 'MDM_ID'
     </update>
+
+    <select id="getNextOrgId" resultType="int">
+        SELECT next_id
+        from brew.comtecopseq
+        where 1=1
+          and table_name = 'ORG_ID'
+    </select>
+
+    <update id="updateNextOrgId" parameterType="int">
+        UPDATE brew.comtecopseq
+        SET next_id = next_id + 1
+        WHERE table_name = 'ORG_ID'
+    </update>
+
 </mapper>

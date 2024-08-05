@@ -8,7 +8,10 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrganiztionVO extends CommonVO implements Serializable {
+public class OrganizationVO extends CommonVO implements Serializable {
 
-
+    private String orgId;
+    private String orgNm;
+    private String telNo;
+    private int orgOrdr;
 }
