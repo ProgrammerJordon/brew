@@ -4,20 +4,79 @@
 <script>
     let org = {
         init : () => {
-
+            org.selectOrganizationList();
         },
-        selectOrganizationInsertVw : () => {
-            callModule.post(Util.getRequestUrl("/mng/cmm/org/selectOrganizationInsertVw.do"), {}, 'post');
+        selectOrganizationList : (pageIndex) => {
+            let param = {
+                searchKeyword : $("#searchKeyword").val(),
+                pageIndex : pageIndex || '1'
+            }
+            callModule.call(Util.getRequestUrl("/mng/cmm/org/selectOrganizationList.do"), param, (result) => {
+
+                for(var i = 0; i < result.organizationVOList.length; i++) {
+                    // 1depth
+                    if(result.organizationVOList[i].orgId == '10000000') {
+                        var html = `<tr>
+                                        <td>\${result.organizationVOList[i].orgNm}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>`
+                        $("#tbody").append(html);
+                    }
+                    // 2depth
+                    if((result.organizationVOList[i].orgId).substring(0,4) != '1000' && (result.organizationVOList[i].orgId).substring(4,8) == '0000') {
+                        var html = `<tr>
+                                        <td></td>
+                                        <td class="left"><span>↳</span>&nbsp;&nbsp;&nbsp;\${result.organizationVOList[i].orgNm}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>`
+                        $("#tbody").append(html);
+                    }
+                    // 3depth
+                    if((result.organizationVOList[i].orgId).substring(4,6) != '00' && (result.organizationVOList[i].orgId).substring(6,8) == '00') {
+                        var html = `<tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="left"><span>↳</span>&nbsp;&nbsp;&nbsp;\${result.organizationVOList[i].orgNm}</td>
+                                        <td></td>
+                                    </tr>`
+                        $("#tbody").append(html);
+                    }
+                    // 4depth
+                    if((result.organizationVOList[i].orgId).substring(4,6) != '00' && (result.organizationVOList[i].orgId).substring(6,8) != '00') {
+                        var html = `<tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="left"><span>↳</span>&nbsp;&nbsp;&nbsp;\${result.organizationVOList[i].orgNm}</td>
+                                    </tr>`
+                        $("#tbody").append(html);
+                    }
+                }
+            })
         },
         insertOranization : () => {
-            let param = {
-                orgNm : $("#orgNm").val(),
-                telNo : $("#telNo").val()
-            }
-            callModule.call(Util.getRequestUrl("/mng/cmm/org/insertOranization.do"), param, (result) => {
-                debugger;
-                console.log(result)
-            })
+            MessageUtil.confirm("조직을 등록하시겠습니까?", (boolean) => {
+                if(boolean) {
+                    let param = {
+                        orgNm : $("#orgNm").val(),
+                        telNo : $("#telNo").val()
+                    }
+                    callModule.call(Util.getRequestUrl("/mng/cmm/org/insertOranization.do"), param, (result) => {
+
+                        MessageUtil.alert(result.organizationVO.resultMessage, () => {
+                            org.updateOrgInsertPop();
+                            org.closeOrgInsertPop();
+                        })
+                    })
+                }
+            }, "등록", "취소");
+        },
+        updateOrgInsertPop : () => {
+          $("#orgNm").val("");
+          $("#telNo").val("");
         },
         closeOrgInsertPop : () => {
             var pop = document.getElementById("orgInsertPop");
@@ -78,18 +137,18 @@
         <table>
             <caption class="hidden">조직관리 목록</caption>
             <colgroup>
-                <col class="num" width="60%">
-                <col class="num" width="10%">
-                <col class="num" width="15%">
-                <col class="num" width="15%">
+                <col class="num" width="25%">
+                <col class="num" width="25%">
+                <col class="num" width="25%">
+                <col class="num" width="25%">
             </colgroup>
             <thead>
-            <tr>
-                <th>제목</th>
-                <th>조회수</th>
-                <th>등록자</th>
-                <th>등록일자</th>
-            </tr>
+                <tr>
+                    <th>1depth</th>
+                    <th>2depth</th>
+                    <th>3depth</th>
+                    <th>4depth</th>
+                </tr>
             </thead>
             <tbody id="tbody"></tbody>
         </table>

@@ -5,6 +5,11 @@
 
 <mapper namespace="OrganizationDAO">
     <insert id="insertOranization" parameterType="brew.mng.cmm.org.service.OrganizationVO">
+
+        <selectKey keyProperty="orgOrdr" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(org_ordr) + 1, 1) FROM brew.comtnorg
+        </selectKey>
+
         INSERT INTO brew.comtnorg (
             org_id
             ,org_nm
@@ -26,4 +31,12 @@
             ,current_timestamp
         )
     </insert>
+
+    <select id="selectOrganizationList" parameterType="brew.mng.cmm.org.service.OrganizationVO" resultType="brew.mng.cmm.org.service.OrganizationVO">
+        select
+            org_id
+            ,org_nm
+            ,org_ordr
+        from brew.comtnorg
+    </select>
 </mapper>

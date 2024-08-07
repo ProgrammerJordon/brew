@@ -21,14 +21,15 @@ public class OrganizationController {
         return "/mng/cmm/org/selectOrganizationListVw";
     }
 
-    @RequestMapping("/selectOrganizationInsertVw.do")
-    public String selectOrganizationInsertVw() {
-        return "/mng/cmm/org/selectOrganizationInsertVw";
-    }
-
     @RequestMapping("/insertOranization.do")
     @ResponseBody
     public Organization insertOranization(@RequestBody OrganizationVO vo) {
         return organizationService.insertOranization(vo);
+    }
+
+    @RequestMapping("/selectOrganizationList.do")
+    @ResponseBody
+    public Organization selectOrganizationList(@RequestBody OrganizationVO vo) {
+        return organizationService.selectOrganizationList(vo);
     }
 }

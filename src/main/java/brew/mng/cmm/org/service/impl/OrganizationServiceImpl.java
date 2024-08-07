@@ -27,4 +27,11 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .organizationVO(vo)
                 .build();
     }
+
+    @Override
+    public Organization selectOrganizationList(OrganizationVO vo) {
+        return Organization.builder()
+                .organizationVOList(organizationDAO.selectOrganizationList(vo))
+                .build();
+    }
 }

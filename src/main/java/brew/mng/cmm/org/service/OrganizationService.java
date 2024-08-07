@@ -6,4 +6,5 @@ public interface OrganizationService {
 
     public Organization insertOranization(OrganizationVO vo);
 
+    public Organization selectOrganizationList(OrganizationVO vo);
 }
