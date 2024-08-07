@@ -38,7 +38,7 @@
 
                 if(mdm.mdmList.length == 0) {
                     let html = `<tr>
-                                    <td colspan="4">등록된 공지사항이 존재하지 않습니다.</td>
+                                    <td colspan="4">등록된 메타데이터가 존재하지 않습니다.</td>
                                 </tr>`
                     $("#tbody").append(html);
                     return false;
