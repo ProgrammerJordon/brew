@@ -39,6 +39,9 @@
         <div class="tab__list type03">
             <ul>
                 <li style="cursor: pointer;">
+                    <a onclick="mmm.selectMenu('psr')">개인랭킹</a>
+                </li>
+                <li style="cursor: pointer;">
                     <a onclick="mmm.selectMenu('csc')">고객센터</a>
                 </li>
             </ul>

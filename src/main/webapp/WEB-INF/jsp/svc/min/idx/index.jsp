@@ -6,7 +6,7 @@
 </script>
 
 <div>
-    뭐 만들지?
+    Review In
 </div>
 
 <%@ include file="/WEB-INF/jsp/jspf/tiles/svc/template_bottom.jspf" %>
