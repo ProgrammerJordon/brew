@@ -1245,7 +1245,7 @@ max-height: 300px;	/* 임시값입니다 필요한경우 수정가능합니다 *
 .tab__list.type03>ul{
 	background-color: #fff;
 	padding-top: 16px;
-	border-bottom: 1px solid var(--border-color);
+	/*border-bottom: 1px solid var(--border-color);*/
 }
 .tab__list.type03>ul>li{
 	background-color: #fff!important;
