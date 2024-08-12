@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("NoticeDAO")
+@Repository("PersonalRankingDAO")
 @RequiredArgsConstructor
 public class PersonalRankingDAO {
 
