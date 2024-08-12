@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class PersonalRankingController {
 
-    private final PersonalRankingService personalrankingservice;
+    private final PersonalRankingService personalRankingService;
 
     @RequestMapping("selectItListVw.do")
     public String selectItListVw() {
@@ -24,7 +24,7 @@ public class PersonalRankingController {
     @RequestMapping("selectPersonalRankingList.do")
     @ResponseBody
     public PersonalRanking selectPersonalRankingList(@RequestBody PersonalRankingVO vo) {
-        return personalrankingservice.selectPersonalRankingList(vo);
+        return personalRankingService.selectPersonalRankingList(vo);
     }
 
 
