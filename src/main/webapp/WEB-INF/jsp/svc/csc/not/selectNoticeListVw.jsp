@@ -108,7 +108,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>제목 robert commit test</th>
+                <th>제목</th>
                 <th>조회수</th>
                 <th>등록자</th>
                 <th>등록일자</th>
