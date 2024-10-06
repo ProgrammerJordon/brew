@@ -56,6 +56,7 @@
                 // 서비스
                 csc : '#csc',
                 psr : '#psr',
+                rev : '#rev',
             };
 
             for (let key in sections) {

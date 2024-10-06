@@ -100,6 +100,22 @@
             </div>
         </div>
 
+        <div id="rev" style="display: none;">
+            <div style="text-align: center;">
+                <span style="font-size: 2em;">리뷰</span>
+            </div>
+            <br>
+            <div class="tab__body type01">
+                <div class="tab__list type03">
+                    <ul style="display: block;">
+                        <li onclick="mmm.movePage('/svc/csc/not/selectReviewListVw.do');">
+                            <a>리뷰</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div id="csc" style="display: none;">
             <div style="text-align: center;">
                 <span style="font-size: 2em;">고객센터</span>
