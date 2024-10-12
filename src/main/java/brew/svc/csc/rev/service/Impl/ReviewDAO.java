@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository("ReviewDAO")
 @RequiredArgsConstructor
-public class ReviewDAO {
+public class ReviewDAO{
 
     private final SqlSession sqlSession;
 

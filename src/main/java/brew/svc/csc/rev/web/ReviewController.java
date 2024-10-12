@@ -1,5 +1,7 @@
 package brew.svc.csc.rev.web;
 
+import brew.mng.cmm.bbs.service.BoardService;
+import brew.mng.cmm.bbs.service.impl.BoardServiceImpl;
 import brew.svc.csc.rev.service.Review;
 import brew.svc.csc.rev.service.ReviewService;
 import brew.svc.csc.rev.service.ReviewVO;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final BoardServiceImpl boardService;
 
     @RequestMapping("selectReviewListVw.do")
     public String selectReviewListVw() {

@@ -40,7 +40,7 @@
                 for(let i = 0; i < cst.revList.length; i++) {
                     if(cst.revList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="cst.selectNoticeDtlsVw('\${cst.revList[i].sn}')">
+                    let html = `<tr onclick="cst.selectReviewDtlsVw('\${cst.revList[i].sn}')">
                                 <td>\${cst.revList[i].title}</td>
                                 <td>\${cst.revList[i].inqCnt}</td>
                                 <td>\${cst.revList[i].rgtrId}</td>

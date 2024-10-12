@@ -16,9 +16,8 @@ public class ReviewServiceImpl implements ReviewService {
     public Review selectReviewList(ReviewVO vo) {
 
         return Review.builder()
-                        .reviewVOList(reviewDAO.selectReviewList(vo))
-                        .build();
-
+                .reviewVOList(reviewDAO.selectReviewList(vo))
+                .build();
     }
 
 }
