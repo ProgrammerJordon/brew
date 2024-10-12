@@ -108,7 +108,7 @@
             <div class="tab__body type01">
                 <div class="tab__list type03">
                     <ul style="display: block;">
-                        <li onclick="mmm.movePage('/svc/csc/not/selectReviewListVw.do');">
+                        <li onclick="mmm.movePage('/svc/csc/rev/selectReviewListVw.do');">
                             <a>리뷰</a>
                         </li>
                     </ul>

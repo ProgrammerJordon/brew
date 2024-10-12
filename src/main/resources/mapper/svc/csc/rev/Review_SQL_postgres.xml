@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewDAO">
+
+    <select id="selectReviewList" parameterType="brew.svc.csc.rev.service.ReviewVO" resultType="brew.svc.csc.rev.service.ReviewVO">
+        select
+            sn,
+            title,
+            contents,
+            inq_cnt,
+            rgtr_id,
+            to_char(rgtr_dt, 'YYYY-MM-DD') as rgtr_dt,
+            ROW_NUMBER() OVER(ORDER BY sn DESC) AS RNUM
+        from brew.reviewboard
+        order by sn desc
+    </select>
+
+</mapper>

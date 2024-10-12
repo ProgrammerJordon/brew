@@ -8,7 +8,7 @@
         notList : [],
 
         init : () => {
-            cst.selectNoticeList();
+            cst.selectReviewList();
         },
 
         selectNoticeInsertVw : () => {
@@ -21,29 +21,29 @@
             callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeDtlsVw.do"), param, 'get');
         },
 
-        selectNoticeList : function() {
+        selectReviewList : function() {
             let param = {}
 
             cst.searchParams = param;
 
-            callModule.call(Util.getRequestUrl("/svc/csc/not/selectNoticeList.do"), param, (result) => {
+            callModule.call(Util.getRequestUrl("/svc/csc/rev/selectReviewList.do"), param, (result) => {
 
-                cst.notList = result.noticeVOList || [];
+                cst.revList = result.reviewVOList || [];
 
-                $("#totCnt").text(cst.notList.length.toLocaleString());
+                $("#totCnt").text(cst.revList.length.toLocaleString());
 
                 gridModule.clear_grid("tbody");
 
-                if(cst.notList.length == 0) {
+                if(cst.revList.length == 0) {
                     let html = `<tr>
-                                <td colspan="4">공지사항이 존재하지 않습니다.</td>
+                                <td colspan="4">리뷰가 존재하지 않습니다.</td>
                               </tr>`
                     $("tbody").append(html);
                     return false;
                 }
 
-                for(let i = 0; i < cst.notList.length; i++) {
-                    if(cst.notList[i].rnum > 10) break;
+                for(let i = 0; i < cst.revList.length; i++) {
+                    if(cst.revList[i].rnum > 10) break;
 
                     let html = `<tr onclick="cst.selectNoticeDtlsVw('\${cst.notList[i].sn}')">
                                 <td>\${cst.notList[i].title}</td>
@@ -54,7 +54,7 @@
 
                     $("#tbody").append(html);
                 }
-                $('#pagination').page(1, gridModule.getPageSize(cst.notList), 'cst.pageMove');
+                $('#pagination').page(1, gridModule.getPageSize(cst.revList), 'cst.pageMove');
             })
         },
 
@@ -63,7 +63,7 @@
 
             gridModule.clear_grid("tbody");
 
-            cst.notList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
+            cst.revList.filter(vo => vo.rnum >= ((pageIndex - 1) * 10 + 1) && vo.rnum <= (pageIndex * 10)).forEach(vo => {
 
                 let html = `<tr onclick="cst.selectConsultDtlsVw('\${vo.sn}')">
                                 <td>\${vo.title}</td>
@@ -73,14 +73,14 @@
                            </tr>`
                 $("tbody").append(html);
             });
-            $('#pagination').page(pageIndex, gridModule.getPageSize(cst.cstList), 'cst.pageMove');
+            $('#pagination').page(pageIndex, gridModule.getPageSize(cst.revList), 'cst.pageMove');
         },
 
     }
 
     $(()=> {
         cst.init();
-        mmm.selectMenu("csc", "공지사항");
+        mmm.selectMenu("rev", "리뷰");
     })
 </script>
 
@@ -93,13 +93,13 @@
         </div>
         <div class="btn__box">
             <button class="btn__bluegreen" onclick="cst.selectNoticeInsertVw();">
-                <span>등록</span>
+                <span>리뷰 등록</span>
             </button>
         </div>
     </div>
     <div class="table-box">
         <table>
-            <caption class="hidden">공지사항 목록</caption>
+            <caption class="hidden">리뷰 목록</caption>
             <colgroup>
                 <col class="num" width="60%">
                 <col class="num" width="10%">

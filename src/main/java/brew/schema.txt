@@ -823,3 +823,50 @@ VALUES (
 )
 
 #################24.08.05 추가 한 부분#################
+
+#################24.10.12 추가 한 부분#################
+
+create table reviewboard
+(
+    sn          integer not null
+        constraint reviewboard_pk
+            primary key,
+    title       varchar not null,
+    contents    varchar not null,
+    inq_cnt     integer,
+    atchfile_id varchar,
+    rgtr_id     varchar,
+    rgtr_dt     timestamp,
+    mdfr_id     varchar,
+    mdfr_dt     timestamp
+);
+
+comment on table reviewboard is '공지사항';
+
+comment on column reviewboard.sn is '일련번호';
+
+comment on column reviewboard.title is '게시판제목';
+
+comment on column reviewboard.contents is '게시판내용';
+
+comment on column reviewboard.inq_cnt is '조회수';
+
+comment on column reviewboard.atchfile_id is '첨부파일아이디';
+
+comment on column reviewboard.rgtr_id is '등록자아이디';
+
+comment on column reviewboard.rgtr_dt is '등록일시';
+
+comment on column reviewboard.mdfr_id is '수정자아이디';
+
+comment on column reviewboard.mdfr_dt is '수정일시';
+
+alter table reviewboard
+    owner to postgres;
+
+create index reviewboard_sn_index
+    on reviewboard (sn);
+
+comment on index reviewboard_sn_index is '공지사항인덱스';
+
+#################24.10.12 추가 한 부분#################
