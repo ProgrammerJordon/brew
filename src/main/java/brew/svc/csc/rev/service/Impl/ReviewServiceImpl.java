@@ -14,8 +14,11 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review selectReviewList(ReviewVO vo) {
+
         return Review.builder()
                         .reviewVOList(reviewDAO.selectReviewList(vo))
                         .build();
+
     }
+
 }

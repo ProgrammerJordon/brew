@@ -13,8 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
-
     private List<ReviewVO> reviewVOList;
     private ReviewVO reviewVO;
-
 }

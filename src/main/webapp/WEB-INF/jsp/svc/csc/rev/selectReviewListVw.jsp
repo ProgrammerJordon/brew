@@ -5,20 +5,15 @@
     const cst = {
 
         searchParams : {},
-        notList : [],
+        revList : [],
 
         init : () => {
             cst.selectReviewList();
         },
 
-        selectNoticeInsertVw : () => {
-            let param = {}
-            callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeInsertVw.do"), param, 'get');
-        },
-
-        selectNoticeDtlsVw : (sn) => {
+        selectReviewDtlsVw : (sn) => {
             let param = {sn : sn}
-            callModule.post(Util.getRequestUrl("/svc/csc/not/selectNoticeDtlsVw.do"), param, 'get');
+            callModule.post(Util.getRequestUrl("/svc/csc/rev/selectReviewDtlsVw.do"), param, 'get');
         },
 
         selectReviewList : function() {
@@ -45,11 +40,11 @@
                 for(let i = 0; i < cst.revList.length; i++) {
                     if(cst.revList[i].rnum > 10) break;
 
-                    let html = `<tr onclick="cst.selectNoticeDtlsVw('\${cst.notList[i].sn}')">
-                                <td>\${cst.notList[i].title}</td>
-                                <td>\${cst.notList[i].inqCnt}</td>
-                                <td>\${cst.notList[i].rgtrId}</td>
-                                <td>\${cst.notList[i].rgtrDt}</td>
+                    let html = `<tr onclick="cst.selectNoticeDtlsVw('\${cst.revList[i].sn}')">
+                                <td>\${cst.revList[i].title}</td>
+                                <td>\${cst.revList[i].inqCnt}</td>
+                                <td>\${cst.revList[i].rgtrId}</td>
+                                <td>\${cst.revList[i].rgtrDt}</td>
                               </tr>`
 
                     $("#tbody").append(html);
@@ -90,11 +85,6 @@
             <span>총</span>
             <span class="num" id="totCnt">0</span>
             <span>건</span>
-        </div>
-        <div class="btn__box">
-            <button class="btn__bluegreen" onclick="cst.selectNoticeInsertVw();">
-                <span>리뷰 등록</span>
-            </button>
         </div>
     </div>
     <div class="table-box">

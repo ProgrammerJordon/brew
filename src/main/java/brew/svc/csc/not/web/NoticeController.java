@@ -37,7 +37,6 @@ public class NoticeController {
     @RequestMapping("insertNotice.do")
     @ResponseBody
     public Notice insertNotice(@RequestBody NoticeVO vo) {
-        System.out.println("test");
         return noticeService.insertNotice(vo);
     }
 

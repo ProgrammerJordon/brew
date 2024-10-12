@@ -1,5 +1,6 @@
 package brew.svc.csc.rev.service.Impl;
 
+import brew.svc.csc.rev.service.Review;
 import brew.svc.csc.rev.service.ReviewVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
